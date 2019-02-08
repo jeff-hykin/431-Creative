@@ -1,0 +1,23 @@
+{
+  "name": "431-Creative",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeff-hykin/431-Creative.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeff-hykin/431-Creative/issues"
+  },
+  "homepage": "https://github.com/jeff-hykin/431-Creative#readme",
+  "dependencies": {
+    "standard": "^12.0.1"
+  }
+}

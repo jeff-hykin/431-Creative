@@ -1,3 +1,6 @@
+auto-generated-code/
+.DS_Store
+
 # Logs
 logs
 *.log
