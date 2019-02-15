@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-function App() {
+function App () {
   return (
-    <div className="App">
+    <div className='App'>
       <h1>Howdy</h1>
     </div>
-  );
+  )
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)

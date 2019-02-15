@@ -4,11 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha; cucumber-js",
+    "test": "standard && mocha; cucumber-js",
     "client": "parcel client/index.html --port 3000",
     "database": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo & > /dev/null",
-    "start": "npm run database; nodemon app.js",
-    "stop": "docker stop mongo-dev-431; docker rm mongo-dev-431"
+    "start": "npm run database; standard --fix; nodemon app.js",
+    "stop": "docker stop mongo-dev-431; docker rm mongo-dev-431",
+    "format": "standard --fix"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,10 @@
   },
   "nodemonConfig": {
     "ignore": ["dist/*", ".cache/*"]
+  },
+  "standard": {
+    "env": [ "mocha" ],
+    "globals": ["fetch"]
   },
   "settings": {
     "database": {
