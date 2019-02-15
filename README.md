@@ -28,6 +28,11 @@ npm stop
 ```
 > This includes stopping and removing the current MongoDB Docker container
 
+To run in a *production* environment:
+```
+npm run prod
+```
+> A local database will not be provided. The location of the production database needs to specified in the `settings.database` of `package.json`
 # Client
 To just run the client without any of the backend resources:
 ```
@@ -49,6 +54,7 @@ npm test
 These are some of the major dependencies used for the development of this application:
 - [Express](https://expressjs.com/) - web framework for Node.js
 - [React](https://reactjs.org/) - front-end development framework
+- [ReactRouter](https://reacttraining.com/react-router/) - routing for the React application
 - [Parcel](https://parceljs.org/) - fast, minimal configuration web application bundler
 - [Travis CI](https://travis-ci.org/) - CI/CD tool
 - [StandardJS](https://standardjs.com/) - the JavaScript Standard Style that we will be using
@@ -62,3 +68,9 @@ There might be some global variables that StandardJS does not like (i.e. `fetch`
 
 ## Testing
 All tests should be written inside of the `test/` directory.
+
+## Formatting
+We are following the [JavaScript Standard Style](https://standardjs.com/). To fix formatting of your code, run the following:
+```
+npm run format
+```

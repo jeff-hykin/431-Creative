@@ -35,6 +35,8 @@
   },
   "devDependencies": {
     "cucumber": "^5.1.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.10",
     "parcel": "^1.11.0",
