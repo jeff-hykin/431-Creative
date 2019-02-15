@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha; cucumber-js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "standard": "^12.0.1"
   },
   "devDependencies": {
+    "cucumber": "^5.1.0",
     "mocha": "^5.2.0"
   }
 }
