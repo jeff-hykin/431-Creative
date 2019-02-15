@@ -67,7 +67,8 @@ All/Most settings are in the `package.json` file underneath the `settings` key.
 There might be some global variables that StandardJS does not like (i.e. `fetch`). To prevent getting errors regarding these variables, add them to the list in of `standard.globals` inside of the `package.json` file.
 
 ## Testing
-All tests should be written inside of the `test/` directory.
+All unit tests should be written inside of the `test/` directory.
+All cucumber tests should be written inside of the `features/` directory.
 
 ## Formatting
 We are following the [JavaScript Standard Style](https://standardjs.com/). To fix formatting of your code, run the following:
