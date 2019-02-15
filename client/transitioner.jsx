@@ -36,6 +36,6 @@ export default class extends React.Component {
   }
   
   render() {
-    return <this.props.component className={this.state.className+" "+this.props.perisitantClassName}/>
+    return <this.props.component className={this.state.className+" "+this.props.perisitantClassName} {...this.props.otherProps}/>
   }
 }
