@@ -1,0 +1,4 @@
+#mocha.opts
+   --compilers js:@babel/register
+   --recursive
+   --require ./test/helper.js
