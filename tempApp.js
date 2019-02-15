@@ -1,3 +1,4 @@
+const { settings } = require('./package.json')
 const Bundler = require('parcel-bundler');
 const app = require('express')();
 
@@ -11,4 +12,4 @@ const bundler = new Bundler(file, options);
 app.use(bundler.middleware());
 
 // Listen on port 8080
-app.listen(8080);
+app.listen(settings.PORT, () => { console.log(`\nApp is running on http://localhost:${settings.PORT}`) });

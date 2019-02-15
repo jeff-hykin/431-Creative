@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha; cucumber-js",
     "client": "parcel client/index.html --port 3000",
-    "database": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo",
-    "start": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo; node app.js",
+    "database": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo & > /dev/null",
+    "start": "npm run database; nodemon app.js",
     "stop": "docker stop mongo-dev-431; docker rm mongo-dev-431"
   },
   "repository": {
@@ -30,7 +30,19 @@
   "devDependencies": {
     "cucumber": "^5.1.0",
     "mocha": "^5.2.0",
+    "nodemon": "^1.18.10",
     "parcel": "^1.11.0",
     "standard": "^12.0.1"
+  },
+  "nodemonConfig": {
+    "ignore": ["dist/*", ".cache/*"]
+  },
+  "settings": {
+    "database": {
+      "DB_NAME": "creative-db",
+      "PROD_DB": "localhost:27017",
+      "DEV_DB": "localhost:27017"
+    },
+    "PORT": 3000
   }
 }
