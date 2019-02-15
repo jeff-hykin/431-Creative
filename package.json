@@ -26,7 +26,8 @@
     "express": "^4.16.4",
     "parcel-bundler": "^1.11.0",
     "react": "^16.8.2",
-    "react-dom": "^16.8.2"
+    "react-dom": "^16.8.2",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "cucumber": "^5.1.0",
@@ -36,11 +37,18 @@
     "standard": "^12.0.1"
   },
   "nodemonConfig": {
-    "ignore": ["dist/*", ".cache/*"]
+    "ignore": [
+      "dist/*",
+      ".cache/*"
+    ]
   },
   "standard": {
-    "env": [ "mocha" ],
-    "globals": ["fetch"]
+    "env": [
+      "mocha"
+    ],
+    "globals": [
+      "fetch"
+    ]
   },
   "settings": {
     "database": {
