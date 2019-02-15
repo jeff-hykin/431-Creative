@@ -62,8 +62,7 @@ let App = withStyles(classes)(props =>
     {/* Pick which page to render */}
     <Switch>
       <Page {...props} component={SplashPage} path='/' />
-      {/* <Page {...props} component={PageNotFound} /> */}
-      <Route path='/*' component={PageNotFound} />
+      <Page {...props} component={PageNotFound} />
     </Switch>
   </BrowserRouter>
 )
