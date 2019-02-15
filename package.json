@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/jeff-hykin/431-Creative#readme",
   "dependencies": {
+    "express": "^4.16.4",
+    "parcel-bundler": "^1.11.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2"
   },
