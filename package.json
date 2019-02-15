@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/jeff-hykin/431-Creative#readme",
   "dependencies": {
+    "parcel": "^1.11.0",
+    "react": "^16.8.2",
     "standard": "^12.0.1"
   },
   "devDependencies": {
