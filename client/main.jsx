@@ -5,8 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Transitioner from './transitioner'
 import { HEAD, BODY, TITLE, DIV, LINK, NOSCRIPT } from 'good-dom'
 // pages
-import SplashPage from './splashPage/index'
-import NoMatch from './nomatch/index'
+import SplashPage from './splash-page/splash-page'
+import PageNotFound from './page-not-found/page-not-found'
 import { withStyles } from '@material-ui/core'
 
 //
@@ -65,8 +65,8 @@ let App = withStyles(classes)(props =>
   <BrowserRouter>
     {/* Pick which page to render */}
     <Switch>
-      <Page path='/' component={SplashPage} {...props} />
-      <Page component={NoMatch} {...props} />
+      <Page {...props} component={SplashPage} path='/' />
+      <Page {...props} component={PageNotFound} />
     </Switch>
   </BrowserRouter>
 )

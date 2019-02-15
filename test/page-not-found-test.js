@@ -2,11 +2,11 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import { expect } from 'chai'
-import Nomatch from '../client/nomatch/index'
+import PageNotFound from '../client/page-not-found/page-not-found'
 
-describe('<Nomatch />', () => {
+describe('<PageNotFound />', () => {
   it('contains the 404 error message', () => {
-    const wrapper = shallow(<Nomatch />)
+    const wrapper = shallow(<PageNotFound />)
     expect(wrapper.containsMatchingElement(<h1>404 Page Not Found</h1>)).to.equal(true)
   })
 })
