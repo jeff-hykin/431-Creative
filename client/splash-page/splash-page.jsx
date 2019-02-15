@@ -11,9 +11,9 @@ export default class extends React.Component {
     return <div className={this.props.className}>
       <h1>Howdy</h1>
       Hello World
-      <input placeholder='button color' onChange={e => this.setState({ colorOfButtonText: e.target.value })} />
+      <input placeholder='button text color' onChange={e => this.setState({ colorOfButtonText: e.target.value })} />
       <Button style={{ color: this.state.colorOfButtonText }} >
-            Emotion
+        Emotion
       </Button>
     </div>
   }
