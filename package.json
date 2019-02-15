@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha; cucumber-js",
-    "client": "parcel client/index.html --port 3000"
+    "client": "parcel client/index.html --port 3000",
+    "database": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo"
   },
   "repository": {
     "type": "git",
