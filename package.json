@@ -7,7 +7,8 @@
     "test": "standard && mocha; cucumber-js",
     "client": "parcel client/index.html --port 3000",
     "database": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo & > /dev/null",
-    "start": "npm run database; standard --fix; nodemon app.js",
+    "start": "npm run database; standard --fix; NODE_ENV=development nodemon app.js",
+    "prod": "parcel build --experimental-scope-hoisting client/index.html; NODE_ENV=production node app.js",
     "stop": "docker stop mongo-dev-431; docker rm mongo-dev-431",
     "format": "standard --fix"
   },
@@ -23,6 +24,9 @@
   },
   "homepage": "https://github.com/jeff-hykin/431-Creative#readme",
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "parcel-bundler": "^1.11.0",
     "react": "^16.8.2",
