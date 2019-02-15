@@ -7,7 +7,8 @@
     "test": "mocha; cucumber-js",
     "client": "parcel client/index.html --port 3000",
     "database": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo",
-    "start": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo; node app.js"
+    "start": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo; node app.js",
+    "stop": "docker stop mongo-dev-431; docker rm mongo-dev-431"
   },
   "repository": {
     "type": "git",
