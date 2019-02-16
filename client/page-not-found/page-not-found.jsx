@@ -1,6 +1,6 @@
 import React from 'react'
 
-module.exports = ({ className }) =>
+export default ({ className }) =>
   <div className={className} >
     <h1>404 Page Not Found</h1>
   </div>

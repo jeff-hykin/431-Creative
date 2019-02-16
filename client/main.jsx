@@ -21,7 +21,6 @@ document.head.add(
 //
 let reactContainer = new DIV()
 document.body.children = [
-  new NOSCRIPT('You need to enable JavaScript to run this app.'),
   reactContainer
 ]
 
@@ -41,17 +40,20 @@ export const classes = {
   }
 }
 
-let Page = ({ path, component, classes, ...otherProps }) => <Route
-  exact={path != null}
+// this is a wrapper for the route so that we dont have to write out "<Transitioner ..." for every single page
+// transitioner adds page animations when the page is loaded
+let Page = ({ path, component, classes, routeProps, componentProps }) => <Route
+  exact={path}
   path={path}
   component={() =>
     <Transitioner
       perisitantClassName={classes.page}
       tranitions={[classes.pageNotLoaded, 0, classes.pageFullyLoaded]}
       component={component}
-      otherProps={otherProps}
+      componentProps={...componentProps}
     />
   }
+  {...routeProps}
 />
 
 //
@@ -61,8 +63,8 @@ let App = withStyles(classes)(props =>
   <BrowserRouter>
     {/* Pick which page to render */}
     <Switch>
-      <Page {...props} component={SplashPage} path='/' />
-      <Page {...props} component={PageNotFound} />
+      {Page({ componentProps: props, component: SplashPage, path: '/' }) }
+      {Page({ componentProps: props, component: PageNotFound }) }
     </Switch>
   </BrowserRouter>
 )
