@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "libraries" : [
-    "React",
-    "Material-UI",
-    "Mocha",
-    "Parcel.js",
-    "Express.js"
-  ],
   "scripts": {
     "test": "standard && mocha; cucumber-js",
     "client": "parcel client/index.html --port 3000",
