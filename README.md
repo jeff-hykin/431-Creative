@@ -1,4 +1,7 @@
-[![Coverage Status](https://coveralls.io/repos/github/jeff-hykin/431-Creative/badge.svg?branch=master)](https://coveralls.io/github/jeff-hykin/431-Creative?branch=master) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://standardjs.com)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=for-the-badge)](https://standardjs.com)
+![](https://img.shields.io/github/languages/count/gracewes/431-Creative.svg?style=for-the-badge)
+![](https://img.shields.io/david/gracewes/431-Creative.svg?style=for-the-badge)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/gracewes/431-Creative/badge.svg?branch=master)](https://coveralls.io/github/jeff-hykin/431-Creative?branch=master)  -->
 
 # 431-Creative
 We are team Creative and this is our project for the Aggie Coding Club. This is a web application that connects members of ACC to those that are searching for development help.
