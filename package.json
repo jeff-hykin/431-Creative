@@ -4,13 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "standard && mocha; cucumber-js",
-    "client": "parcel client/index.html --port 3000",
-    "database": "docker run --name mongo-dev-431 -p 27017:27017 -d mongo & > /dev/null",
-    "start": "npm run database; standard --fix; NODE_ENV=development nodemon app.js",
-    "prod": "parcel build --experimental-scope-hoisting client/index.html; NODE_ENV=production node app.js",
-    "stop": "docker stop mongo-dev-431; docker rm mongo-dev-431",
-    "format": "standard --fix"
+    "test": "ruby ./scripts/test.rb",
+    "client": "ruby ./scripts/client.rb",
+    "database": "ruby ./scripts/database.rb",
+    "start": "ruby ./scripts/start.rb",
+    "prod": "ruby ./scripts/prod.rb",
+    "stop": "ruby ./scripts/stop.rb",
+    "format": "ruby ./scripts/format.rb"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "enzyme": "^3.8.0",
@@ -63,7 +64,8 @@
     ],
     "globals": [
       "fetch"
-    ]
+    ],
+    "parser": "babel-eslint"
   },
   "settings": {
     "database": {
