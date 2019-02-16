@@ -50,7 +50,7 @@ let Page = ({ path, component, classes, routeProps, componentProps }) => <Route
       perisitantClassName={classes.page}
       tranitions={[classes.pageNotLoaded, 0, classes.pageFullyLoaded]}
       component={component}
-      componentProps={...componentProps}
+      componentProps={componentProps}
     />
   }
   {...routeProps}
