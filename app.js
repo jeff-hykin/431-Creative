@@ -2,9 +2,11 @@ const { settings } = require('./package.json')
 const chalk = require('chalk')
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 
-// let dualEnd = require('./backend/setup-functions')
-// dualEnd.setupBackendFunctions()
+app.use(bodyParser.json())
+require('./backend/setup-functions').setupBackendFunctions(app)
+
 
 if (process.env.NODE_ENV === 'development') {
   const Bundler = require('parcel-bundler')

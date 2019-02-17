@@ -1,26 +1,28 @@
 //
 // FIXME: change the res.send, and fetch() code so these functions actually work
 //
-module.exports.setupBackendFunctions = (app, subdomain = '') => {
+let subdomain = '/backend'
+module.exports.setupBackendFunctions = (app) => {
   const fs = require('fs')
   const path = require('path')
 
-  let includeAllFiles = (relativePath) => {
+  let includeAllFiles = (absolutePath) => {
     var allFileContent = {}
-    fs.readdirSync(relativePath).forEach(file => { allFileContent[file.replace(/(.+)\.js$/, '$1')] = require(path.join(__dirname, relativePath, file)) })
+    fs.readdirSync(absolutePath).forEach(file => { allFileContent[file.replace(/(.+)\.js$/, '$1')] = require(path.join(absolutePath, file)) })
     return allFileContent
   }
 
-  let backendFunctions = includeAllFiles('./backend/functions')
+  let backendFunctions = includeAllFiles(path.resolve('./backend/functions'))
   for (let eachName in backendFunctions) {
     // create the route
     app.post(subdomain + '/' + eachName, async (req, res) => {
       try {
+        let output = await backendFunctions[eachName](...req.body.args)
         // run the backend function with the arguments
-        res.send(await backendFunctions[eachName](...req.body))
+        res.send({ output })
       } catch (error) {
         // send the error to the frontend
-        res.send(400, JSON.stringify(error))
+        res.send({ error })
       }
     })
   }
@@ -28,12 +30,21 @@ module.exports.setupBackendFunctions = (app, subdomain = '') => {
 
 module.exports.api = new Proxy({}, {
   get: (target, key) => async (...args) => {
-    // get the value from the backend
-    let response = await fetch('/backend/' + key, { body: args })
-    if (response.code === 400) {
-      // make the error catchable on the frontend
-      throw JSON.parse(response.body)
-    }
-    return response.body
+    return new Promise((resolve, reject) => {
+      fetch(subdomain + '/' + key, {
+        method: 'post',
+        body: JSON.stringify({ args }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(async res => {
+        let data = await res.json()
+        if (data.output !== undefined) {
+          resolve(data.output)
+        } else {
+          reject(data.error)
+        }
+      })
+    })
   }
 })
