@@ -10,6 +10,7 @@
 ![](https://img.shields.io/github/license/gracewes/431-Creative.svg?style=for-the-badge)
 ![](https://img.shields.io/github/contributors/gracewes/431-Creative.svg?style=for-the-badge)
 [![Build Status](https://img.shields.io/travis/gracewes/431-Creative.svg?style=for-the-badge)](https://travis-ci.org/gracewes/431-Creative)
+![](https://img.shields.io/snyk/vulnerabilities/github/gracewes/431-Creative.svg?style=for-the-badge)
 
 
 # 431-Creative
