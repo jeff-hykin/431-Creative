@@ -15,6 +15,8 @@
 # 431-Creative
 We are team Creative and this is our project for the Aggie Coding Club. This is a web application that connects members of ACC to those that are searching for development help.
 
+Check out the deployed app here: https://tranquil-dusk-38037.herokuapp.com/
+
 # Requirements
 - [Docker](https://www.docker.com/get-started)
 - [Node.js](https://nodejs.org/en/)
