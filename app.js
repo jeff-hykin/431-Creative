@@ -29,4 +29,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Listen on port 8080
-app.listen(settings.PORT, () => { console.log(`\nApp is running on http://localhost:${settings.PORT} in ${process.env.NODE_ENV} mode`) })
+app.listen(settings.PORT, () => { console.log(`\nApp is running on \x1b[34mhttp://localhost:${settings.PORT}\x1b[0m in \x1b[31m${process.env.NODE_ENV}\x1b[0m mode`) })

@@ -10,6 +10,7 @@
 ![](https://img.shields.io/github/license/gracewes/431-Creative.svg?style=for-the-badge)
 ![](https://img.shields.io/github/contributors/gracewes/431-Creative.svg?style=for-the-badge)
 
+
 # 431-Creative
 We are team Creative and this is our project for the Aggie Coding Club. This is a web application that connects members of ACC to those that are searching for development help.
 
