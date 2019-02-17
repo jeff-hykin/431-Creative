@@ -2,6 +2,9 @@ const { settings } = require('./package.json')
 const express = require('express')
 const app = express()
 
+// let dualEnd = require('./backend/setup-functions')
+// dualEnd.setupBackendFunctions()
+
 if (process.env.NODE_ENV === 'development') {
   const Bundler = require('parcel-bundler')
   const errorhandler = require('errorhandler')

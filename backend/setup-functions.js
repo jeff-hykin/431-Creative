@@ -11,7 +11,7 @@ module.exports.setupBackendFunctions = (app, subdomain = '') => {
     return allFileContent
   }
 
-  let backendFunctions = includeAllFiles('./functions')
+  let backendFunctions = includeAllFiles('./backend/functions')
   for (let eachName in backendFunctions) {
     // create the route
     app.post(subdomain + '/' + eachName, async (req, res) => {

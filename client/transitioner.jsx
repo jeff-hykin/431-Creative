@@ -33,14 +33,8 @@ export default class extends React.Component {
     // start the chain of events
     this.transitionChange()
   }
-<<<<<<< Updated upstream
-
-  render () {
-    return <this.props.component className={this.state.className + ' ' + this.props.perisitantClassName} {...this.props.otherProps} />
-=======
   
   render() {
     return <this.props.component className={this.state.className+" "+this.props.perisitantClassName} {...this.props.componentProps}/>
->>>>>>> Stashed changes
   }
 }
