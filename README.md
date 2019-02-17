@@ -16,6 +16,7 @@ We are team Creative and this is our project for the Aggie Coding Club. This is 
 # Requirements
 - [Docker](https://www.docker.com/get-started)
 - [Node.js](https://nodejs.org/en/)
+- [Ruby](https://www.ruby-lang.org/en/)
 
 # Getting Started
 To get this application:
