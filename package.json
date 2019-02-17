@@ -11,7 +11,7 @@
     "prod": "ruby ./scripts/prod.rb",
     "stop": "ruby ./scripts/stop.rb",
     "format": "ruby ./scripts/format.rb",
-    "heroku-postbuild": "parcel build --experimental-scope-hoisting client/index.html"
+    "heroku-postbuild": "parcel build client/index.html"
   },
   "repository": {
     "type": "git",
