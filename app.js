@@ -4,6 +4,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 
+const PORT = process.env.PORT || settings.PORT
+
 app.use(bodyParser.json())
 require('./backend/setup-functions').setupBackendFunctions(app)
 
@@ -32,4 +34,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Listen on port 8080
-app.listen(settings.PORT, () => { console.log(`\nApp is running on ${chalk.blue(`http://localhost:${settings.PORT}`)} in ${chalk.red(process.env.NODE_ENV)} mode`) })
+app.listen(PORT, () => { console.log(`\nApp is running on ${chalk.blue(`http://localhost:${PORT}`)} in ${chalk.red(process.env.NODE_ENV)} mode`) })
