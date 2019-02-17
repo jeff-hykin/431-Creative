@@ -42,13 +42,13 @@ export const classes = {
 
 // this is a wrapper for the route so that we dont have to write out "<Transitioner ..." for every single page
 // transitioner adds page animations when the page is loaded
-let Page = ({ path, component, classes, routeProps, componentProps }) => <Route
-  exact={path}
+let Page = ({ path, component, routeProps, componentProps }) => <Route
+  exact={path != null}
   path={path}
   component={() =>
     <Transitioner
-      perisitantClassName={classes.page}
-      tranitions={[classes.pageNotLoaded, 0, classes.pageFullyLoaded]}
+      perisitantClassName={componentProps.classes.page}
+      tranitions={[componentProps.classes.pageNotLoaded, 0, componentProps.classes.pageFullyLoaded]}
       component={component}
       componentProps={componentProps}
     />
