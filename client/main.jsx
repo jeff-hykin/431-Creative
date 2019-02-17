@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Transitioner from './transitioner'
-import { TITLE, DIV, NOSCRIPT } from 'good-dom'
+import { TITLE, DIV } from 'good-dom'
 // pages
 import SplashPage from './splash-page/splash-page'
 import PageNotFound from './page-not-found/page-not-found'
