@@ -1,4 +1,5 @@
 const { settings } = require('./package.json')
+const chalk = require('chalk')
 const express = require('express')
 const app = express()
 
@@ -29,4 +30,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Listen on port 8080
-app.listen(settings.PORT, () => { console.log(`\nApp is running on http://localhost:${settings.PORT} in ${process.env.NODE_ENV} mode`) })
+app.listen(settings.PORT, () => { console.log(`\nApp is running on ${chalk.blue(`http://localhost:${settings.PORT}`)} in ${chalk.red(process.env.NODE_ENV)} mode`) })

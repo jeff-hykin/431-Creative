@@ -33,8 +33,8 @@ export default class extends React.Component {
     // start the chain of events
     this.transitionChange()
   }
-  
-  render() {
-    return <this.props.component className={this.state.className+" "+this.props.perisitantClassName} {...this.props.componentProps}/>
+
+  render () {
+    return <this.props.component className={this.state.className + ' ' + this.props.perisitantClassName} {...this.props.componentProps} />
   }
 }
