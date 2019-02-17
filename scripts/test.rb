@@ -1,2 +1,1 @@
-puts `standard && mocha`
-puts `cucumber-js`
+puts `standard && mocha && cucumber-js`

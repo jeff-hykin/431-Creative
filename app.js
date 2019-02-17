@@ -9,7 +9,6 @@ const PORT = process.env.PORT || settings.PORT
 app.use(bodyParser.json())
 require('./backend/setup-functions').setupBackendFunctions(app)
 
-
 if (process.env.NODE_ENV === 'development') {
   const Bundler = require('parcel-bundler')
   const errorhandler = require('errorhandler')

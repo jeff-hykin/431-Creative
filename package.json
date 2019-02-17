@@ -10,7 +10,8 @@
     "start": "ruby ./scripts/start.rb",
     "prod": "ruby ./scripts/prod.rb",
     "stop": "ruby ./scripts/stop.rb",
-    "format": "ruby ./scripts/format.rb"
+    "format": "ruby ./scripts/format.rb",
+    "heroku-postbuild": "parcel build --experimental-scope-hoisting client/index.html"
   },
   "repository": {
     "type": "git",
