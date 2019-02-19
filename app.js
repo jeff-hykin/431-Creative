@@ -16,7 +16,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(errorhandler())
 
   const file = 'client/index.html' // Pass an absolute path to the entrypoint here
-  const options = {} // See options section of api docs, for the possibilities
+  const options = { // See options section of api docs, for the possibilities
+    outDir: settings.PARCEL_OUT_DIR
+  }
 
   // Initialize a new bundler using a file and options
   const bundler = new Bundler(file, options)
@@ -26,9 +28,9 @@ if (process.env.NODE_ENV === 'development') {
 } else if (process.env.NODE_ENV === 'production') {
   const path = require('path')
   // use bundled static files
-  app.use(express.static('dist'))
+  app.use(express.static(settings.PARCEL_OUT_DIR))
   app.get('/*', (req, res) => {
-    res.sendFile(path.resolve('./dist/index.html'))
+    res.sendFile(path.resolve(`${settings.PARCEL_OUT_DIR}/index.html`))
   })
 }
 
