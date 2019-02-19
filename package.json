@@ -11,7 +11,7 @@
     "prod": "ruby ./scripts/prod.rb",
     "stop": "ruby ./scripts/stop.rb",
     "format": "ruby ./scripts/format.rb",
-    "heroku-postbuild": "parcel build client/index.html"
+    "heroku-postbuild": "parcel build client/index.html -d static/dist"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
@@ -75,6 +76,7 @@
       "PROD_DB": "localhost:27017",
       "DEV_DB": "localhost:27017"
     },
-    "PORT": 3000
+    "PORT": 3000,
+    "PARCEL_OUT_DIR": "./static/dist"
   }
 }
