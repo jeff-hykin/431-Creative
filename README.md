@@ -91,3 +91,8 @@ We are following the [JavaScript Standard Style](https://standardjs.com/). To fi
 ```
 npm run format
 ```
+
+## Environment Variables
+```
+DB_PASS=password for remote database
+```
