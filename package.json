@@ -64,6 +64,11 @@
     ]
   },
   "nyc" : {
+    "exclude": [
+      "cucumber.js",
+      "features/*",
+      "test"
+    ],
     "extension": [
       ".jsx"
     ]
