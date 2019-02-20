@@ -7,10 +7,10 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard.js-brightgreen.svg?style=for-the-badge)](https://standardjs.com)
 [![](https://img.shields.io/github/commit-activity/w/gracewes/431-Creative.svg?style=for-the-badge)](https://github.tamu.edu/gracewes/Creative/graphs/commit-activity)
 ![](https://img.shields.io/github/languages/count/gracewes/431-Creative.svg?style=for-the-badge)
-![](https://img.shields.io/github/license/gracewes/431-Creative.svg?style=for-the-badge)
-![](https://img.shields.io/github/contributors/gracewes/431-Creative.svg?style=for-the-badge)
+[![](https://img.shields.io/github/license/gracewes/431-Creative.svg?style=for-the-badge)](https://github.tamu.edu/gracewes/Creative/blob/master/LICENSE)
+[![](https://img.shields.io/github/contributors/gracewes/431-Creative.svg?style=for-the-badge)](https://github.com/gracewes/431-Creative/graphs/contributors)
 [![Build Status](https://img.shields.io/travis/gracewes/431-Creative.svg?style=for-the-badge)](https://travis-ci.org/gracewes/431-Creative)
-![](https://img.shields.io/snyk/vulnerabilities/github/gracewes/431-Creative.svg?style=for-the-badge)
+[![](https://img.shields.io/snyk/vulnerabilities/github/gracewes/431-Creative.svg?style=for-the-badge)](https://snyk.io/test/github/gracewes/431-Creative)
 
 
 # 431-Creative
