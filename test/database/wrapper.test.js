@@ -4,7 +4,7 @@ describe('DatabaseWrapper', function () {
   describe('Connection functions', function () {
     describe('#connect()', function () {
       it('connects to MongoDB', async function () {
-
+        
       })
     })
 
