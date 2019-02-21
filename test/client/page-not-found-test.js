@@ -2,7 +2,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import { expect } from 'chai'
-import PageNotFound from '../client/page-not-found/page-not-found'
+import PageNotFound from '../../client/page-not-found/page-not-found'
 
 describe('<PageNotFound />', () => {
   it('contains the 404 error message', () => {
