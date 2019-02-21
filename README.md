@@ -65,6 +65,10 @@ To run the tests:
 ```
 npm test
 ```
+To generate a test coverage report using nyc and the lcov reporter:
+```
+npm run coverage
+```
 
 # Dependencies
 These are some of the major dependencies used for the development of this application:

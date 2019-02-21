@@ -1,4 +1,5 @@
-auto-generated-code/
+dist/
+.cache/
 .DS_Store
 
 # Logs
