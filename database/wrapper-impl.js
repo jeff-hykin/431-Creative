@@ -8,28 +8,35 @@ const DEFAULT_DB = 'devsearch'
 const POST_COLLECTION = 'posts'
 const USER_COLLECTION = 'users'
 
-function connect (database = DEFAULT_DB) {
+async function connect (database = DEFAULT_DB) {
   const options = { useNewUrlParser: true }
 
   if (process.env.NODE_ENV === 'development') {
-    mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options, (err, database) => {
-      if (err) throw err
-      db = database
-    })
+    // mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options, (err, database) => {
+    //   if (err) throw err
+    //   db = database
+    // })
+    db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options)
   } else if (process.env.NODE_ENV === 'testing') {
-    mongo.MongoClient.connect(`mongodb://localhost:27017/${database}-test`, options, (err, database) => {
-      if (err) throw err
-      db = database
-    })
+    // mongo.MongoClient.connect(`mongodb://localhost:27017/${database}-test`, options, (err, database) => {
+    //   if (err) throw err
+    //   db = database
+    // })
+    db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}-test`, options)
   } else if (process.env.NODE_ENV === 'production') {
-    mongo.MongoClient.connect(`
+    // mongo.MongoClient.connect(`
+    // mongodb://dbAdmin:${process.env.DB_PASS}@prodcluster-shard-00-00-zwe3b.mongodb.net:27017,
+    // prodcluster-shard-00-01-zwe3b.mongodb.net:27017,
+    // prodcluster-shard-00-02-zwe3b.mongodb.net:27017/${database}?ssl=true&replicaSet=ProdCluster-shard-0&authSource=admin&retryWrites=true`, options, (err, database) => {
+    //   if (err) throw err
+    //   db = database
+    // })
+    db = await mongo.MongoClient.connect(`
     mongodb://dbAdmin:${process.env.DB_PASS}@prodcluster-shard-00-00-zwe3b.mongodb.net:27017,
     prodcluster-shard-00-01-zwe3b.mongodb.net:27017,
-    prodcluster-shard-00-02-zwe3b.mongodb.net:27017/${database}?ssl=true&replicaSet=ProdCluster-shard-0&authSource=admin&retryWrites=true`, options, (err, database) => {
-      if (err) throw err
-      db = database
-    })
+    prodcluster-shard-00-02-zwe3b.mongodb.net:27017/${database}?ssl=true&replicaSet=ProdCluster-shard-0&authSource=admin&retryWrites=true`, options)
   }
+  return db
 }
 
 function close () {
@@ -68,68 +75,80 @@ async function insertManyUsers (documents, ordered = true) {
 
 /* Read Operations */
 
-async function findOnePost (query={}, projection={}) {
+async function findOnePost (query = {}, projection = {}) {
   let postCollection = db.collection(POST_COLLECTION)
-  return await postCollection.findOne(query, projection)
+  let post = await postCollection.findOne(query, projection)
+  return post
 }
 
-async function findManyPosts (query={}, projection={}) {
+async function findManyPosts (query = {}, projection = {}) {
   let postCollection = db.collection(POST_COLLECTION)
-  return await postCollection.find(query, projection).toArray()
+  let posts = await postCollection.find(query, projection).toArray()
+  return posts
 }
 
-async function findOneUser (query, projection={}) {
+async function findOneUser (query, projection = {}) {
   let userCollection = db.collection(USER_COLLECTION)
-  return await userCollection.findOne(query, projection)
+  let user = await userCollection.findOne(query, projection)
+  return user
 }
 
-async function findManyUsers (query, projection={}) {
+async function findManyUsers (query, projection = {}) {
   let userCollection = db.collection(USER_COLLECTION)
-  return await userCollection.find(query, projection).toArray()
+  let users = await userCollection.find(query, projection).toArray()
+  return users
 }
 
 /* Update Operations */
 
-async function updateOnePost (filter, update, options={}) {
+async function updateOnePost (filter, update, options = {}) {
   let postCollection = db.collection(POST_COLLECTION)
-  return await postCollection.updateOne(filter, update, options)
+  let resultDocument = await postCollection.updateOne(filter, update, options)
+  return resultDocument
 }
 
-async function updateManyPosts (filter, update, options={}) {
+async function updateManyPosts (filter, update, options = {}) {
   let postCollection = db.collection(POST_COLLECTION)
-  return await postCollection.updateMany(filter, update, options)
+  let resultDocument = await postCollection.updateMany(filter, update, options)
+  return resultDocument
 }
 
-async function updateOneUser (filter, update, options={}) {
+async function updateOneUser (filter, update, options = {}) {
   let userCollection = db.collection(USER_COLLECTION)
-  return await userCollection.updateOne(filter, update, options)
+  let resultDocument = await userCollection.updateOne(filter, update, options)
+  return resultDocument
 }
 
-async function updateManyUsers (filter, update, options={}) {
+async function updateManyUsers (filter, update, options = {}) {
   let userCollection = db.collection(USER_COLLECTION)
-  return await userCollection.updateMany(filter, update, options)
+  let resultDocument = await userCollection.updateMany(filter, update, options)
+  return resultDocument
 }
 
 /* Delete Operations */
 
-async function deleteOnePost (filter, options={}) {
+async function deleteOnePost (filter, options = {}) {
   let postCollection = db.collection(POST_COLLECTION)
-  return await postCollection.deleteOne(filter, options)
+  let resultDocument = await postCollection.deleteOne(filter, options)
+  return resultDocument
 }
 
-async function deleteManyPosts (filter, options={}) {
+async function deleteManyPosts (filter, options = {}) {
   let postCollection = db.collection(POST_COLLECTION)
-  return await postCollection.deleteMany(filter, options)
+  let resultDocument = await postCollection.deleteMany(filter, options)
+  return resultDocument
 }
 
-async function deleteOneUser (filter, options={}) {
+async function deleteOneUser (filter, options = {}) {
   let userCollection = db.collection(USER_COLLECTION)
-  return await userCollection.deleteOne(filter, options)
+  let resultDocument = await userCollection.deleteOne(filter, options)
+  return resultDocument
 }
 
-async function deleteManyUsers (filter, options={}) {
+async function deleteManyUsers (filter, options = {}) {
   let userCollection = db.collection(USER_COLLECTION)
-  return await userCollection.deleteMany(filter, options)
+  let resultDocument = await userCollection.deleteMany(filter, options)
+  return resultDocument
 }
 
 module.exports = {
@@ -151,5 +170,8 @@ module.exports = {
   deleteOnePost,
   deleteManyPosts,
   deleteOneUser,
-  deleteManyUsers
+  deleteManyUsers,
+  DEFAULT_DB,
+  USER_COLLECTION,
+  POST_COLLECTION
 }
