@@ -1,1 +1,1 @@
-puts `standard && nyc --all mocha && cucumber-js`
+puts `standard && mocha && cucumber-js`
