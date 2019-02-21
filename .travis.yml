@@ -10,6 +10,9 @@ addons:
     packages:
     - ruby-full
 
+before_install:
+  - docker pull mongo
+
 install: npm install
 
 script: npm test
