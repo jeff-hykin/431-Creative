@@ -1,4 +1,4 @@
-let userData = [
+module.exports = [
   {
     _id: 'USER1234567890',
     firstname: 'John',

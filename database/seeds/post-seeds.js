@@ -1,4 +1,4 @@
-let postData = [
+module.exports = [
   {
     _id: 'POST1234567890',
     contact: 'employer@tamu.edu',
