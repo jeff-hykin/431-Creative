@@ -6,6 +6,7 @@
   "scripts": {
     "test": "ruby ./scripts/test.rb",
     "client": "ruby ./scripts/client.rb",
+    "coverage": "ruby ./scripts/coverage.rb",
     "database": "ruby ./scripts/database.rb",
     "start": "ruby ./scripts/start.rb",
     "prod": "ruby ./scripts/prod.rb",
@@ -45,12 +46,15 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
     "cucumber": "^5.1.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
     "parcel": "^1.11.0",
     "sinon": "^7.2.3",
     "standard": "^12.0.1"
@@ -60,6 +64,22 @@
       "dist/*",
       ".cache/*"
     ]
+  },
+  "nyc": {
+    "exclude": [
+      "node_modules/",
+      "test/",
+      "features/",
+      "scripts/",
+      "dist/",
+      "cucumber.js",
+      "coverage/",
+      "static/"
+    ],
+    "extension": [
+      ".jsx"
+    ],
+    "sourceMap": false 
   },
   "standard": {
     "env": [
