@@ -11,6 +11,7 @@
 [![](https://img.shields.io/github/contributors/gracewes/431-Creative.svg?style=for-the-badge)](https://github.com/gracewes/431-Creative/graphs/contributors)
 [![Build Status](https://img.shields.io/travis/gracewes/431-Creative.svg?style=for-the-badge)](https://travis-ci.org/gracewes/431-Creative)
 [![](https://img.shields.io/snyk/vulnerabilities/github/gracewes/431-Creative.svg?style=for-the-badge)](https://snyk.io/test/github/gracewes/431-Creative)
+[![](https://img.shields.io/coveralls/github/gracewes/431-Creative.svg?style=for-the-badge)](https://coveralls.io/github/gracewes/431-Creative)
 
 
 # 431-Creative
@@ -95,3 +96,16 @@ We are following the [JavaScript Standard Style](https://standardjs.com/). To fi
 ```
 npm run format
 ```
+
+## Environment Variables
+```
+DB_PASS=password for remote database
+```
+
+## Remote Database Information
+
+To access the remote DB online, go here: https://cloud.mongodb.com/user#/atlas/login
+
+Under the "Clusters" menu, click "ProdCluster". Next click the "Collections" tab. Once there, you will be able to access and manage the data
+
+For more information, you can find it here: https://docs.atlas.mongodb.com/getting-started/
