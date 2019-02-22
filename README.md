@@ -106,3 +106,5 @@ DB_PASS=password for remote database
 To access the remote DB online, go here: https://cloud.mongodb.com/user#/atlas/login
 
 Under the "Clusters" menu, click "ProdCluster". Next click the "Collections" tab. Once there, you will be able to access and manage the data
+
+For more information, you can find it here: https://docs.atlas.mongodb.com/getting-started/
