@@ -29,11 +29,13 @@
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "babel-polyfill": "^6.26.0",
     "chalk": "^2.4.2",
     "css-baseline": "^1.0.1",
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "good-dom": "^4.1.1",
+    "mongodb": "^3.1.13",
     "parcel-bundler": "^1.11.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
@@ -48,6 +50,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "cucumber": "^5.1.0",
     "enzyme": "^3.8.0",
@@ -79,7 +82,10 @@
     "extension": [
       ".jsx"
     ],
-    "sourceMap": false 
+    "sourceMap": false,
+    "require": [
+      "@babel/register"
+    ]
   },
   "standard": {
     "env": [
