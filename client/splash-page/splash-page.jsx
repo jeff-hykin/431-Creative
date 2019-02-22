@@ -43,6 +43,7 @@ function MySnackbarContent (props) {
     />
   )
 }
+
 MySnackbarContent.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -64,15 +65,14 @@ export const classes = {
   pageFullyLoaded: {
     color: 'black'
   },
-  triangleMaroon: {
-    zIndex: '0',
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    width: '100vw',
+  maroonTriangle: {
+    backgroundColor: '#500000',
+    width: '800vw',
     height: '100vh',
-    background: '#500000',
-    clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+    position: 'fixed',
+    top: 0,
+    left: '50vw',
+    transform: 'skew(45deg, 0)',
     '&:hover': {
       // width: '150vw',
       // height: '150vh',
@@ -81,14 +81,15 @@ export const classes = {
     }
   },
   triangleWhite: {
-    zIndex: '0',
+    backgroundColor: '#FFFFFF',
+    top: '9vh',
+    right: 0,
     position: 'fixed',
-    top: '0',
-    left: '0',
-    width: '100vw',
-    height: '100vh',
-    background: '#FFFFFF',
-    clipPath: 'polygon(0 0, 0% 100%, 100% 100%)',
+    marginRight: '1rem',
+    flexDirection: 'column',
+    marginLeft: '25vw',
+    alignItems: 'flex-end',
+    textAlign: 'right',
     '&:hover': {
       // width: '150vw',
       // height: '150vh',
@@ -96,50 +97,51 @@ export const classes = {
       // transitionDuration: '.3s'
     }
   },
-  mainDiv: {
-    position: 'fixed',
-    top: '0',
-    right: '0'
-  },
-  loginText: {
-    color: '#FFFFFF'
-  },
-  loginButton: {
-    // color: '#FFFFFF',
-    // backgroundColor: '#FFFFFF',
-    // '&:hover': {
-    //  backgroundColor: '#FFFFFF'
-    // }
-  },
-  topRight: {
-    zIndex: '1',
-    position: 'fixed',
-    top: '25vh',
-    right: '25vh'
-  },
-  bottomLeft: {
-    zIndex: '1',
-    position: 'fixed',
-    bottom: '25vh',
-    left: '25vh'
-  },
   maroon: {
     color: '#500000'
   },
   white: {
     color: '#FFFFFF'
   },
-  maxWidth: {
-    width: '100vw'
-  },
-  hideOver: {
-    overflow: 'hidden'
-  },
-  shapeShadow: {
+  whiteMessage: {
+    top: '9vh',
+    right: 0,
     position: 'fixed',
-    top: '0',
-    left: '0',
-    filter: 'drop-shadow(0px 10px 5px rgba(0,0,0,0.2))'
+    marginRight: '1rem',
+    flexDirection: 'column',
+    marginLeft: '25vw',
+    alignItems: 'flex-end',
+    textAlign: 'right'
+  },
+  maroonMessage: {
+    bottom: '9vh',
+    left: 0,
+    position: 'fixed',
+    marginLeft: '1rem',
+    flexDirection: 'column',
+    marginRight: '25vw',
+    alignItems: 'flex-start',
+    textAlign: 'left'
+  },
+  browseButton: {
+    marginRight: '2rem',
+    marginTop: '1rem',
+    backgroundColor: '#FFFFFF'
+  },
+  createButton: {
+    marginLeft: '2rem',
+    marginTop: '1rem',
+    backgroundColor: '#500000'
+  },
+  loginButton: {
+    color: '#FFFFFF',
+    borderColor: '#FFFFFF',
+    top: 0,
+    right: 0,
+    position: 'fixed',
+    '&:hover': {
+      // backgroundColor: '#FFFFFF'
+    }
   }
 }
 
@@ -162,25 +164,25 @@ export default withStyles(classes)(class extends React.Component {
 
     this.setState({ open: false })
   };
-  // <div className={this.props.classes.triangleWhite} />
+
   render () {
     return <div className={this.props.className}>
-      <div className={this.props.classes.hideOver}>
-        <div className={this.props.classes.shapeShadow}>
-          <div className={this.props.classes.triangleMaroon} />
-        </div>
-        <div className={this.props.classes.topRight}>
-          <h1 className={this.props.classes.white} onClick={this.handleClick}>Looking for a project? </h1>
-        </div>
-        <div className={this.props.classes.bottomLeft} onClick={this.handleClick}>
-          <h1 className={this.props.classes.maroon}>Looking for coders? </h1>
-        </div>
-        <div className={this.props.classes.mainDiv}>
-          <Button variant='outlined' color='primary' onClick={this.handleClick} className={this.props.classes.loginButton}>
-            <span className={this.props.classes.loginText}>Login</span>
-          </Button>
-        </div>
+      <div className={this.props.classes.maroonTriangle} />
+      <div className={this.props.classes.whiteMessage}>
+        <h5 className={this.props.classes.white}>Looking for a project?</h5>
+        <Button className={this.props.classes.browseButton} onClick={this.handleClick}>
+          <span>Browse Listings</span>
+        </Button>
       </div>
+      <div className={this.props.classes.maroonMessage}>
+        <h5 style={{ color: '#500000' }}>Need Some Work Done?</h5>
+        <Button className={this.props.classes.createButton} onClick={this.handleClick}>
+          <span className={this.props.classes.white}>Make a Listing</span>
+        </Button>
+      </div>
+      <Button variant='outlined' className={this.props.classes.loginButton} onClick={this.handleClick}>
+				Login
+      </Button>
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
