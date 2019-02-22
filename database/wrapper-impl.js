@@ -12,13 +12,21 @@ const USER_COLLECTION = 'users'
 async function connect (database = DEFAULT_DB) {
   const options = { useNewUrlParser: true }
 
+  /* istanbul ignore if */
   if (process.env.NODE_ENV === 'development') {
+    /* istanbul ignore next */
     db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options)
+    /* istanbul ignore next */
     dbo = db.db(database)
-  } else if (process.env.NODE_ENV === 'testing') {
+  }
+
+  if (process.env.NODE_ENV === 'testing') {
     db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}-test`, options)
     dbo = db.db(`${database}-test`)
-  } else if (process.env.NODE_ENV === 'production') {
+  }
+
+  /* istanbul ignore if */
+  if (process.env.NODE_ENV === 'production') {
     db = await mongo.MongoClient.connect(`
     mongodb://dbAdmin:${process.env.DB_PASS}@prodcluster-shard-00-00-zwe3b.mongodb.net:27017,
     prodcluster-shard-00-01-zwe3b.mongodb.net:27017,
