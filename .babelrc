@@ -8,7 +8,7 @@
     "@babel/plugin-proposal-optional-chaining"
   ],
   "env": {
-    "test":{
+    "test": {
       "plugins": [
         "istanbul"
       ]
