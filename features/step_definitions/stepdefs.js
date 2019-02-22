@@ -1,5 +1,4 @@
 import { configure, mount } from 'enzyme'
-import Snackbar from '@material-ui/core/Snackbar'
 import React from 'react'
 import Adapter from 'enzyme-adapter-react-16'
 import SplashPage from '../../client/splash-page/splash-page'
@@ -30,5 +29,5 @@ When('I click browse', function () {
 })
 
 Then('the state is changed', function () {
-	assert.strictEqual(this.wrapper.state('open'), 'true')
+  assert.strictEqual(this.wrapper.state('open'), 'true')
 })
