@@ -20,7 +20,7 @@ describe('DatabaseWrapper', function () {
 
     describe('#getDb()', function () {
       it('gets the connected db variable', function () {
-        assert.isOk(dbFunctions.db[dbFunctions.DANGEROUS_DB], 'db is good')
+        assert.isOk(dbFunctions.db[dbFunctions.DANGEROUS_DB](), 'db is good')
       })
     })
 

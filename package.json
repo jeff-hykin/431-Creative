@@ -81,7 +81,10 @@
     "extension": [
       ".jsx"
     ],
-    "sourceMap": false
+    "sourceMap": false,
+    "require": [
+      "@babel/register"
+    ]
   },
   "standard": {
     "env": [

@@ -1,1 +1,3 @@
-system "cross-env NODE_ENV=testing nyc --all --reporter=lcov mocha; nyc report"
+system "npm run database"
+ENV["NODE_ENV"] = "testing"
+system "nyc --all --reporter=lcov mocha; nyc report"
