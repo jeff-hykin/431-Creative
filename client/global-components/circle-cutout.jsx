@@ -1,9 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
-// TODO:
-// export color
-// make child props
-// add test
+
 export const classes = {
   circleShadow: {
     position: 'fixed',
@@ -22,7 +19,7 @@ export const classes = {
     overflow: 'hidden',
     position: 'fixed',
     pointerEvents: 'none',
-    zIndex: 5
+    zIndex: 100
   },
   svgStyle: {
     height: '800vh',
@@ -34,9 +31,9 @@ export const classes = {
     pointerEvents: 'none'
   }
 }
-export const makeClasses = makeStyles(classes)
+const makeClasses = makeStyles(classes)
 
-export default ({ cutoutColor = 'whitesmoke', circlePercent = 100 }) => {
+export default ({ cutoutColor = 'whitesmoke', circlePercent = 100, offsetY = '50%', offsetX = '50%' }) => {
   const internalClasses = makeClasses()
   return <React.Fragment>
     <div className={internalClasses.svgContainer}>
@@ -46,7 +43,7 @@ export default ({ cutoutColor = 'whitesmoke', circlePercent = 100 }) => {
         <defs>
           <mask id='mask'>
             <rect fill='#FFF' height='100' width='100' />
-            <circle cx='50%' cy='50%' r={`${circlePercent * 0.06}%`} />
+            <circle cx={offsetX} cy={offsetY} r={`${circlePercent * 0.06}%`} />
           </mask>
         </defs>
         <rect height='100' mask='url(#mask)' fill={cutoutColor} fillOpacity='1' width='100' />
