@@ -1,7 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/styles'
 import Matrix from '../global-components/matrix'
-
 // TODO: 
   // export color
   // make child props
@@ -115,7 +114,8 @@ export default withStyles(classes)(class extends React.Component {
         marginLeft: this.state.boxMarginLeft / this.boxChildrenParallaxRate,
         marginTop: this.state.boxMarginTop / this.boxChildrenParallaxRate,
       }} >
-      {this.props.children}
+      <h3>404</h3>
+      Page Not Found
     </div>
 
   render () {
