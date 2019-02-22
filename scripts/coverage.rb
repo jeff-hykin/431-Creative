@@ -1,3 +1,7 @@
-system "npm run database"
 ENV["NODE_ENV"] = "testing"
-system "nyc --all --reporter=lcov mocha; nyc report"
+if ENV["NODE_ENV"] == true
+  system "nyc --all --reporter=lcov npm test && nyc report | coveralls"
+else
+  system "nyc --all --reporter=lcov npm test && nyc report"
+end
+
