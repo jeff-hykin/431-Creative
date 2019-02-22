@@ -40,7 +40,9 @@
     "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.3",
+    "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
@@ -80,7 +82,7 @@
     "extension": [
       ".jsx"
     ],
-    "sourceMap": false 
+    "sourceMap": false
   },
   "standard": {
     "env": [
