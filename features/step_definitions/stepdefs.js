@@ -30,5 +30,5 @@ When('I click browse', function () {
 })
 
 Then('the state is changed', function () {
-  assert.strictEqual(this.wrapper.find(Snackbar).props('open'), 'true')
+	assert.strictEqual(this.wrapper.state('open'), 'true')
 })
