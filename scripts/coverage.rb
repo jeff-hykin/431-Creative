@@ -5,8 +5,8 @@ default = "\x1b[0m"
 ENV["NODE_ENV"] = "testing"
 puts blue + "TRAVIS: #{ENV["TRAVIS"]}" + default
 if ENV["TRAVIS"] == "true"
-  puts cyan + 'Running tests and reporting coverage' + default
-  system "nyc --all --reporter=lcov npm test && nyc report | coveralls"
+  puts blue + 'Running tests and reporting coverage' + default
+  system "nyc --all --reporter=lcov npm test && nyc report --reporter=text-lcov | coveralls"
 else
   system "nyc --all --reporter=lcov npm test && nyc report"
 end
