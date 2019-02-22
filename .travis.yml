@@ -2,14 +2,20 @@ language: node_js
 node_js:
   - "node"
 
+services:
+  - docker
+
 addons:
   apt: 
     packages:
     - ruby-full
 
+before_install:
+  - docker pull mongo
+
 install: npm install
 
-script: npm test
+script: npm run coverage
 
 deploy:
   provider: heroku
