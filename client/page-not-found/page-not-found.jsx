@@ -1,5 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/styles'
+import Matrix from '../global-components/matrix'
 
 export const classes = {
   fullWindow: {
@@ -7,6 +8,11 @@ export const classes = {
     height: '100vh',
     justifyContent: 'center',
     justifyItems: 'center'
+  },
+  matrix: {
+    position: 'fixed',
+    zIndex: '-1',
+    transform: 'scale(1.2)'
   },
   circleShadow: {
     position: 'fixed',
@@ -42,7 +48,8 @@ export const classes = {
     fontSize: '2rem',
     backgroundColor: 'whitesmoke',
     color: 'black',
-    boxShadow: '3px 3px 4px 0px rgba(0, 0, 0, 0.47)'
+    boxShadow: '3px 3px 4px 0px rgba(0, 0, 0, 0.47)',
+    zIndex: '2'
   }
 }
 
@@ -88,10 +95,12 @@ export default withStyles(classes)(class extends React.Component {
     </div>
 
   render () {
+    let backgroundMovementFactor = 10
     return <div className={this.props.classes.fullWindow} >
       <this.circleCutout />
       <div className={this.props.classes.circleShadow} />
       <this.mouseTrackingBox />
+      <Matrix style={{ ...classes.matrix, top: -this.state.boxMarginTop / backgroundMovementFactor, left: -this.state.boxMarginLeft / backgroundMovementFactor }} fullscreen />
     </div>
   }
 })
