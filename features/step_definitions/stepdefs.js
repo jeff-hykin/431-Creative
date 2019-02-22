@@ -16,7 +16,7 @@ Given('I am on the splash page', function () {
   this.wrapper = mount(<SplashPage />)
 })
 
-When('I click create', function (callback) {
+When('I click create', function () {
   this.wrapper.find({ id: 'createButton' }).hostNodes().simulate('click')
 })
 
