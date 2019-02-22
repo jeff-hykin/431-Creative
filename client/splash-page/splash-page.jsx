@@ -170,17 +170,17 @@ export default withStyles(classes)(class extends React.Component {
       <div className={this.props.classes.maroonTriangle} />
       <div className={this.props.classes.whiteMessage}>
         <h5 className={this.props.classes.white}>Looking for a project?</h5>
-        <Button className={this.props.classes.browseButton} onClick={this.handleClick}>
+        <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.handleClick}>
           <span>Browse Listings</span>
         </Button>
       </div>
       <div className={this.props.classes.maroonMessage}>
-        <h5 style={{ color: '#500000' }}>Need Some Work Done?</h5>
-        <Button className={this.props.classes.createButton} onClick={this.handleClick}>
+        <h5 className={this.props.classes.maroon}>Need Some Work Done?</h5>
+        <Button id='createButton' className={this.props.classes.createButton} onClick={this.handleClick}>
           <span className={this.props.classes.white}>Make a Listing</span>
         </Button>
       </div>
-      <Button variant='outlined' className={this.props.classes.loginButton} onClick={this.handleClick}>
+      <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.handleClick}>
         Login
       </Button>
       <Snackbar
