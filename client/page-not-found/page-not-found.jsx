@@ -1,6 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/styles'
 import Matrix from '../global-components/matrix'
+import CircleCutout from './circle-cutout'
 // TODO: 
   // export color
   // make child props
@@ -17,34 +18,6 @@ export const classes = {
     position: 'fixed',
     zIndex: '-1',
     transform: 'scale(1.2)'
-  },
-  circleShadow: {
-    position: 'fixed',
-    borderRadius: '69vh',
-    boxShadow: 'inset 0 0 3rem rgba(0, 0, 0, 0.87)',
-    width: '101vh',
-    height: '101vh',
-    pointerEvents: 'none',
-    marginTop: '7px',
-    zIndex: 1,
-    marginLeft: '1px'
-  },
-  svgContainer: {
-    height: '100vh',
-    width: '100vw',
-    overflow: 'hidden',
-    position: 'fixed',
-    pointerEvents: 'none',
-    zIndex: 5
-  },
-  svgStyle: {
-    height: '800vh',
-    minWidth: '800vh',
-    position: 'relative',
-    left: '0vw',
-    top: '0',
-    overflow: 'hidden',
-    pointerEvents: 'none'
   },
   moveableSquare: {
     flexDirection: 'column',
@@ -92,21 +65,6 @@ export default withStyles(classes)(class extends React.Component {
     document.body.removeEventListener('mousemove', this.bodyListener)
   }
 
-  circleCutout = () =>
-    <div className={this.props.classes.svgContainer}>
-      <svg
-        style={classes.svgStyle}
-        viewBox='0 0 100 100'>
-        <defs>
-          <mask id='mask'>
-            <rect fill='#FFF' height='100' width='100' />
-            <circle cx='50%' cy='50%' r={`${this.props.circlePercent * 0.06}%`} />
-          </mask>
-        </defs>
-        <rect height='100' mask='url(#mask)' fill={this.props.cutoutColor} fillOpacity='1' width='100' />
-      </svg>
-    </div>
-
   mouseTrackingBox = () =>
     <div
       className={this.props.classes.moveableSquare}
@@ -120,8 +78,7 @@ export default withStyles(classes)(class extends React.Component {
 
   render () {
     return <div className={this.props.classes.fullWindow} >
-      <this.circleCutout />
-      <div className={this.props.classes.circleShadow} />
+      <CircleCutout />
       {/* Background matrix */}
       <Matrix
         style={{ ...classes.matrix,
