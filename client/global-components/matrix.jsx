@@ -13,7 +13,9 @@ export default class Matrix extends React.Component {
     frequency: PropTypes.number,
     speed: PropTypes.number,
     style: PropTypes.object,
-    zIndex: PropTypes.number
+    zIndex: PropTypes.number,
+    fadeRate: PropTypes.number,
+    backgroundColor: PropTypes.string
   };
 
   static defaultProps = {
@@ -25,7 +27,9 @@ export default class Matrix extends React.Component {
     interval: 30,
     color: '#00cc33',
     frequency: 0.005,
-    speed: 1.6
+    speed: 1.6,
+    fadeRate: 0.05,
+    backgroundColor: 'black'
   };
 
   constructor (props) {
@@ -52,18 +56,19 @@ export default class Matrix extends React.Component {
       canvas.height = height
 
       let numberOfColumns = Math.floor(width / size * 3)
-
+      this.initialDraw = true
       this.setState({ canvas, columns, context, size, source, numberOfColumns }, () => {
         for (let i = 0; i < numberOfColumns; i++) {
-          columns.push(0)
+          columns.push(1000)
         }
-
         this.draw()
+
         let interval = setInterval(this.draw, 50 / this.props.speed)
         this.setState({ interval })
 
         if (this.props.fullscreen) { window.addEventListener('resize', this.updateDimensions) }
       })
+      this.initialDraw = false
     })
   }
 
@@ -72,22 +77,27 @@ export default class Matrix extends React.Component {
     let columns = this.state.columns
     let numberOfColumns = this.state.numberOfColumns
 
-    context.fillStyle = 'rgba(0,0,0,0.05)'
+    // switch to only affect the intersection of the existing canvas, and fade everything
+    context.globalCompositeOperation = 'destination-out'
+    context.fillStyle = `rgba(255, 255, 255, ${this.props.fadeRate})`
     context.fillRect(0, 0, this.state.canvas.width, this.state.canvas.width)
+    // switch back to the normal mode of writing on top of the canvas
+    context.globalCompositeOperation = 'source-over'
+
     context.fillStyle = this.props.color
     context.font = '700 ' + this.props.fontSize + 'px Consolas,monaco,monospace'
 
-    for (let columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
+    for (let whichRow = 0; whichRow < numberOfColumns; whichRow++) {
       let index = Math.floor(Math.random() * this.state.source.length)
       let character = this.state.source[index]
-      let positionX = columnIndex * this.state.size
-      let positionY = columns[columnIndex] * this.state.size
+      let positionX = whichRow * this.state.size
+      let positionY = columns[whichRow] * this.state.size
 
       context.fillText(character, positionX, positionY)
       if (positionY >= this.state.canvas.height && Math.random() > 1 - this.props.frequency) {
-        columns[columnIndex] = 0
+        columns[whichRow] = 0
       }
-      columns[columnIndex]++
+      columns[whichRow]++
     }
 
     this.setState({ context, columns })
@@ -102,7 +112,14 @@ export default class Matrix extends React.Component {
   render () {
     let style = this.props.style ? this.props.style : {}
     return (
-      <div style={{ ...style, background: '#000000', width: this.props.fullscreen ? '100vw' : this.props.width + 'px', height: this.props.fullscreen ? '100vh' : this.props.height + 'px', overflow: 'hidden', zIndex: this.props.zIndex }}>
+      <div style={{ ...style,
+        width: this.props.fullscreen ? '100vw' : this.props.width + 'px',
+        height: this.props.fullscreen ? '100vh' : this.props.height + 'px',
+        overflow: 'hidden',
+        zIndex: this.props.zIndex,
+        backgroundColor: this.props.backgroundColor
+      }}
+      >
         <canvas ref='canvas' />
       </div>
     )
