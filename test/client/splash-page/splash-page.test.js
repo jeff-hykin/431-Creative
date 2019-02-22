@@ -5,8 +5,8 @@ import SplashPage from '../../../client/splash-page/splash-page'
 import Button from '@material-ui/core/Button'
 
 describe('<SplashPage />', () => {
-  it('has a single login button', () => {
+  it('has login, browse, and create buttons', () => {
     const wrapper = mount(<SplashPage />)
-    expect(wrapper.find(Button)).to.have.lengthOf(1)
+    expect(wrapper.find(Button)).to.have.lengthOf(3)
   })
 })
