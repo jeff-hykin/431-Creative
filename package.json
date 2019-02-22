@@ -50,6 +50,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "cucumber": "^5.1.0",
     "enzyme": "^3.8.0",

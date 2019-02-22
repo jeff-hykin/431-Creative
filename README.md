@@ -11,6 +11,7 @@
 [![](https://img.shields.io/github/contributors/gracewes/431-Creative.svg?style=for-the-badge)](https://github.com/gracewes/431-Creative/graphs/contributors)
 [![Build Status](https://img.shields.io/travis/gracewes/431-Creative.svg?style=for-the-badge)](https://travis-ci.org/gracewes/431-Creative)
 [![](https://img.shields.io/snyk/vulnerabilities/github/gracewes/431-Creative.svg?style=for-the-badge)](https://snyk.io/test/github/gracewes/431-Creative)
+[![](https://img.shields.io/coveralls/github/gracewes/431-Creative.svg?style=for-the-badge)](https://coveralls.io/github/gracewes/431-Creative)
 
 
 # 431-Creative
