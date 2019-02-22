@@ -1,22 +1,27 @@
-import { expect } from 'chai'
+require('babel-polyfill')
+// const mongo = require('mongodb')
+let { assert } = require('chai')
+let dbFunctions = require('../../database/wrapper')
+// let { DEFAULT_DB, USER_COLLECTION, POST_COLLECTION } = require('../../database/wrapper-impl')
 
 describe('DatabaseWrapper', function () {
   describe('Connection functions', function () {
     describe('#connect()', function () {
       it('connects to MongoDB', async function () {
-        
-      })
-    })
-
-    describe('#close()', function () {
-      it('closes the MongoDB connection', async function () {
-
+        let db = await dbFunctions.connect()
+        assert.isOk(db, 'db is good')
       })
     })
 
     describe('#getDb()', function () {
-      it('gets the connected db variable', async function () {
+      it('gets the connected db variable', function () {
+        assert.isOk(dbFunctions.db[dbFunctions.DANGEROUS_DB], 'db is good')
+      })
+    })
 
+    describe('#close()', function () {
+      it('closes the MongoDB connection', function () {
+        assert.doesNotThrow(dbFunctions.close)
       })
     })
   })

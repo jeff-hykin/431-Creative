@@ -1,10 +1,13 @@
 const helpers = require('./wrapper-impl')
 
+const DANGEROUS_DB = Symbol('Dangerous DB Object')
+
 module.exports = {
+  DANGEROUS_DB,
   connect: helpers.connect,
   close: helpers.close,
   db: {
-    db: helpers.getDb,
+    [DANGEROUS_DB]: helpers.getDb,
     collections: {
       posts: {
         insertOne: helpers.insertOnePost,

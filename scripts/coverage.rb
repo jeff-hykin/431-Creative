@@ -1,1 +1,1 @@
-puts `cross-env NODE_ENV=test nyc --all --reporter=lcov mocha; nyc report`
+system "cross-env NODE_ENV=testing nyc --all --reporter=lcov mocha; nyc report"

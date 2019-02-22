@@ -12,25 +12,10 @@ async function connect (database = DEFAULT_DB) {
   const options = { useNewUrlParser: true }
 
   if (process.env.NODE_ENV === 'development') {
-    // mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options, (err, database) => {
-    //   if (err) throw err
-    //   db = database
-    // })
     db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options)
   } else if (process.env.NODE_ENV === 'testing') {
-    // mongo.MongoClient.connect(`mongodb://localhost:27017/${database}-test`, options, (err, database) => {
-    //   if (err) throw err
-    //   db = database
-    // })
     db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}-test`, options)
   } else if (process.env.NODE_ENV === 'production') {
-    // mongo.MongoClient.connect(`
-    // mongodb://dbAdmin:${process.env.DB_PASS}@prodcluster-shard-00-00-zwe3b.mongodb.net:27017,
-    // prodcluster-shard-00-01-zwe3b.mongodb.net:27017,
-    // prodcluster-shard-00-02-zwe3b.mongodb.net:27017/${database}?ssl=true&replicaSet=ProdCluster-shard-0&authSource=admin&retryWrites=true`, options, (err, database) => {
-    //   if (err) throw err
-    //   db = database
-    // })
     db = await mongo.MongoClient.connect(`
     mongodb://dbAdmin:${process.env.DB_PASS}@prodcluster-shard-00-00-zwe3b.mongodb.net:27017,
     prodcluster-shard-00-01-zwe3b.mongodb.net:27017,

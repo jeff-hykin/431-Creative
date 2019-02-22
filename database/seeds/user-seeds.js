@@ -5,6 +5,5 @@ module.exports = [
     lastname: 'Smith',
     email: 'john@gmail.com',
     skills: ['Java', 'JavaScript']
-
   }
 ]

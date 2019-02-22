@@ -1,4 +1,3 @@
 system "npm run database"
-# TODO: seed data
-ENV["NODE_ENV"] ="testing"
-puts `standard && mocha && cucumber-js`
+ENV["NODE_ENV"] = "testing"
+system "standard && mocha && cucumber-js"
