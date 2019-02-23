@@ -33,6 +33,8 @@ Before running, always install all dependencies:
 ```
 npm install
 ```
+> If you get JSS warnings, ignore them
+
 Once complete you can start the entire application up with the following:
 ```
 npm start
