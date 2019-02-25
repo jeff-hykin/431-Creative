@@ -3,8 +3,9 @@ import Adapter from 'enzyme-adapter-react-16'
 import './attach-jsdom'
 import React from 'react'
 import App from '../../client/main'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
 import expect from 'expect'
-import { Given, Then } from 'cucumber'
+import { Given, When, Then } from 'cucumber'
 import { createBrowserHistory } from 'history'
 
 // take all properties of the window object and also attach it to the mocha global object
@@ -20,6 +21,9 @@ configure({ adapter: new Adapter() })
 // create the history thats used to naviagte to different pages
 const history = createBrowserHistory()
 
+//
+// Page Not Found
+//
 Given('I am at a nonexistent URL', function () {
   // load a non existant URL
   history.push('/nonexistent')
@@ -32,4 +36,38 @@ Then('I should see {string} on the page', function (string) {
   let pageNotFoundComponent = global.screen.find('#page-not-found')
   // make sure it has the 404 error header
   expect(pageNotFoundComponent.contains([ <h2>404</h2> ]))
+})
+
+//
+// Splash Page
+//
+Given('I am on the splash page', function () {
+  // load a non existant URL
+  history.push('/nonexistent')
+  // mount the app with that URL
+  global.screen = mount(<App />)
+})
+When('I click login', function () {
+  let splashPage = global.screen.find('#splash-page')
+  splashPage.find(SnackbarContent)
+  expect(true)
+})
+
+// 2) Scenario: I click browse on the splash page
+When('I click browse', function () {
+  let splashPage = global.screen.find('#splash-page')
+  splashPage.find(SnackbarContent)
+  expect(true)
+})
+
+// 3) Scenario: I click create on the splash page
+When('I click create', function () {
+  let splashPage = global.screen.find('#splash-page')
+  splashPage.find(SnackbarContent)
+  expect(true)
+})
+
+Then('the state is changed', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending'
 })

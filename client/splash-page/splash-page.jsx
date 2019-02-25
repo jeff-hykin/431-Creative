@@ -16,7 +16,7 @@ const styles1 = theme => ({
   }
 })
 
-function MySnackbarContent (props) {
+export function MySnackbarContent (props) {
   const { classes, className, message, onClose, variant, ...other } = props
 
   return (
@@ -167,7 +167,7 @@ export default withStyles(classes)(class extends React.Component {
   };
 
   render () {
-    return <div className={this.props.className}>
+    return <div id='splash-page' className={this.props.className}>
       <div className={this.props.classes.blueTriangle} />
       <div className={this.props.classes.whiteMessage}>
         <h5 className={this.props.classes.white}>Looking for a project?</h5>
