@@ -71,3 +71,4 @@ let App = withStyles(classes)(props =>
 
 // put the pages inside the container
 ReactDOM.render(React.createElement(App), reactContainer)
+export default App
