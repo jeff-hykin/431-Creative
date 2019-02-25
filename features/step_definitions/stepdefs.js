@@ -2,10 +2,10 @@ import { configure, mount } from 'enzyme'
 import React from 'react'
 import Adapter from 'enzyme-adapter-react-16'
 import SplashPage from '../../client/splash-page/splash-page'
-import assert from 'assert'
 import { Given, When, Then } from 'cucumber'
 import fs from 'fs'
 import { JSDOM } from 'jsdom'
+import Snackbar from '@material-ui/core/Snackbar'
 const jsdom = new JSDOM(fs.readFileSync('./client/index.html').toString('utf8'))
 const { window } = jsdom
 // see https://airbnb.io/enzyme/docs/guides/jsdom.html for more info
@@ -31,6 +31,9 @@ When('I click browse', function () {
   this.wrapper.find({ id: 'browseButton' }).hostNodes().simulate('click')
 })
 
-Then('the state is changed', function () {
-  assert.strictEqual(this.wrapper.state('open'), 'true')
+Then('the state is changed', function (callback) {
+  if (!this.wrapper.find(Snackbar).prop('open')) {
+    callback(new Error('Not set to open'))
+  }
+  callback()
 })
