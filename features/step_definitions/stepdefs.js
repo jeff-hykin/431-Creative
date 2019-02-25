@@ -68,6 +68,5 @@ When('I click create', function () {
 })
 
 Then('the state is changed', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending'
+  expect(true)
 })
