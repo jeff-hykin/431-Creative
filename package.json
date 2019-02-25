@@ -41,6 +41,7 @@
     "parcel-bundler": "^1.11.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
+    "react-matrix-parallax": "^2.0.1",
     "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
