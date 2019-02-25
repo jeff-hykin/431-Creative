@@ -65,13 +65,14 @@ export const classes = {
   pageFullyLoaded: {
     color: 'black'
   },
-  maroonTriangle: {
-    backgroundColor: '#500000',
+  blueTriangle: {
+    backgroundColor: '#0288D1',
     width: '800vw',
     height: '100vh',
     position: 'fixed',
     top: 0,
     left: '50vw',
+    filter: 'drop-shadow(0px 10px 5px rgba(0,0,0,0.4))',
     transform: 'skew(45deg, 0)',
     '&:hover': {
       // width: '150vw',
@@ -97,8 +98,8 @@ export const classes = {
       // transitionDuration: '.3s'
     }
   },
-  maroon: {
-    color: '#500000'
+  blue: {
+    color: '#0288D1'
   },
   white: {
     color: '#FFFFFF'
@@ -113,7 +114,7 @@ export const classes = {
     alignItems: 'flex-end',
     textAlign: 'right'
   },
-  maroonMessage: {
+  blueMessage: {
     bottom: '9vh',
     left: 0,
     position: 'fixed',
@@ -131,13 +132,13 @@ export const classes = {
   createButton: {
     marginLeft: '2rem',
     marginTop: '1rem',
-    backgroundColor: '#500000'
+    backgroundColor: '#0288D1'
   },
   loginButton: {
     color: '#FFFFFF',
     borderColor: '#FFFFFF',
-    top: 0,
-    right: 0,
+    top: '10px',
+    right: '10px',
     position: 'fixed',
     '&:hover': {
       // backgroundColor: '#FFFFFF'
@@ -167,15 +168,15 @@ export default withStyles(classes)(class extends React.Component {
 
   render () {
     return <div className={this.props.className}>
-      <div className={this.props.classes.maroonTriangle} />
+      <div className={this.props.classes.blueTriangle} />
       <div className={this.props.classes.whiteMessage}>
         <h5 className={this.props.classes.white}>Looking for a project?</h5>
         <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.handleClick}>
           <span>Browse Listings</span>
         </Button>
       </div>
-      <div className={this.props.classes.maroonMessage}>
-        <h5 className={this.props.classes.maroon}>Need Some Work Done?</h5>
+      <div className={this.props.classes.blueMessage}>
+        <h5 className={this.props.classes.blue}>Need Some Work Done?</h5>
         <Button id='createButton' className={this.props.classes.createButton} onClick={this.handleClick}>
           <span className={this.props.classes.white}>Make a Listing</span>
         </Button>
