@@ -2,11 +2,14 @@ import { configure, mount } from 'enzyme'
 import React from 'react'
 import Adapter from 'enzyme-adapter-react-16'
 import SplashPage from '../../client/splash-page/splash-page'
-const assert = require('assert')
-const { Given, When, Then } = require('cucumber')
-const { JSDOM } = require('jsdom')
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>')
+import assert from 'assert'
+import { Given, When, Then } from 'cucumber'
+import fs from 'fs'
+import { JSDOM } from 'jsdom'
+const jsdom = new JSDOM(fs.readFileSync('./client/index.html').toString('utf8'))
 const { window } = jsdom
+// see https://airbnb.io/enzyme/docs/guides/jsdom.html for more info
+// for some reason enzye reccomends global variables
 global.window = window
 global.document = window.document
 
