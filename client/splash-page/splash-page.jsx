@@ -3,129 +3,121 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
+import styles from './styles.sass'
+import { colors } from '../theme'
+
+let titleStyles = {
+  fontSize: 'calc(2.4vw + 1rem)'
+}
+let buttonStyles = {
+  borderRadius: '10rem',
+  transform: 'scale(1.3)',
+  zIndex: 100
+}
+let offsetSides = 'calc(5vw + 1rem)'
+let buttonSideAdditionalOffset = '1.9rem'
+let offsetBottomAndTop = '15vh'
 
 export const classes = {
-  page: {
-    flexDirection: 'column',
-    transition: 'color 1500ms ease-in-out'
+  bottomLeftTitle: {
+    color: colors.blue,
+    marginLeft: offsetSides
   },
-  pageNotLoaded: {
-    color: 'white'
+  topRightTitle: {
+    color: colors.white,
+    marginRight: offsetSides
   },
-  pageFullyLoaded: {
-    color: 'black'
-  },
-  blueTriangle: {
-    backgroundColor: '#0288D1',
-    width: '800vw',
-    height: '100vh',
+  bottomLeftMessage: {
+    bottom: offsetBottomAndTop,
+    left: '0',
     position: 'fixed',
-    top: 0,
-    left: '50vw',
-    filter: 'drop-shadow(0px 10px 5px rgba(0,0,0,0.4))',
-    transform: 'skew(45deg, 0)',
-    '&:hover': {
-      // width: '150vw',
-      // height: '150vh',
-      // transform: 'translate(-5vw)',
-      // transitionDuration: '.3s'
-    }
-  },
-  triangleWhite: {
-    backgroundColor: '#FFFFFF',
-    top: '9vh',
-    right: 0,
-    position: 'fixed',
-    marginRight: '1rem',
-    flexDirection: 'column',
-    marginLeft: '25vw',
-    alignItems: 'flex-end',
-    textAlign: 'right',
-    '&:hover': {
-      // width: '150vw',
-      // height: '150vh',
-      // transform: 'translate(-5vw)',
-      // transitionDuration: '.3s'
-    }
-  },
-  blue: {
-    color: '#0288D1'
-  },
-  white: {
-    color: '#FFFFFF'
-  },
-  whiteMessage: {
-    top: '9vh',
-    right: 0,
-    position: 'fixed',
-    marginRight: '1rem',
-    flexDirection: 'column',
-    marginLeft: '25vw',
-    alignItems: 'flex-end',
-    textAlign: 'right'
-  },
-  blueMessage: {
-    bottom: '9vh',
-    left: 0,
-    position: 'fixed',
-    marginLeft: '1rem',
     flexDirection: 'column',
     marginRight: '25vw',
     alignItems: 'flex-start',
     textAlign: 'left'
   },
+  topRightMessage: {
+    top: offsetBottomAndTop,
+    right: '0',
+    position: 'fixed',
+    flexDirection: 'column',
+    marginLeft: '25vw',
+    alignItems: 'flex-end',
+    textAlign: 'right',
+    zIndex: '10',
+    [`&:hover .${styles.primaryTriangle}`]: {
+      top: 0
+    },
+    [`&:not(:hover) .${styles.primaryTriangle}`]: {
+      top: '-15vh'
+    }
+  },
+  blueBackground: {
+    backgroundColor: colors.blue
+  },
+  whiteBackground: {
+    backgroundColor: colors.white
+  },
   browseButton: {
-    marginRight: '2rem',
-    marginTop: '1rem',
-    backgroundColor: '#FFFFFF'
+    ...buttonStyles,
+    padding: '0.4rem 0.7rem',
+    marginRight: buttonSideAdditionalOffset,
+    backgroundColor: colors.white,
+    color: colors.blue,
+    '&:hover': {
+      color: colors.white
+    }
   },
   createButton: {
-    marginLeft: '2rem',
-    marginTop: '1rem',
-    backgroundColor: '#0288D1'
+    ...buttonStyles,
+    padding: '0.4rem 0.7rem',
+    marginLeft: `calc(${buttonSideAdditionalOffset} + ${offsetSides})`,
+    marginBottom: '1rem',
+    backgroundColor: colors.blue,
+    color: colors.white,
+    '&:hover': {
+      color: colors.blue
+    }
   },
   loginButton: {
-    color: '#FFFFFF',
-    borderColor: '#FFFFFF',
-    top: '10px',
-    right: '10px',
-    position: 'fixed',
-    '&:hover': {
-      // backgroundColor: '#FFFFFF'
-    }
+    ...buttonStyles,
+    color: colors.white,
+    borderColor: colors.white,
+    // position: 'fixed',
+    // top: '1.2rem',
+    // right: '2rem',
+    backgroundColor: colors.teal
   }
 }
 
 export default withStyles(classes)(class extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      open: false
-    }
-  }
-
   notify = () => {
     toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
   }
 
   render () {
     return <div id='splashPage' className={this.props.className}>
-      <div className={this.props.classes.blueTriangle} />
-      <div className={this.props.classes.whiteMessage}>
-        <h5 className={this.props.classes.white}>Looking for a project?</h5>
-        <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.notify}>
-          <span>Browse Listings</span>
-        </Button>
+      {/* Blue triangle */}
+      <div className={this.props.classes.topRightMessage}>
+        <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
+        <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
+          <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
+            Login
+          </Button>
+          <div style={{ width: '3rem' }} />
+          <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.notify}>
+            <span>Browse Listings</span>
+          </Button>
+        </div>
+        <div className={styles.primaryTriangle + ' ' + this.props.classes.blueBackground} />
       </div>
-      <div className={this.props.classes.blueMessage}>
-        <h5 className={this.props.classes.blue}>Need Some Work Done?</h5>
+      {/* White */}
+      <div className={this.props.classes.bottomLeftMessage}>
         <Button id='createButton' className={this.props.classes.createButton} onClick={this.notify}>
-          <span className={this.props.classes.white}>Make a Listing</span>
+          <span>Make a Listing</span>
         </Button>
+        <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
       </div>
-      <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
-        Login
-      </Button>
       <ToastContainer />
     </div>
   }

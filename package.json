@@ -41,6 +41,7 @@
     "jss": "^10.0.0-alpha.10",
     "mongodb": "^3.1.13",
     "parcel-bundler": "^1.11.0",
+    "postcss-modules": "^1.4.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-matrix-parallax": "^2.0.2",
@@ -69,6 +70,7 @@
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
     "parcel": "^1.11.0",
+    "sass": "^1.17.2",
     "sinon": "^7.2.3",
     "standard": "^12.0.1",
     "zombie": "^6.1.4"
