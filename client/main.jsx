@@ -29,14 +29,11 @@ document.body.children = [
 //
 export const classes = {
   page: {
-    flexDirection: 'column',
-    transition: 'color 1500ms ease-in-out'
+    flexDirection: 'column'
   },
   pageNotLoaded: {
-    color: 'white'
   },
   pageFullyLoaded: {
-    color: 'black'
   }
 }
 
