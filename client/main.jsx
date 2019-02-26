@@ -2,12 +2,12 @@ import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { withStyles } from '@material-ui/core'
 import Transitioner from './transitioner'
 import { TITLE, DIV } from 'good-dom'
 // pages
 import SplashPage from './splash-page/splash-page'
 import PageNotFound from './page-not-found/page-not-found'
-import { withStyles } from '@material-ui/core'
 
 //
 // set document head
