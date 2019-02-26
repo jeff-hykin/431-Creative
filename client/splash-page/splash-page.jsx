@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
-// import { makeStyles } from '@material-ui/styles'
 import Snackbar from '@material-ui/core/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
 import CloseIcon from '@material-ui/icons/Close'
@@ -158,16 +157,9 @@ export default withStyles(classes)(class extends React.Component {
     this.setState({ open: true })
   };
 
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-
-    this.setState({ open: false })
-  };
+  handleClose = (event, reason) => (reason === 'clickaway') || this.setState({ open: false })
 
   render () {
-    console.log(`splashpage is rendering`)
     return <div id='splashPage' className={this.props.className}>
       <div className={this.props.classes.blueTriangle} />
       <div className={this.props.classes.whiteMessage}>
