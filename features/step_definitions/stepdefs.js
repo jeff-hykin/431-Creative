@@ -62,5 +62,5 @@ When('I click create', function () {
 })
 
 Then('the state is changed', function () {
-  global.screen.find({ id: 'splashPage' }).debug()
+  expect(global.screen.find({ id: 'splashPage' }))
 })

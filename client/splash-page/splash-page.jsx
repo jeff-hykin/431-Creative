@@ -1,57 +1,8 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
-import Snackbar from '@material-ui/core/Snackbar'
-import SnackbarContent from '@material-ui/core/SnackbarContent'
-import CloseIcon from '@material-ui/icons/Close'
-import green from '@material-ui/core/colors/green'
-import IconButton from '@material-ui/core/IconButton'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
-
-const styles1 = theme => ({
-  success: {
-    backgroundColor: green[600]
-  }
-})
-
-export function MySnackbarContent (props) {
-  const { classes, className, message, onClose, variant, ...other } = props
-
-  return (
-    <SnackbarContent
-      className={classNames(classes[variant], className)}
-      aria-describedby='client-snackbar'
-      message={
-        <span id='client-snackbar' className={classes.message}>
-          Congrats! You clicked something...
-        </span>
-      }
-      action={[
-        <IconButton
-          key='close'
-          aria-label='Close'
-          color='inherit'
-          className={classes.close}
-          onClick={onClose}
-        >
-          <CloseIcon className={classes.icon} />
-        </IconButton>
-      ]}
-      {...other}
-    />
-  )
-}
-
-MySnackbarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  message: PropTypes.node,
-  onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['success']).isRequired
-}
-
-export const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent)
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 export const classes = {
   page: {
@@ -153,45 +104,29 @@ export default withStyles(classes)(class extends React.Component {
     }
   }
 
-  handleClick = () => {
-    this.setState({ open: true })
-  };
-
-  handleClose = (event, reason) => (reason === 'clickaway') || this.setState({ open: false })
+  notify = () => {
+    toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
+  }
 
   render () {
     return <div id='splashPage' className={this.props.className}>
       <div className={this.props.classes.blueTriangle} />
       <div className={this.props.classes.whiteMessage}>
         <h5 className={this.props.classes.white}>Looking for a project?</h5>
-        <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.handleClick}>
+        <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.notify}>
           <span>Browse Listings</span>
         </Button>
       </div>
       <div className={this.props.classes.blueMessage}>
         <h5 className={this.props.classes.blue}>Need Some Work Done?</h5>
-        <Button id='createButton' className={this.props.classes.createButton} onClick={this.handleClick}>
+        <Button id='createButton' className={this.props.classes.createButton} onClick={this.notify}>
           <span className={this.props.classes.white}>Make a Listing</span>
         </Button>
       </div>
-      <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.handleClick}>
+      <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
         Login
       </Button>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-        open={this.state.open}
-        autoHideDuration={6000}
-        onClose={this.handleClose}
-      >
-        <MySnackbarContentWrapper
-          onClose={this.handleClose}
-          variant='success'
-          message='This is a success message!'
-        />
-      </Snackbar>
+      <ToastContainer />
     </div>
   }
 })
