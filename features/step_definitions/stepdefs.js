@@ -3,7 +3,6 @@ import Adapter from 'enzyme-adapter-react-16'
 import './attach-jsdom'
 import React from 'react'
 import App from '../../client/main'
-import SnackbarContent from '@material-ui/core/SnackbarContent'
 import expect from 'expect'
 import { Given, When, Then } from 'cucumber'
 import { createBrowserHistory } from 'history'
@@ -42,31 +41,26 @@ Then('I should see {string} on the page', function (string) {
 // Splash Page
 //
 Given('I am on the splash page', function () {
-  // load a non existant URL
-  history.push('/nonexistent')
+  // load the homepage
+  history.push('/')
   // mount the app with that URL
   global.screen = mount(<App />)
 })
+
 When('I click login', function () {
-  let splashPage = global.screen.find('#splash-page')
-  splashPage.find(SnackbarContent)
-  expect(true)
+  global.screen.find({ id: 'loginButton' }).hostNodes().simulate('click')
 })
 
 // 2) Scenario: I click browse on the splash page
 When('I click browse', function () {
-  let splashPage = global.screen.find('#splash-page')
-  splashPage.find(SnackbarContent)
-  expect(true)
+  global.screen.find({ id: 'browseButton' }).hostNodes().simulate('click')
 })
 
 // 3) Scenario: I click create on the splash page
 When('I click create', function () {
-  let splashPage = global.screen.find('#splash-page')
-  splashPage.find(SnackbarContent)
-  expect(true)
+  global.screen.find({ id: 'createButton' }).hostNodes().simulate('click')
 })
 
 Then('the state is changed', function () {
-  expect(true)
+  global.screen.find({ id: 'splashPage' }).debug()
 })

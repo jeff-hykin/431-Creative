@@ -167,7 +167,8 @@ export default withStyles(classes)(class extends React.Component {
   };
 
   render () {
-    return <div id='splash-page' className={this.props.className}>
+    console.log(`splashpage is rendering`)
+    return <div id='splashPage' className={this.props.className}>
       <div className={this.props.classes.blueTriangle} />
       <div className={this.props.classes.whiteMessage}>
         <h5 className={this.props.classes.white}>Looking for a project?</h5>
