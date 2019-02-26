@@ -2,12 +2,12 @@ import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { withStyles } from '@material-ui/core'
 import Transitioner from './transitioner'
 import { TITLE, DIV } from 'good-dom'
 // pages
 import SplashPage from './splash-page/splash-page'
 import PageNotFound from './page-not-found/page-not-found'
-import { withStyles } from '@material-ui/core'
 
 //
 // set document head
@@ -29,14 +29,11 @@ document.body.children = [
 //
 export const classes = {
   page: {
-    flexDirection: 'column',
-    transition: 'color 1500ms ease-in-out'
+    flexDirection: 'column'
   },
   pageNotLoaded: {
-    color: 'white'
   },
   pageFullyLoaded: {
-    color: 'black'
   }
 }
 

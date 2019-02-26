@@ -41,10 +41,12 @@
     "jss": "^10.0.0-alpha.10",
     "mongodb": "^3.1.13",
     "parcel-bundler": "^1.11.0",
+    "postcss-modules": "^1.4.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-matrix-parallax": "^2.0.2",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "react-toastify": "^4.5.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -62,11 +64,13 @@
     "cucumber": "^5.1.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
+    "ignore-styles": "^5.0.1",
     "jsdom": "^13.2.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
     "parcel": "^1.11.0",
+    "sass": "^1.17.2",
     "sinon": "^7.2.3",
     "standard": "^12.0.1",
     "zombie": "^6.1.4"
