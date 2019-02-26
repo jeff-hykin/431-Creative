@@ -1,36 +1,35 @@
 import { configure, mount } from 'enzyme'
-import React from 'react'
 import Adapter from 'enzyme-adapter-react-16'
-import SplashPage from '../../client/splash-page/splash-page'
-import assert from 'assert'
-import { Given, When, Then } from 'cucumber'
-import fs from 'fs'
-import { JSDOM } from 'jsdom'
-const jsdom = new JSDOM(fs.readFileSync('./client/index.html').toString('utf8'))
-const { window } = jsdom
-// see https://airbnb.io/enzyme/docs/guides/jsdom.html for more info
-// for some reason enzye reccomends global variables
-global.window = window
-global.document = window.document
+import './attach-jsdom'
+import React from 'react'
+import App from '../../client/main'
+import expect from 'expect'
+import { Given, Then } from 'cucumber'
+import { createBrowserHistory } from 'history'
 
+// take all properties of the window object and also attach it to the mocha global object
+// see why at:  https://jaketrent.com/post/testing-react-with-jsdom/
+// original source: https://github.com/rstacruz/mocha-jsdom/blob/master/index.js#L80
+for (let key in window) {
+  if (!window.hasOwnProperty(key)) continue
+  if (key in global) continue
+  global[key] = window[key]
+}
+// create the enzyme adapter (just part of initiliziing things)
 configure({ adapter: new Adapter() })
+// create the history thats used to naviagte to different pages
+const history = createBrowserHistory()
 
-Given('I am on the splash page', function () {
-  this.wrapper = mount(<SplashPage />)
+Given('I am at a nonexistent URL', function () {
+  // load a non existant URL
+  history.push('/nonexistent')
+  // mount the app with that URL
+  global.screen = mount(<App />)
 })
 
-When('I click create', function () {
-  this.wrapper.find({ id: 'createButton' }).hostNodes().simulate('click')
-})
-
-When('I click login', function () {
-  this.wrapper.find({ id: 'loginButton' }).hostNodes().simulate('click')
-})
-
-When('I click browse', function () {
-  this.wrapper.find({ id: 'browseButton' }).hostNodes().simulate('click')
-})
-
-Then('the state is changed', function () {
-  assert.strictEqual(this.wrapper.state('open'), 'true')
+Then('I should see {string} on the page', function (string) {
+  // get the page not found component
+  let pageNotFoundComponent = global.screen.find('#page-not-found')
+  // make sure it has the 404 error header
+  expect(pageNotFoundComponent.contains([ <h2>404</h2> ]))
 })

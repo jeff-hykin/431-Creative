@@ -9,11 +9,7 @@ export default class extends React.Component {
     //
     this.tranitions = props.tranitions
     let firstElement = this.tranitions.shift()
-    if (typeof firstElement === 'string') {
-      this.state.className = firstElement
-    } else {
-      this.state.className = ''
-    }
+    this.state.className = firstElement
   }
 
   transitionChange = () => {
