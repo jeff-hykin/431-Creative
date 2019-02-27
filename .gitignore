@@ -67,3 +67,6 @@ typings/
 #parcel stuff
 .cache*
 /static/dist
+
+# Secrets
+secrets.json

@@ -1,12 +1,25 @@
 const { settings } = require('./package.json')
+const secrets = require('./secrets.json')
 const chalk = require('chalk')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const _db = require('./database/wrapper')
 
 const PORT = process.env.PORT || settings.PORT
 
+app.use(require('cookie-parser')())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(require('express-session')({ secret: (process.env.SESSION_SECRET || secrets.express.SESSION_SECRET), resave: true, saveUninitialized: true }))
+
+// Connect to DB
+_db.connect()
+
+// Setup GOOGLE AUTH
+require('./backend/auth/index').setupGoogleAuth(app)
+
+// Setup API endpoints for functions
 require('./backend/setup-functions').setupBackendFunctions(app)
 
 if (process.env.NODE_ENV === 'development') {
