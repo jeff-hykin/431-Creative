@@ -1,6 +1,5 @@
 const passport = require('passport')
 let GoogleStrategy = require('passport-google-oauth20').Strategy
-const os = require('os')
 const { settings } = require('../../package.json')
 const { google } = require('../../secrets.json')
 
@@ -23,14 +22,14 @@ passport.use(new GoogleStrategy({
   callbackURL: `${CALLBACK_BASE}/auth/google/callback`
 }, async (accessToken, refreshToken, profile, cb) => {
   try {
-      let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
-      // Create user if not found.
-      if(!user) {
-          await createUser(profile['emails'][0].value, profile['name']['givenName'], profile['name']['familyName'])
-      }
-      cb(null, user)
+    let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
+    // Create user if not found.
+    if (!user) {
+      await createUser(profile['emails'][0].value, profile['name']['givenName'], profile['name']['familyName'])
+    }
+    cb(null, user)
   } catch (err) {
-      cb(err)
+    cb(err)
   }
 }))
 
@@ -46,7 +45,7 @@ passport.deserializeUser((_id, cb) => {
   })
 })
 
-module.exports.setupGoogleAuth = (app) => {
+function setupGoogleAuth (app) {
   // Initialize Passport and restore authentication state, if any, from the
   // session.
   app.use(passport.initialize())
@@ -56,11 +55,12 @@ module.exports.setupGoogleAuth = (app) => {
   app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
 
   app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-      // On success
-      res.redirect('/')
+    // On success
+    res.redirect('/')
   })
 }
 
 module.exports = {
+  setupGoogleAuth,
   passport
 }
