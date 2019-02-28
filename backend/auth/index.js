@@ -10,14 +10,20 @@ const PORT = process.env.PORT || settings.PORT
 const CLIENT_ID = process.env.CLIENT_ID || google.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET || google.CLIENT_SECRET
 
+// Callback Info
+const PROTOCOL = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+const HOST_NAME = process.env.NODE_ENV === 'production' ? settings.heroku.HOST_NAME : 'localhost'
+const CALLBACK_BASE = `${PROTOCOL}://${HOST_NAME}${process.env.NODE_ENV === 'production' ? '' : `:${PORT}`}`
+
 /* Passport Config */
 passport.use(new GoogleStrategy({
   clientID: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
-  callbackURL: `http://${os.hostname()}:${PORT}/auth/google/callback` // FIXME: Make the hostname for prod be the heroku app name. Add it to package.json. Also remove port
+  callbackURL: `${CALLBACK_BASE}/auth/google/callback`
 }, async (accessToken, refreshToken, email, cb) => {
   try {
       let user = await _db.db.collections.users.findOne({ email: email['emails'][0].value })
+      // Create user if not found. TODO: Create a create user function in utils and replace the following with that
       if(!user) {
           user = {
               email: email['emails'][0].value
