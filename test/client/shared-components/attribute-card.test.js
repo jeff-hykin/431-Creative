@@ -1,14 +1,23 @@
-// import { shallow } from 'enzyme'
-// import React from 'react'
-// import { expect } from 'chai'
-// import AttributeCard from '../../../client/shared-components/attribute-card'
+import { shallow } from 'enzyme'
+import React from 'react'
+import { expect } from 'chai'
+import AttributeCard from '../../../client/shared-components/attribute-card'
 
 describe('<AttributeCard />', () => {
+  let fakeProps = {
+    title: 'Skills',
+    description: ['Python, Ruby, C'],
+    edit: false
+  }
   it('contains the title of the card', () => {
     // Example: Skills
+    let wrapper = shallow(<AttributeCard {...fakeProps} />)
+    expect(wrapper.contains(<h5>{fakeProps.title}</h5>)).to.equal(true)
   })
   it('contains the description on the card', () => {
     // Example: List of skills
+    let wrapper = shallow(<AttributeCard {...fakeProps} />)
+    expect(wrapper.contains(<p>{fakeProps.description}</p>)).to.equal(true)
   })
   describe('Editing mode', () => {
     it('has a submit button', () => {
