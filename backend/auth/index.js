@@ -5,6 +5,7 @@ const { settings } = require('../../package.json')
 const { google } = require('../../secrets.json')
 
 const _db = require('../../database/wrapper')
+const { createUser } = require('../utils')
 
 const PORT = process.env.PORT || settings.PORT
 const CLIENT_ID = process.env.CLIENT_ID || google.CLIENT_ID
@@ -23,12 +24,9 @@ passport.use(new GoogleStrategy({
 }, async (accessToken, refreshToken, profile, cb) => {
   try {
       let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
-      // Create user if not found. TODO: Create a create user function in utils and replace the following with that
+      // Create user if not found.
       if(!user) {
-          user = {
-              email: profile['emails'][0].value
-          }
-          await _db.db.collections.users.insertOne(user)
+          await createUser(profile['emails'][0].value, profile['name']['givenName'], profile['name']['familyName'])
       }
       cb(null, user)
   } catch (err) {
@@ -37,11 +35,11 @@ passport.use(new GoogleStrategy({
 }))
 
 passport.serializeUser((user, cb) => {
-  cb(null, user.email)
+  cb(null, user._id)
 })
 
-passport.deserializeUser((email, cb) => {
-  _db.db.collections.users.findOne({ email }).then(user => {
+passport.deserializeUser((_id, cb) => {
+  _db.db.collections.users.findOne({ _id }).then(user => {
     cb(null, user)
   }).catch(err => {
     cb(err)
