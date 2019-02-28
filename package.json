@@ -51,7 +51,8 @@
     "react-dom": "^16.8.2",
     "react-matrix-parallax": "^2.1.3",
     "react-router-dom": "^4.3.1",
-    "react-toastify": "^4.5.2"
+    "react-toastify": "^4.5.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
