@@ -20,13 +20,13 @@ passport.use(new GoogleStrategy({
   clientID: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
   callbackURL: `${CALLBACK_BASE}/auth/google/callback`
-}, async (accessToken, refreshToken, email, cb) => {
+}, async (accessToken, refreshToken, profile, cb) => {
   try {
-      let user = await _db.db.collections.users.findOne({ email: email['emails'][0].value })
+      let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
       // Create user if not found. TODO: Create a create user function in utils and replace the following with that
       if(!user) {
           user = {
-              email: email['emails'][0].value
+              email: profile['emails'][0].value
           }
           await _db.db.collections.users.insertOne(user)
       }
@@ -55,7 +55,7 @@ module.exports.setupGoogleAuth = (app) => {
   app.use(passport.session())
 
   /* Routes */
-  app.get('/auth/google', passport.authenticate('google', { scope: ['email'] }))
+  app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
 
   app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
       // On success
