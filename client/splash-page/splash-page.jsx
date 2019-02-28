@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { ToastContainer, toast } from 'react-toastify'
@@ -90,9 +91,14 @@ export const classes = {
   }
 }
 
-export default withStyles(classes)(class extends React.Component {
+class SplashPage extends Component {
   notify = () => {
     toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
+  }
+
+  navigateToPostings = (e) => {
+    e.preventDefault()
+    this.props.history.push('/postings')
   }
 
   render () {
@@ -105,8 +111,8 @@ export default withStyles(classes)(class extends React.Component {
             Login
           </Button>
           <div style={{ width: '3rem' }} />
-          <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.notify}>
-            <span>Browse Listings</span>
+          <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
+            <span>Browse Postings</span>
           </Button>
         </div>
         <div className={styles.primaryTriangle + ' ' + this.props.classes.blueBackground} />
@@ -121,4 +127,6 @@ export default withStyles(classes)(class extends React.Component {
       <ToastContainer />
     </div>
   }
-})
+}
+
+export default withRouter(withStyles(classes)(SplashPage))
