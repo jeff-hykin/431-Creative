@@ -67,7 +67,7 @@ function setupGoogleAuth (app) {
     }
   })
 
-  app.get('/logout', (req, res) => {
+  app.get('/auth/google/logout', (req, res) => {
     req.logout()
     res.redirect('/')
   })

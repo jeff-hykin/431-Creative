@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import Transitioner from './transitioner'
 import { TITLE, DIV } from 'good-dom'
+import fetch from 'isomorphic-fetch'
 // pages
 import SplashPage from './splash-page/splash-page'
 import PageNotFound from './page-not-found/page-not-found'
@@ -54,17 +55,56 @@ let Page = ({ path, component, routeProps, componentProps }) => <Route
 />
 
 //
+// UserContext Definition
+//
+export const UserContext = React.createContext(null)
+
+//
 // Routes
 //
-let App = withStyles(classes)(props =>
-  <BrowserRouter>
-    {/* Pick which page to render */}
-    <Switch>
-      {Page({ componentProps: props, component: SplashPage, path: '/' }) }
-      {Page({ componentProps: props, component: PageNotFound }) }
-    </Switch>
-  </BrowserRouter>
-)
+let App = withStyles(classes)(class extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      user: null
+    }
+  }
+
+  componentDidMount () {
+    this.authenticate()
+  }
+
+  authenticate () {
+    fetch('/auth/google/authenticate', {
+      mode: 'no-cors'
+    }).then(res => {
+      return res.json()
+    }).then(data => {
+      if (data.authenticated) {
+        console.log('AUTHENTICATED')
+        this.setState({ user: data.user })
+      } else {
+        console.log('NOT AUTHENTICATED')
+      }
+    }).catch(err => {
+      console.error('Ran into an issue checking authentication...', err)
+    })
+  }
+
+  render () {
+    return (
+      <BrowserRouter>
+        {/* Pick which page to render */}
+        <UserContext.Provider value={this.state.user}>
+          <Switch>
+            {Page({ componentProps: this.props, component: SplashPage, path: '/' }) }
+            {Page({ componentProps: this.props, component: PageNotFound }) }
+          </Switch>
+        </UserContext.Provider>
+      </BrowserRouter>
+    )
+  }
+})
 
 // put the pages inside the container
 ReactDOM.render(React.createElement(App), reactContainer)

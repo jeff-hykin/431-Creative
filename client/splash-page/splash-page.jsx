@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
-import fetch from 'isomorphic-fetch'
+import { UserContext } from '../main'
 
 let titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
@@ -92,36 +92,10 @@ export const classes = {
 }
 
 export default withStyles(classes)(class extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      user: null
-    }
-  }
-
-  componentDidMount () {
-    this.authenticate()
-  }
+  static contextType = UserContext;
 
   notify = () => {
     toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
-  }
-
-  authenticate () {
-    fetch('/auth/google/authenticate', {
-      mode: 'no-cors'
-    }).then(res => {
-      return res.json()
-    }).then(data => {
-      if (data.authenticated) {
-        console.log('AUTHENTICATED')
-        this.setState({ user: data.user })
-      } else {
-        console.log('NOT AUTHENTICATED')
-      }
-    }).catch(err => {
-      console.error('Ran into an issue checking authentication...', err)
-    })
   }
 
   render () {
@@ -130,9 +104,23 @@ export default withStyles(classes)(class extends React.Component {
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
-            Login
-          </Button></a>
+          <UserContext.Consumer>
+            {user => {
+              if (user == null) {
+                return (
+                  <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Login
+                  </Button></a>
+                )
+              } else {
+                return (
+                  <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Logout
+                  </Button></a>
+                )
+              }
+            }}
+          </UserContext.Consumer>
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.notify}>
             <span>Browse Listings</span>
