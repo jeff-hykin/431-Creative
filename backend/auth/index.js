@@ -1,25 +1,19 @@
 const passport = require('passport')
 let GoogleStrategy = require('passport-google-oauth20').Strategy
-const { settings } = require('../../package.json')
 const { google } = require('../../secrets.json')
+const { HOST_AND_PROTOCOL } = require('../config')
 
 const _db = require('../../database/wrapper')
 const { createUser } = require('../utils')
 
-const PORT = process.env.PORT || settings.PORT
 const CLIENT_ID = process.env.CLIENT_ID || google.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET || google.CLIENT_SECRET
-
-// Callback Info
-const PROTOCOL = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-const HOST_NAME = process.env.NODE_ENV === 'production' ? settings.heroku.HOST_NAME : 'localhost'
-const CALLBACK_BASE = `${PROTOCOL}://${HOST_NAME}${process.env.NODE_ENV === 'production' ? '' : `:${PORT}`}`
 
 /* Passport Config */
 passport.use(new GoogleStrategy({
   clientID: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
-  callbackURL: `${CALLBACK_BASE}/auth/google/callback`
+  callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`
 }, async (accessToken, refreshToken, profile, cb) => {
   try {
     let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })

@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core'
 import Transitioner from './transitioner'
 import { TITLE, DIV } from 'good-dom'
 import fetch from 'isomorphic-fetch'
+import { HOST_AND_PROTOCOL } from '../backend/config'
 // pages
 import SplashPage from './splash-page/splash-page'
 import PageNotFound from './page-not-found/page-not-found'
@@ -75,7 +76,7 @@ let App = withStyles(classes)(class extends React.Component {
   }
 
   authenticate () {
-    fetch('/auth/google/authenticate', {
+    fetch(`${HOST_AND_PROTOCOL}/auth/google/authenticate`, {
       mode: 'no-cors'
     }).then(res => {
       return res.json()
