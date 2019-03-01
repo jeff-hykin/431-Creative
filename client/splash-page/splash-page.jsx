@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
+import fetch from 'isomorphic-fetch'
 
 let titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
