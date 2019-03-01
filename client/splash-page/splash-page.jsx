@@ -91,14 +91,14 @@ export const classes = {
 }
 
 export default withStyles(classes)(class extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       user: null
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.authenticate()
   }
 
@@ -108,11 +108,11 @@ export default withStyles(classes)(class extends React.Component {
 
   authenticate () {
     fetch('/auth/google/authenticate', {
-      mode: 'no-cors',
+      mode: 'no-cors'
     }).then(res => {
       return res.json()
     }).then(data => {
-      if(data.authenticated) {
+      if (data.authenticated) {
         console.log('AUTHENTICATED')
         this.setState({ user: data.user })
       } else {

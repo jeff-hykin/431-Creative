@@ -60,7 +60,7 @@ function setupGoogleAuth (app) {
   })
 
   app.get('/auth/google/authenticate', (req, res) => {
-    if(req.user) {
+    if (req.user) {
       res.json({ authenticated: true, user: req.user })
     } else {
       res.json({ authenticated: false })
@@ -70,7 +70,7 @@ function setupGoogleAuth (app) {
   app.get('/logout', (req, res) => {
     req.logout()
     res.redirect('/')
-  });
+  })
 }
 
 module.exports = {
