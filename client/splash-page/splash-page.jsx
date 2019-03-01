@@ -92,8 +92,6 @@ export const classes = {
 }
 
 export default withStyles(classes)(class extends React.Component {
-  static contextType = UserContext;
-
   notify = () => {
     toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
   }
