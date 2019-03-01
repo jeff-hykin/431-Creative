@@ -8,5 +8,6 @@ describe('<SplashPage />', () => {
   it('has login, browse, and create buttons', () => {
     const wrapper = mount(<SplashPage />)
     expect(wrapper.find(Button)).to.have.lengthOf(3)
+    wrapper.unmount()
   })
 })

@@ -72,13 +72,13 @@ async function insertManyUsers (documents, ordered = true) {
 
 /* Read Operations */
 
-async function findOnePost (query = {}, projection = {}) {
+async function findOnePost (query, projection = {}) {
   let postCollection = dbo.collection(POST_COLLECTION)
   let post = await postCollection.findOne(query, projection)
   return post
 }
 
-async function findManyPosts (query = {}, projection = {}) {
+async function findManyPosts (query, projection = {}) {
   let postCollection = dbo.collection(POST_COLLECTION)
   let posts = await postCollection.find(query, projection).toArray()
   return posts
