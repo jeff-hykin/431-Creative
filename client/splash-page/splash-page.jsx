@@ -91,8 +91,36 @@ export const classes = {
 }
 
 export default withStyles(classes)(class extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      user: null
+    }
+  }
+
+  componentDidMount() {
+    this.authenticate()
+  }
+
   notify = () => {
     toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
+  }
+
+  authenticate () {
+    fetch('/auth/google/authenticate', {
+      mode: 'no-cors',
+    }).then(res => {
+      return res.json()
+    }).then(data => {
+      if(data.authenticated) {
+        console.log('AUTHENTICATED')
+        this.setState({ user: data.user })
+      } else {
+        console.log('NOT AUTHENTICATED')
+      }
+    }).catch(err => {
+      console.error('Ran into an issue checking authentication...', err)
+    })
   }
 
   render () {
@@ -101,9 +129,9 @@ export default withStyles(classes)(class extends React.Component {
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
+          <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
             Login
-          </Button>
+          </Button></a>
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.notify}>
             <span>Browse Listings</span>
