@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
 
-let titleStyles = {
+const titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
 }
 let buttonStyles = {
@@ -15,13 +15,13 @@ let buttonStyles = {
   transform: 'scale(1.3)',
   zIndex: 100
 }
-let offsetSides = 'calc(5vw + 1rem)'
-let buttonSideAdditionalOffset = '1.9rem'
-let offsetBottomAndTop = '15vh'
+const offsetSides = 'calc(5vw + 1rem)'
+const buttonSideAdditionalOffset = '1.9rem'
+const offsetBottomAndTop = '15vh'
 
-export const classes = {
+export const classes = theme => ({
   bottomLeftTitle: {
-    color: colors.blue,
+    color: theme.palette.primary.main,
     marginLeft: offsetSides
   },
   topRightTitle: {
@@ -54,7 +54,7 @@ export const classes = {
     }
   },
   blueBackground: {
-    backgroundColor: colors.blue
+    backgroundColor: theme.palette.primary.main
   },
   whiteBackground: {
     backgroundColor: colors.white
@@ -64,7 +64,7 @@ export const classes = {
     padding: '0.4rem 0.7rem',
     marginRight: buttonSideAdditionalOffset,
     backgroundColor: colors.white,
-    color: colors.blue,
+    color: theme.palette.primary.main,
     '&:hover': {
       color: colors.white
     }
@@ -74,10 +74,10 @@ export const classes = {
     padding: '0.4rem 0.7rem',
     marginLeft: `calc(${buttonSideAdditionalOffset} + ${offsetSides})`,
     marginBottom: '1rem',
-    backgroundColor: colors.blue,
+    backgroundColor: theme.palette.primary.main,
     color: colors.white,
     '&:hover': {
-      color: colors.blue
+      color: theme.palette.primary.main
     }
   },
   loginButton: {
@@ -89,7 +89,7 @@ export const classes = {
     // right: '2rem',
     backgroundColor: colors.teal
   }
-}
+})
 
 class SplashPage extends Component {
   notify = () => {
