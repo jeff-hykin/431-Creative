@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { ToastContainer, toast } from 'react-toastify'
@@ -6,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
 
-let titleStyles = {
+const titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
 }
 let buttonStyles = {
@@ -14,13 +15,13 @@ let buttonStyles = {
   transform: 'scale(1.3)',
   zIndex: 100
 }
-let offsetSides = 'calc(5vw + 1rem)'
-let buttonSideAdditionalOffset = '1.9rem'
-let offsetBottomAndTop = '15vh'
+const offsetSides = 'calc(5vw + 1rem)'
+const buttonSideAdditionalOffset = '1.9rem'
+const offsetBottomAndTop = '15vh'
 
-export const classes = {
+export const classes = theme => ({
   bottomLeftTitle: {
-    color: colors.blue,
+    color: theme.palette.primary.main,
     marginLeft: offsetSides
   },
   topRightTitle: {
@@ -53,7 +54,7 @@ export const classes = {
     }
   },
   blueBackground: {
-    backgroundColor: colors.blue
+    backgroundColor: theme.palette.primary.main
   },
   whiteBackground: {
     backgroundColor: colors.white
@@ -63,7 +64,7 @@ export const classes = {
     padding: '0.4rem 0.7rem',
     marginRight: buttonSideAdditionalOffset,
     backgroundColor: colors.white,
-    color: colors.blue,
+    color: theme.palette.primary.main,
     '&:hover': {
       color: colors.white
     }
@@ -73,10 +74,10 @@ export const classes = {
     padding: '0.4rem 0.7rem',
     marginLeft: `calc(${buttonSideAdditionalOffset} + ${offsetSides})`,
     marginBottom: '1rem',
-    backgroundColor: colors.blue,
+    backgroundColor: theme.palette.primary.main,
     color: colors.white,
     '&:hover': {
-      color: colors.blue
+      color: theme.palette.primary.main
     }
   },
   loginButton: {
@@ -88,11 +89,16 @@ export const classes = {
     // right: '2rem',
     backgroundColor: colors.teal
   }
-}
+})
 
-export default withStyles(classes)(class extends React.Component {
+class SplashPage extends Component {
   notify = () => {
     toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
+  }
+
+  navigateToPostings = (e) => {
+    e.preventDefault()
+    this.props.history.push('/postings')
   }
 
   render () {
@@ -105,8 +111,8 @@ export default withStyles(classes)(class extends React.Component {
             Login
           </Button>
           <div style={{ width: '3rem' }} />
-          <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.notify}>
-            <span>Browse Listings</span>
+          <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
+            <span>Browse Postings</span>
           </Button>
         </div>
         <div className={styles.primaryTriangle + ' ' + this.props.classes.blueBackground} />
@@ -121,4 +127,6 @@ export default withStyles(classes)(class extends React.Component {
       <ToastContainer />
     </div>
   }
-})
+}
+
+export default withRouter(withStyles(classes)(SplashPage))
