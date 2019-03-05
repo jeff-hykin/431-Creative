@@ -7,6 +7,7 @@ import Transitioner from './transitioner'
 import { TITLE, DIV } from 'good-dom'
 // pages
 import SplashPage from './splash-page/splash-page'
+import ProfilePage from './profile-page/profile-page'
 import PageNotFound from './page-not-found/page-not-found'
 
 //
@@ -61,6 +62,7 @@ let App = withStyles(classes)(props =>
     {/* Pick which page to render */}
     <Switch>
       {Page({ componentProps: props, component: SplashPage, path: '/' }) }
+      {Page({ componentProps: props, component: ProfilePage, path: '/profile' }) }
       {Page({ componentProps: props, component: PageNotFound }) }
     </Switch>
   </BrowserRouter>
