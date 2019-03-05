@@ -3,7 +3,8 @@ export const colors = {
   softRed: '#e57373',
   blue: '#2196f3',
   offWhite: 'whitesmoke',
-  white: '#FFFFFF'
+  white: '#FFFFFF',
+  gray: '#808080'
 }
 
 const theme = {

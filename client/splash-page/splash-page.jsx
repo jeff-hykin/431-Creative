@@ -84,9 +84,9 @@ export const classes = theme => ({
     ...buttonStyles,
     color: colors.white,
     borderColor: colors.white,
-    // position: 'fixed',
-    // top: '1.2rem',
-    // right: '2rem',
+    position: 'fixed',
+    top: '1.2rem',
+    right: '2rem',
     backgroundColor: colors.teal
   }
 })
@@ -107,9 +107,6 @@ class SplashPage extends Component {
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
-            Login
-          </Button>
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
             <span>Browse Postings</span>
@@ -124,6 +121,9 @@ class SplashPage extends Component {
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
       </div>
+      <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
+        Login
+      </Button>
       <ToastContainer />
     </div>
   }
