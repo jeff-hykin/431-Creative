@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
+import Page from '../page'
 
 const titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
@@ -21,7 +22,7 @@ const offsetBottomAndTop = '15vh'
 
 export const classes = theme => ({
   bottomLeftTitle: {
-    color: theme.palette.primary.main,
+    color: colors.blue,
     marginLeft: offsetSides
   },
   topRightTitle: {
@@ -54,7 +55,7 @@ export const classes = theme => ({
     }
   },
   blueBackground: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: colors.blue
   },
   whiteBackground: {
     backgroundColor: colors.white
@@ -64,7 +65,7 @@ export const classes = theme => ({
     padding: '0.4rem 0.7rem',
     marginRight: buttonSideAdditionalOffset,
     backgroundColor: colors.white,
-    color: theme.palette.primary.main,
+    color: colors.blue,
     '&:hover': {
       color: colors.white
     }
@@ -74,10 +75,10 @@ export const classes = theme => ({
     padding: '0.4rem 0.7rem',
     marginLeft: `calc(${buttonSideAdditionalOffset} + ${offsetSides})`,
     marginBottom: '1rem',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: colors.blue,
     color: colors.white,
     '&:hover': {
-      color: theme.palette.primary.main
+      color: colors.blue
     }
   },
   loginButton: {
@@ -87,7 +88,7 @@ export const classes = theme => ({
     // position: 'fixed',
     // top: '1.2rem',
     // right: '2rem',
-    backgroundColor: colors.teal
+    backgroundColor: colors.blue
   }
 })
 
@@ -129,4 +130,4 @@ class SplashPage extends Component {
   }
 }
 
-export default withRouter(withStyles(classes)(SplashPage))
+export default Page(withRouter(withStyles(classes)(SplashPage)))
