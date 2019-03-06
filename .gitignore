@@ -67,3 +67,5 @@ typings/
 #parcel stuff
 .cache*
 /static/dist
+
+.idea

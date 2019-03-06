@@ -11,7 +11,9 @@ before_install:
 - docker pull mongo
 branches:
   only:
-  - master
+    - master
+    - release_2
+
 install: npm install
 script: npm run coverage
 deploy:

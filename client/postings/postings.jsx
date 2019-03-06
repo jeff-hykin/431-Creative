@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Posting from './posting'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import Page from '../page'
 
 const styles = theme => ({
   root: {
@@ -36,4 +37,4 @@ function Postings ({ classes }) {
   )
 }
 
-export default withStyles(styles)(Postings)
+export default Page(withStyles(styles)(Postings))
