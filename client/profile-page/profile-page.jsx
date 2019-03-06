@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Grid from '@material-ui/core/Grid'
 import Posting from '../postings/posting'
+import UserContext from '../user-context'
 import Page from '../page'
 
 const classes = theme => ({
@@ -16,8 +17,7 @@ const classes = theme => ({
     padding: 10,
     paddingBottom: 60,
     backgroundColor: colors.teal,
-    width: '100vw',
-    height: '20%'
+    width: '100vw'
   },
   profileName: {
     color: colors.white,
@@ -65,10 +65,23 @@ class ProfilePage extends Component {
         <Button id='myposts' variant='outlined' className={this.props.classes.rightButton}>
             My postings
         </Button>
-        <Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
+        <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
             Logout
-        </Button>
-        <h3 className={this.props.classes.profileName} >Your Name</h3>
+        </Button></a>
+        <UserContext.Consumer>
+          {user => {
+            if (user == null) {
+              return (
+                <h3 className={this.props.classes.profileName} >Your Name</h3>
+              )
+            } else {
+              return (
+                <h3 className={this.props.classes.profileName} >{user.firstName + ' ' + user.lastName}</h3>
+              )
+            }
+          }
+          }
+        </UserContext.Consumer>
       </div>
 
       <div className={this.props.classes.container}>
@@ -78,7 +91,7 @@ class ProfilePage extends Component {
             direction='column'
             margin={5}
             justify='center'
-            alignItems='left'
+            alignItems='center'
             spacing={40}
           >
             <Grid item>
@@ -89,9 +102,9 @@ class ProfilePage extends Component {
             </Grid>
           </Grid>
         </div>
-        <h1>
-          User info...
-        </h1>
+        <div>
+          contact info..
+        </div>
       </div>
     </div>
   }
