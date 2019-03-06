@@ -85,11 +85,41 @@ export const classes = theme => ({
 
 class MakePosting extends Component {
 	handleChange = name => event => {
-	  //this.props.({ [name]: event.target.value });
+	  this.state[name] = event.target.value;
+	}
+	
+	handleCardName = num => event => {
+	  this.state.details[parseInt(num)].name = event.target.value;
+		this.setState(this.state)
 	}
 
-	savePosting = {
-		api['make-posting'](this.props.post).then(ret => {console.log(ret)})
+	handleCardDetail = num => event => {
+	  this.state.details[num].detail = event.target.value;
+		this.setState(this.state)
+	}
+
+	addCard = (e) => {
+		const tind = this.state.details.length
+		this.state.details = this.state.details.concat([{name: '', detail: '', ind: tind}])
+		this.setState(this.state)
+	}
+
+	savePosting = (e) => {
+		api['make-posting'](this.state)
+	}
+
+	goHome = (e) => {
+		e.preventDefault()
+		this.props.history.push('/')
+	}
+
+	test = (e) => {
+		console.log(2)
+	}
+
+	constructor(props) {
+		super(props)
+		this.state = {id: 0, details: [{name: '', detail: '', ind: 0}]}
 	}
 
 	render () {
@@ -97,24 +127,24 @@ class MakePosting extends Component {
   		<div className={this.props.classes.titleBar}>
 	      <Grid container spacing={0}>
 	        <Grid container item xs>
-	          <Button id='cancelButton' variant='outlined' className={this.props.classes.cancelButton}>
+	          <Button id='cancelButton' variant='outlined' className={this.props.classes.cancelButton} onClick={this.goHome}>
           		Cancel
-  </Button>
-  </Grid>
+  					</Button>
+  				</Grid>
 	        <Grid container item xs justify='flex-end'>
-	          <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton}>
+	          <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton} onClick={this.savePosting}>
             	Save
-  </Button>
-  </Grid>
-    </Grid>
+  					</Button>
+  				</Grid>
+    		</Grid>
 	      <TextField
 	        id='postTitle'
-      label='Title'
-      name='Title'
+      		label='Title'
+      		name='Title'
 	        className={this.props.classes.textField}
-	        value={this.props.title}
+	        value={this.state.title}
 	        InputProps={{
-        	  classes: {
+        		classes: {
   						input: this.props.classes.textField
 	          }
 	        }}
@@ -123,82 +153,83 @@ class MakePosting extends Component {
 	      />
 	    </div>
   		<div className={this.props.classes.content}>
-    <div className={this.props.classes.cards} id='cards'>
-  <Card className={classes.card}>
+    		<div className={this.props.classes.cards} id='cards'>
+					{ this.state.details.map((item) => (
+					<Card className={classes.card} key={item.ind} id={item.name}>
 	          <CardContent>
 	            <TextField
 	              id='detailName'
-    label='Detail'
-    name='Detail'
-	              value={this.props.name}
-    onChange={this.handleChange('Detail')}
+    						label='Detail'
+    						name='Detail'
+	              value={item.name}
+    						onChange={this.handleCardName(item.ind)}
 	              margin='normal'
 	            />
-      <br />
-      <TextField
+      				<br />
+      				<TextField
 	              id='filled-multiline-flexible'
-	              label='Multiline'
+	              label='Description'
 	              multiline
-	              rowsMax='4'
-	              value={this.props.multiline}
-	              onChange={this.handleChange('m')}
+	              rowsMax='12'
+	              value={item.detail}
+	              onChange={this.handleCardDetail(item.ind)}
 	              className={classes.textField}
 	              margin='normal'
-	              helperText='hello'
 	              variant='filled'
         			/>
-    </CardContent>
-	        </Card>
-  <div className={this.props.classes.alignBottom}>
-  <Fab color='secondary' aria-label='Add' className={classes.margin}>
-  <AddIcon />
+    				</CardContent>
+					</Card>
+					))}
+  				<div className={this.props.classes.alignBottom}>
+  					<Fab color='secondary' aria-label='Add' className={classes.margin} onClick={this.addCard}>
+  						<AddIcon />
 	          </Fab>
 	        </div>
 	      </div>
-    <div className={this.props.classes.contacts}>
-  <Card className={classes.card}>
+    		<div className={this.props.classes.contacts}>
+  				<Card className={classes.card}>
 	          <CardContent>
-      <div className={this.props.classes.bigFont}>
+      				<div className={this.props.classes.bigFont}>
 								Contact Info
 	            </div>
-      <hr />
+      				<hr />
 	            <TextField
 	              id='postEmail'
-    label='Email'
-    name='Email'
+    						label='Email'
+    						name='Email'
 	              className={this.props.classes.textField}
-	              value={this.props.name}
-	              onChange={this.handleChange('name')}
+	              value={this.state.email}
+	              onChange={this.handleChange('email')}
 	              margin='normal'
 	            />
 	            <TextField
 	              id='post'
-    label='Company'
-    name='Title'
+    						label='Company'
+    						name='Title'
 	              className={this.props.classes.textField}
-	              value={this.props.name}
-	              onChange={this.handleChange('name')}
+	              value={this.state.company}
+	              onChange={this.handleChange('company')}
 	              margin='normal'
 	            />
 	            <TextField
 	              id='postName'
-    label='Phone'
-    name='Title'
+    						label='Phone'
+    						name='Title'
 	              className={this.props.classes.textField}
-	              value={this.props.name}
-	              onChange={this.handleChange('name')}
+	              value={this.state.phone}
+	              onChange={this.handleChange('phone')}
 	              margin='normal'
 	            />
 	            <TextField
 	              id='postName'
-    label='LinkedIn'
-    name='Title'
+    						label='LinkedIn'
+    						name='Title'
 	              className={this.props.classes.textField}
-	              value={this.props.name}
-	              onChange={this.handleChange('name')}
+	              value={this.state.linkedin}
+	              onChange={this.handleChange('linkedin')}
 	              margin='normal'
 	            />
-    </CardContent>
+    				</CardContent>
 	        </Card>
 	      </div>
 	    </div>
