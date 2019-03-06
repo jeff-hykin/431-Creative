@@ -101,6 +101,11 @@ class SplashPage extends Component {
     this.props.history.push('/postings')
   }
 
+  navigateToNewPosting = (e) => {
+    e.preventDefault()
+    this.props.history.push('/makeposting')
+  }
+
   render () {
     return <div id='splashPage' className={this.props.className}>
       {/* Blue triangle */}
@@ -116,7 +121,7 @@ class SplashPage extends Component {
       </div>
       {/* White */}
       <div className={this.props.classes.bottomLeftMessage}>
-        <Button id='createButton' className={this.props.classes.createButton} onClick={this.notify}>
+        <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
           <span>Make a Listing</span>
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
