@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { DIV } from 'good-dom'
 
-import App from './routes'
+import Routes from './routes'
 import { classes } from './theme'
 
 //
@@ -15,6 +15,11 @@ const reactContainer = new DIV({
 document.body.children = [
   reactContainer
 ]
+
+let App = (props) =>
+  <React.Fragment>
+    <Routes />
+  </React.Fragment>
 
 // put the pages inside the container
 ReactDOM.render(React.createElement(App), reactContainer)
