@@ -104,6 +104,7 @@ export default withStyles(classes)(class extends React.Component {
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
           <UserContext.Consumer>
             {user => {
+              /* istanbul ignore next */
               if (user == null) {
                 return (
                   <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>

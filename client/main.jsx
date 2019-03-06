@@ -73,6 +73,7 @@ let App = withStyles(classes)(class extends React.Component {
     }).then(res => {
       return res.json()
     }).then(data => {
+      /* istanbul ignore if */
       if (data.authenticated) {
         console.log('AUTHENTICATED')
         this.setState({ user: data.user })
