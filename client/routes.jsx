@@ -6,6 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import SplashPage from './splash-page/splash-page'
 import PageNotFound from './page-not-found/page-not-found'
 import Postings from './postings/postings'
+import MakePosting from './make-posting/make-posting'
 import theme from './theme'
 
 //
@@ -23,6 +24,7 @@ const App = props => (
       <Switch>
         <Route component={SplashPage} path='/' exact />
         <Route component={Postings} path='/postings' exact />
+        <Route component={MakePosting} path='/makeposting' exact />
         <Route component={PageNotFound} />
       </Switch>
     </Router>

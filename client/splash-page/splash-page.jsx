@@ -84,9 +84,9 @@ export const classes = theme => ({
     ...buttonStyles,
     color: colors.white,
     borderColor: colors.white,
-    // position: 'fixed',
-    // top: '1.2rem',
-    // right: '2rem',
+    position: 'fixed',
+    top: '1.2rem',
+    right: '2rem',
     backgroundColor: colors.teal
   }
 })
@@ -101,15 +101,17 @@ class SplashPage extends Component {
     this.props.history.push('/postings')
   }
 
+  navigateToNewPosting = (e) => {
+    e.preventDefault()
+    this.props.history.push('/makeposting')
+  }
+
   render () {
     return <div id='splashPage' className={this.props.className}>
       {/* Blue triangle */}
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
-            Login
-          </Button>
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
             <span>Browse Postings</span>
@@ -119,11 +121,14 @@ class SplashPage extends Component {
       </div>
       {/* White */}
       <div className={this.props.classes.bottomLeftMessage}>
-        <Button id='createButton' className={this.props.classes.createButton} onClick={this.notify}>
+        <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
           <span>Make a Listing</span>
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
       </div>
+      <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
+        Login
+      </Button>
       <ToastContainer />
     </div>
   }
