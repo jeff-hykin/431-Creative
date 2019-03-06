@@ -14,5 +14,6 @@ describe('<SplashPage />', () => {
       </Router>
     )
     expect(wrapper.find(Button)).to.have.lengthOf(3)
+    wrapper.unmount()
   })
 })

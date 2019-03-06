@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
+import UserContext from '../user-context'
 import Page from '../page'
 
 const titleStyles = {
@@ -108,9 +109,24 @@ class SplashPage extends Component {
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
-            Login
-          </Button>
+          <UserContext.Consumer>
+            {user => {
+              /* istanbul ignore next */
+              if (user == null) {
+                return (
+                  <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Login
+                  </Button></a>
+                )
+              } else {
+                return (
+                  <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Logout
+                  </Button></a>
+                )
+              }
+            }}
+          </UserContext.Consumer>
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
             <span>Browse Postings</span>
