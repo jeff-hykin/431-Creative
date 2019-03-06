@@ -62,7 +62,7 @@ class App extends React.Component {
       </React.Fragment>
     )
   }
-} 
+}
 
 // put the pages inside the container
 ReactDOM.render(React.createElement(App), reactContainer)
