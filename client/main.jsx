@@ -3,7 +3,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
-// import Transitioner from './transitioner'
 import { TITLE, DIV } from 'good-dom'
 import fetch from 'isomorphic-fetch'
 import { HOST_AND_PROTOCOL } from '../backend/config'
@@ -41,19 +40,6 @@ export const classes = {
 
 // this is a wrapper for the route so that we dont have to write out "<Transitioner ..." for every single page
 // transitioner adds page animations when the page is loaded
-// let Page = ({ path, component, routeProps, componentProps }) => <Route
-//   exact={path != null}
-//   path={path}
-//   component={() =>
-//     <Transitioner
-//       perisitantClassName={componentProps.classes.page}
-//       tranitions={[componentProps.classes.pageNotLoaded, 0, componentProps.classes.pageFullyLoaded]}
-//       component={component}
-//       componentProps={componentProps}
-//     />
-//   }
-//   {...routeProps}
-// />
 const Page = ({ path, component, routeProps, componentProps }) => <Route
   exact={path != null}
   path={path}
