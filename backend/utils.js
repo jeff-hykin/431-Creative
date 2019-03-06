@@ -14,7 +14,8 @@ async function createUser (email, firstName = '', lastName = '', role = '') {
     fields: [], // list of objects representing fields
     role
   }
-  await _db.db.collections.users.insertOne(user)
+  let result = await _db.db.collections.users.insertOne(user)
+  return result
 }
 
 module.exports = {
