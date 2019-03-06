@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 // import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
-import 'react-toastify/dist/ReactToastify.min.css'
 import { colors } from '../theme'
+import Page from '../page'
 
-export const classes = {
+const classes = theme => ({
   titleBar: {
+    margin: 0,
+    padding: 0,
     borderRadius: '2rem',
     paddingLeft: '3%',
     paddingRight: '3%',
@@ -16,14 +19,11 @@ export const classes = {
     height: '20%'
   },
   profileName: {
-    color: colors.white,
-    textAlign: 'right',
-    marginRight: '80vw',
-    alignItems: 'flex-end',
+    color: colors.white
   }
-}
+})
 
-export default withStyles(classes)(class extends React.Component {
+class ProfilePage extends Component {
   render () {
     return <div id='ProfilePage' className={this.props.className}>
       <div className={this.props.classes.titleBar}>
@@ -31,4 +31,6 @@ export default withStyles(classes)(class extends React.Component {
       </div>
     </div>
   }
-})
+}
+
+export default Page(withStyles(classes)(ProfilePage))
