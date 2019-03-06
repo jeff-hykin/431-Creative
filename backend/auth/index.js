@@ -1,13 +1,9 @@
 const passport = require('passport')
 let GoogleStrategy = require('passport-google-oauth20').Strategy
-const { google } = require('../../secrets.json')
-const { HOST_AND_PROTOCOL } = require('../config')
+const { HOST_AND_PROTOCOL, CLIENT_ID, CLIENT_SECRET } = require('../config')
 
 const _db = require('../../database/wrapper')
 const { createUser } = require('../utils')
-
-const CLIENT_ID = process.env.CLIENT_ID || google.CLIENT_ID
-const CLIENT_SECRET = process.env.CLIENT_SECRET || google.CLIENT_SECRET
 
 /* Passport Config */
 passport.use(new GoogleStrategy({

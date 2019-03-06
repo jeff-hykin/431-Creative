@@ -20,11 +20,6 @@ document.body.children = [
   reactContainer
 ]
 
-// //
-// // UserContext Definition
-// //
-// export const UserContext = React.createContext(null)
-
 class App extends React.Component {
   constructor (props) {
     super(props)
