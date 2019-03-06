@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
-import { UserContext } from '../app'
+import UserContext from '../user-context'
 import Page from '../page'
 
 const titleStyles = {

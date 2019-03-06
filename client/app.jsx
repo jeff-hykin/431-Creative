@@ -8,6 +8,8 @@ import Routes from './routes'
 import { classes } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
 
+import UserContext from './user-context'
+
 //
 // set body
 //
@@ -18,10 +20,10 @@ document.body.children = [
   reactContainer
 ]
 
-//
-// UserContext Definition
-//
-export const UserContext = React.createContext(null)
+// //
+// // UserContext Definition
+// //
+// export const UserContext = React.createContext(null)
 
 class App extends React.Component {
   constructor (props) {
@@ -55,11 +57,9 @@ class App extends React.Component {
 
   render () {
     return (
-      <React.Fragment>
-        <UserContext.Provider value={this.state.user}>
-          <Routes />
-        </UserContext.Provider>
-      </React.Fragment>
+      <UserContext.Provider value={this.state.user}>
+        <Routes />
+      </UserContext.Provider>
     )
   }
 }
