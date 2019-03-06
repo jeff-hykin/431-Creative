@@ -2,7 +2,7 @@ import { mount } from 'enzyme'
 import React from 'react'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import App from '../../client/main'
+import App from '../../client/app'
 import '../../app'
 
 describe('<App />', () => {

@@ -65,5 +65,5 @@ class App extends React.Component {
 }
 
 // put the pages inside the container
-ReactDOM.render(React.createElement(App), reactContainer)
+ReactDOM.render(App, reactContainer)
 export default App
