@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid'
 
 import SkillChips from '../components/skills'
 import PostDescriptions from './posting-description'
+import { colors } from '../theme'
 
 const styles = theme => ({
   card: {
@@ -20,9 +21,9 @@ const styles = theme => ({
     height: 140
   },
   cardAction: {
-    background: theme.palette.secondary.main,
+    background: colors.teal,
     '& h2': {
-      color: theme.palette.common.white,
+      color: colors.white,
       whiteSpace: 'normal'
     }
   },
@@ -32,7 +33,7 @@ const styles = theme => ({
     textOverflow: 'ellipsis'
   },
   paperStyle: {
-    padding: theme.spacing.unit * 2,
+    padding: 16,
     height: '100%'
   }
 })

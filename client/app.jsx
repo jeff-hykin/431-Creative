@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom'
 import { DIV } from 'good-dom'
 
 import App from './routes'
+import { classes } from './theme'
 
 //
 // set body
 //
-const reactContainer = new DIV()
+const reactContainer = new DIV({
+  style: classes.body
+})
 document.body.children = [
   reactContainer
 ]
