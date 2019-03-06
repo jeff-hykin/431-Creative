@@ -16,6 +16,7 @@ before_install:
 branches:
   only:
     - master
+    - release_2
 
 install: npm install
 
