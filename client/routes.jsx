@@ -1,7 +1,6 @@
 import 'regenerator-runtime/runtime'
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Page from './page'
 
 // pages
 import SplashPage from './splash-page/splash-page'
@@ -15,8 +14,8 @@ export default (props) =>
   <Router>
     {/* Pick which page to render */}
     <Switch>
-      <Route component={Page(SplashPage)} path='/' exact />
-      <Route component={Page(Postings)} path='/postings' exact />
-      <Route component={Page(PageNotFound)} />
+      <Route component={SplashPage} path='/' exact />
+      <Route component={Postings} path='/postings' exact />
+      <Route component={PageNotFound} />
     </Switch>
   </Router>
