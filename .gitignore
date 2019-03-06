@@ -68,5 +68,7 @@ typings/
 .cache*
 /static/dist
 
+.idea
+
 # Secrets
 secrets.json

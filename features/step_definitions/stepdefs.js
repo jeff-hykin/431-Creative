@@ -2,7 +2,7 @@ import { configure, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import './attach-jsdom'
 import React from 'react'
-import App from '../../client/main'
+import Routes from '../../client/routes'
 import { expect } from 'chai'
 import { Given, When, Then } from 'cucumber'
 import { createBrowserHistory } from 'history'
@@ -27,7 +27,7 @@ Given('I am at a nonexistent URL', function () {
   // load a non existant URL
   history.push('/nonexistent')
   // mount the app with that URL
-  global.screen = mount(<App />)
+  global.screen = mount(<Routes />)
 })
 
 Then('I should see {string} on the page', function (string) {
@@ -44,7 +44,7 @@ Given('I am on the splash page', function () {
   // load the homepage
   history.push('/')
   // mount the app with that URL
-  global.screen = mount(<App />)
+  global.screen = mount(<Routes />)
 })
 
 When('I click login', function () {
