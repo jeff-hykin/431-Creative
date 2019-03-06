@@ -3,7 +3,7 @@ import Adapter from 'enzyme-adapter-react-16'
 import './attach-jsdom'
 import React from 'react'
 import Routes from '../../client/routes'
-import expect from 'expect'
+import { expect } from 'chai'
 import { Given, When, Then } from 'cucumber'
 import { createBrowserHistory } from 'history'
 

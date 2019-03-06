@@ -70,3 +70,6 @@ typings/
 /static/dist
 
 .idea
+
+# Secrets
+secrets.json

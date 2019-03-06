@@ -12,17 +12,16 @@ const USER_COLLECTION = 'users'
 async function connect (database = DEFAULT_DB) {
   const options = { useNewUrlParser: true }
 
-  /* istanbul ignore if */
-  if (process.env.NODE_ENV === 'development') {
-    /* istanbul ignore next */
-    db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options)
-    /* istanbul ignore next */
-    dbo = db.db(database)
-  }
-
+  /* istanbul ignore else */
   if (process.env.NODE_ENV === 'testing') {
     db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}-test`, options)
     dbo = db.db(`${database}-test`)
+  }
+
+  /* istanbul ignore if */
+  if (process.env.NODE_ENV === 'development') {
+    db = await mongo.MongoClient.connect(`mongodb://localhost:27017/${database}`, options)
+    dbo = db.db(database)
   }
 
   /* istanbul ignore if */
@@ -72,13 +71,13 @@ async function insertManyUsers (documents, ordered = true) {
 
 /* Read Operations */
 
-async function findOnePost (query = {}, projection = {}) {
+async function findOnePost (query, projection = {}) {
   let postCollection = dbo.collection(POST_COLLECTION)
   let post = await postCollection.findOne(query, projection)
   return post
 }
 
-async function findManyPosts (query = {}, projection = {}) {
+async function findManyPosts (query, projection = {}) {
   let postCollection = dbo.collection(POST_COLLECTION)
   let posts = await postCollection.find(query, projection).toArray()
   return posts
