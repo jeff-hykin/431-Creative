@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
+import UserContext from '../user-context'
 import Page from '../page'
 
 const titleStyles = {
@@ -127,9 +128,24 @@ class SplashPage extends Component {
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
       </div>
-      <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
-        Login
-      </Button>
+      <UserContext.Consumer>
+        {user => {
+          /* istanbul ignore next */
+          if (user == null) {
+            return (
+              <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Login
+              </Button></a>
+            )
+          } else {
+            return (
+              <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Logout
+              </Button></a>
+            )
+          }
+        }}
+      </UserContext.Consumer>
       <ToastContainer />
     </div>
   }

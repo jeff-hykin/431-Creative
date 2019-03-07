@@ -9,5 +9,6 @@ describe('<PageNotFound />', () => {
     const wrapper = shallow(<PageNotFound />)
     expect(wrapper.containsMatchingElement(<h2>404</h2>)).to.equal(true)
     expect(wrapper.containsMatchingElement(<h5>Page Not Found</h5>)).to.equal(true)
+    wrapper.unmount()
   })
 })

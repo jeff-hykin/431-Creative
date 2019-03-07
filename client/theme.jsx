@@ -2,7 +2,8 @@ export let classes = {}
 classes.vbox = {
   display: 'flex',
   alignItems: 'center',
-  alignContent: 'center'
+  alignContent: 'center',
+  flexDirection: 'column'
 }
 classes.body = {
   ...classes.vbox,

@@ -2,16 +2,12 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import { colors } from '../theme'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import Input from '@material-ui/core/Input'
 import AddIcon from '@material-ui/icons/Add'
 import Fab from '@material-ui/core/Fab'
 import { api } from '../../backend/setup-functions'
@@ -33,7 +29,7 @@ export const classes = theme => ({
     height: '22vh'
   },
   rightAlign: {
-	  justifyContent: 'right'
+    justifyContent: 'right'
   },
   flexInline: {
     display: 'inline-flex'
@@ -84,157 +80,157 @@ export const classes = theme => ({
 })
 
 class MakePosting extends Component {
-	handleChange = name => event => {
-	  this.state[name] = event.target.value
-	}
+  handleChange = name => event => {
+    this.state[name] = event.target.value
+  }
 
-	handleCardName = num => event => {
-	  this.state.details[parseInt(num)].name = event.target.value
-	  this.setState(this.state)
-	}
+  handleCardName = num => event => {
+    this.state.details[parseInt(num)].name = event.target.value
+    this.setState(this.state)
+  }
 
-	handleCardDetail = num => event => {
-	  this.state.details[num].detail = event.target.value
-	  this.setState(this.state)
-	}
+  handleCardDetail = num => event => {
+    this.state.details[num].detail = event.target.value
+    this.setState(this.state)
+  }
 
-	addCard = (e) => {
-	  const tind = this.state.details.length
-	  this.state.details = this.state.details.concat([{ name: '', detail: '', ind: tind }])
-	  this.setState(this.state)
-	}
+  addCard = (e) => {
+    const tind = this.state.details.length
+    this.state.details = this.state.details.concat([{ name: '', detail: '', ind: tind }])
+    this.setState(this.state)
+  }
 
-	savePosting = (e) => {
-	  api['make-posting'](this.state)
-	}
+  savePosting = (e) => {
+    api['make-posting'](this.state).then(response =>{console.log(response)})
+  }
 
-	goHome = (e) => {
-	  e.preventDefault()
-	  this.props.history.push('/')
-	}
+  goHome = (e) => {
+    e.preventDefault()
+    this.props.history.push('/')
+  }
 
-	test = (e) => {
-	  console.log(2)
-	}
+  test = (e) => {
+    console.log(2)
+  }
 
-	constructor (props) {
-	  super(props)
-	  this.state = { id: 0, details: [{ name: '', detail: '', ind: 0 }] }
-	}
+  constructor (props) {
+    super(props)
+    this.state = { id: 0, details: [{ name: '', detail: '', ind: 0 }] }
+  }
 
-	render () {
-	  return <div id='makePosting' className={this.props.className} style={{ width: '100%' }}>
-  		<div className={this.props.classes.titleBar}>
-	      <Grid container spacing={0}>
-	        <Grid container item xs>
-	          <Button id='cancelButton' variant='outlined' className={this.props.classes.cancelButton} onClick={this.goHome}>
-          		Cancel
-  </Button>
-  </Grid>
-	        <Grid container item xs justify='flex-end'>
-	          <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton} onClick={this.savePosting}>
-            	Save
-  </Button>
-  </Grid>
-    </Grid>
-	      <TextField
-	        id='postTitle'
-	        label='Title'
-	        name='Title'
-	        className={this.props.classes.textField}
-	        value={this.state.title}
-	        InputProps={{
-        		classes: {
-  						input: this.props.classes.textField
-	          }
-	        }}
-	        onChange={this.handleChange('name')}
-	        margin='normal'
-	      />
-	    </div>
-  		<div className={this.props.classes.content}>
-    		<div className={this.props.classes.cards} id='cards'>
-      { this.state.details.map((item) => (
-  <Card className={classes.card} key={item.ind} id={item.name}>
-	            <CardContent>
-	              <TextField
-	                id='detailName'
-	                label='Detail'
-	                name='Detail'
-	                value={item.name}
-	                onChange={this.handleCardName(item.ind)}
-	                margin='normal'
-	            />
-	              <br />
-	              <TextField
-	                id='filled-multiline-flexible'
-	                label='Description'
-	                multiline
-	                rowsMax='12'
-	                value={item.detail}
-	                onChange={this.handleCardDetail(item.ind)}
-	                className={classes.textField}
-	                margin='normal'
-	                variant='filled'
-        			/>
-    </CardContent>
-	          </Card>
-	        ))}
-	        <div className={this.props.classes.alignBottom}>
-	          <Fab color='secondary' aria-label='Add' className={classes.margin} onClick={this.addCard}>
-	            <AddIcon />
-  </Fab>
+  render () {
+    return <div id='makePosting' className={this.props.className} style={{ width: '100%' }}>
+      <div className={this.props.classes.titleBar}>
+        <Grid container spacing={0}>
+          <Grid container item xs>
+            <Button id='cancelButton' variant='outlined' className={this.props.classes.cancelButton} onClick={this.goHome}>
+              Cancel
+            </Button>
+          </Grid>
+          <Grid container item xs justify='flex-end'>
+            <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton} onClick={this.savePosting}>
+              Save
+            </Button>
+          </Grid>
+        </Grid>
+        <TextField
+          id='postTitle'
+          label='Title'
+          name='Title'
+          className={this.props.classes.textField}
+          value={this.state.title}
+          InputProps={{
+            classes: {
+              input: this.props.classes.textField
+            }
+          }}
+          onChange={this.handleChange('name')}
+          margin='normal'
+        />
       </div>
-	      </div>
-    		<div className={this.props.classes.contacts}>
-	        <Card className={classes.card}>
-	          <CardContent>
-	            <div className={this.props.classes.bigFont}>
-								Contact Info
-  </div>
-	            <hr />
-	            <TextField
-	              id='postEmail'
-	              label='Email'
-	              name='Email'
-	              className={this.props.classes.textField}
-	              value={this.state.email}
-	              onChange={this.handleChange('email')}
-	              margin='normal'
-	            />
-	            <TextField
-	              id='post'
-	              label='Company'
-	              name='Title'
-	              className={this.props.classes.textField}
-	              value={this.state.company}
-	              onChange={this.handleChange('company')}
-	              margin='normal'
-	            />
-	            <TextField
-	              id='postName'
-	              label='Phone'
-	              name='Title'
-	              className={this.props.classes.textField}
-	              value={this.state.phone}
-	              onChange={this.handleChange('phone')}
-	              margin='normal'
-	            />
-	            <TextField
-	              id='postName'
-	              label='LinkedIn'
-	              name='Title'
-	              className={this.props.classes.textField}
-	              value={this.state.linkedin}
-	              onChange={this.handleChange('linkedin')}
-	              margin='normal'
-	            />
-  </CardContent>
-      </Card>
-	      </div>
-	    </div>
-	  </div>
-	}
+      <div className={this.props.classes.content}>
+        <div className={this.props.classes.cards} id='cards'>
+          { this.state.details.map((item) => (
+            <Card className={classes.card} key={item.ind} id={item.name}>
+              <CardContent>
+                <TextField
+                  id='detailName'
+                  label='Detail'
+                  name='Detail'
+                  value={item.name}
+                  onChange={this.handleCardName(item.ind)}
+                  margin='normal'
+                />
+                <br />
+                <TextField
+                  id='filled-multiline-flexible'
+                  label='Description'
+                  multiline
+                  rowsMax='12'
+                  value={item.detail}
+                  onChange={this.handleCardDetail(item.ind)}
+                  className={classes.textField}
+                  margin='normal'
+                  variant='filled'
+                />
+              </CardContent>
+            </Card>
+          ))}
+          <div className={this.props.classes.alignBottom}>
+            <Fab color='secondary' aria-label='Add' className={classes.margin} onClick={this.addCard}>
+              <AddIcon />
+            </Fab>
+          </div>
+        </div>
+        <div className={this.props.classes.contacts}>
+          <Card className={classes.card}>
+            <CardContent>
+              <div className={this.props.classes.bigFont}>
+                Contact Info
+              </div>
+              <hr />
+              <TextField
+                id='postEmail'
+                label='Email'
+                name='Email'
+                className={this.props.classes.textField}
+                value={this.state.email}
+                onChange={this.handleChange('email')}
+                margin='normal'
+              />
+              <TextField
+                id='post'
+                label='Company'
+                name='Title'
+                className={this.props.classes.textField}
+                value={this.state.company}
+                onChange={this.handleChange('company')}
+                margin='normal'
+              />
+              <TextField
+                id='postName'
+                label='Phone'
+                name='Title'
+                className={this.props.classes.textField}
+                value={this.state.phone}
+                onChange={this.handleChange('phone')}
+                margin='normal'
+              />
+              <TextField
+                id='postName'
+                label='LinkedIn'
+                name='Title'
+                className={this.props.classes.textField}
+                value={this.state.linkedin}
+                onChange={this.handleChange('linkedin')}
+                margin='normal'
+              />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  }
 }
 
 export default withRouter(withStyles(classes)(MakePosting))

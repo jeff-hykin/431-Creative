@@ -12,7 +12,7 @@ import theme from './theme'
 //
 // Routes
 //
-const App = props => (
+export default (props) =>
   <Router>
     {/* Pick which page to render */}
     <Switch>
@@ -22,6 +22,3 @@ const App = props => (
       <Route component={PageNotFound} />
     </Switch>
   </Router>
-)
-
-export default App
