@@ -1,12 +1,26 @@
 const { settings } = require('./package.json')
+const { PORT, SESSION_SECRET } = require('./backend/config')
 const chalk = require('chalk')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const _db = require('./database/wrapper')
 
-const PORT = process.env.PORT || settings.PORT
-
+app.use(require('cookie-parser')())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(require('cookie-session')({
+  secret: SESSION_SECRET,
+  maxAge: 24 * 60 * 60 * 1000 /* 24 hours */
+}))
+
+// Connect to DB
+_db.connect()
+
+// Setup GOOGLE AUTH
+require('./backend/auth/index').setupGoogleAuth(app)
+
+// Setup API endpoints for functions
 require('./backend/setup-functions').setupBackendFunctions(app)
 
 if (process.env.NODE_ENV === 'development') {

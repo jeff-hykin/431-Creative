@@ -1,8 +1,6 @@
-const db = require('../../database/wrapper.js')
+const _db = require('../../database/wrapper.js')
 
 module.exports = async (data) => {
-  db.connect()
-  let ret = db.collections.posts.insertOne(data)
-  db.close()
+  let ret = _db.db.collections.posts.insertOne(data)
   return ret
 }

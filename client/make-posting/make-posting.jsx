@@ -101,7 +101,7 @@ class MakePosting extends Component {
   }
 
   savePosting = (e) => {
-    api['make-posting'](this.state)
+    api['make-posting'](this.state).then(response =>{console.log(response)})
   }
 
   goHome = (e) => {
