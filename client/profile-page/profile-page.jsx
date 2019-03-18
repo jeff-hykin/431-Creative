@@ -13,16 +13,26 @@ const classes = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     margin: 0,
-    borderRadius: '2rem',
     padding: 10,
     paddingBottom: 60,
     backgroundColor: colors.teal,
     width: '100vw'
   },
+  contactBox: {
+    padding: 40,
+    flexShrink: 1
+  },
   profileName: {
     color: colors.white,
     margin: 10,
     width: '100vw'
+  },
+  contactInfo: {
+    color: colors.white,
+    padding: 30,
+    width: '40vw',
+    margin: 0,
+    backgroundColor: colors.teal
   },
   leftButton: {
     marginRight: 'auto',
@@ -62,9 +72,6 @@ class ProfilePage extends Component {
         <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
             All Posts
         </Button>
-        <Button id='myposts' variant='outlined' className={this.props.classes.rightButton}>
-            My postings
-        </Button>
         <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
             Logout
         </Button></a>
@@ -102,8 +109,23 @@ class ProfilePage extends Component {
             </Grid>
           </Grid>
         </div>
-        <div>
-          contact info..
+        <div className={this.props.classes.contactBox}>
+          <UserContext.Consumer>
+            {user => {
+              if (user == null) {
+                return (
+                  <h5 className={this.props.classes.contactInfo} >Your Name</h5>
+                )
+              } else {
+                return (<div>
+                  <h5 className={this.props.classes.contactInfo} >{'Contact info:'}</h5>
+                  <div className={this.props.classes.contactInfo} >{'Email:  ' + user.email}</div>
+                </div>
+                )
+              }
+            }
+            }
+          </UserContext.Consumer>
         </div>
       </div>
     </div>
