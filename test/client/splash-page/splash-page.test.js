@@ -14,6 +14,9 @@ describe('<SplashPage />', () => {
       </Router>
     )
     expect(wrapper.find(Button)).to.have.lengthOf(3)
+    for (let i = 0; i < wrapper.find(Button).length; i++) {
+      wrapper.find(Button).at(i).simulate('click')
+    }
     wrapper.unmount()
   })
 })
