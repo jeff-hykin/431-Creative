@@ -78,6 +78,7 @@ class ProfilePage extends Component {
         <UserContext.Consumer>
           {user => {
             if (user == null) {
+              // location.assign('/auth/google')
               return (
                 <h3 className={this.props.classes.profileName} >Your Name</h3>
               )
