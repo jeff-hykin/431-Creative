@@ -102,6 +102,12 @@ class SplashPage extends Component {
     e.preventDefault()
     this.props.history.push('/postings')
   }
+  navigateToProfile = (e) => {
+    /* istanbul ignore next */
+    e.preventDefault()
+    /* istanbul ignore next */
+    this.props.history.push('/profile')
+  }
 
   render () {
     return <div id='splashPage' className={this.props.className}>
@@ -120,9 +126,9 @@ class SplashPage extends Component {
                 )
               } else {
                 return (
-                  <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
-                    Logout
-                  </Button></a>
+                  <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToProfile}>
+                    Profile
+                  </Button>
                 )
               }
             }}
