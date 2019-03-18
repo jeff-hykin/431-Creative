@@ -18,7 +18,7 @@ let buttonStyles = {
   zIndex: 100
 }
 
-export const classes = theme => ({
+const classes = theme => ({
   titleBar: {
     paddingLeft: '3%',
     paddingRight: '3%',
@@ -81,7 +81,9 @@ export const classes = theme => ({
 
 class MakePosting extends Component {
   handleChange = name => event => {
-    this.state[name] = event.target.value
+    let temp = this.state
+    temp[name] = event.target.value
+    this.setState(temp)
   }
 
   handleCardName = num => event => {
@@ -91,6 +93,7 @@ class MakePosting extends Component {
 
   handleCardDetail = num => event => {
     this.state.details[num].detail = event.target.value
+    console.log(num)
     this.setState(this.state)
   }
 
@@ -101,16 +104,12 @@ class MakePosting extends Component {
   }
 
   savePosting = (e) => {
-    api['make-posting'](this.state).then(response =>{console.log(response)})
+    api['make-posting'](this.state).then(response => { console.log(response) })
   }
 
   goHome = (e) => {
     e.preventDefault()
     this.props.history.push('/')
-  }
-
-  test = (e) => {
-    console.log(2)
   }
 
   constructor (props) {
@@ -233,4 +232,5 @@ class MakePosting extends Component {
   }
 }
 
+export { MakePosting, classes }
 export default withRouter(withStyles(classes)(MakePosting))
