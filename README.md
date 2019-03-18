@@ -61,7 +61,8 @@ npm run client
 # Testing
 Our application makes use of both unit and behavior tests using the following packages:
 - [Mocha](https://mochajs.org/) - general testing framework
-- [Enzyme](https://airbnb.io/enzyme/) - testing for React
+- [Enzyme](https://airbnb.io/enzyme/) - testing for React that plugs into Mocha
+- [Istanbul](https://istanbul.js.org/) - code coverage that works with Mocha
 - [Cucumber](https://cucumber.io/) - behavior driven development
 
 To run the tests:
