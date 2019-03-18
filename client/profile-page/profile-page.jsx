@@ -77,6 +77,7 @@ class ProfilePage extends Component {
         </Button></a>
         <UserContext.Consumer>
           {user => {
+            /* istanbul ignore next */
             if (user == null) {
               // location.assign('/auth/google')
               return (
@@ -113,6 +114,7 @@ class ProfilePage extends Component {
         <div className={this.props.classes.contactBox}>
           <UserContext.Consumer>
             {user => {
+              /* istanbul ignore next */
               if (user == null) {
                 return (
                   <h5 className={this.props.classes.contactInfo} >Your Name</h5>

@@ -102,9 +102,10 @@ class SplashPage extends Component {
     e.preventDefault()
     this.props.history.push('/postings')
   }
-
   navigateToProfile = (e) => {
+    /* istanbul ignore next */
     e.preventDefault()
+    /* istanbul ignore next */
     this.props.history.push('/profile')
   }
 
