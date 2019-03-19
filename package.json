@@ -102,7 +102,8 @@
       "static/",
       "backend/auth/index.js",
       "backend/config.js",
-      "app.js"
+      "app.js",
+      "backend/functions/"
     ],
     "extension": [
       ".jsx"
