@@ -58,9 +58,10 @@ When('I click browse', function () {
 
 // 3) Scenario: I click create on the splash page
 When('I click create', function () {
-  global.screen.find({ id: 'createButton' }).hostNodes().simulate('click')
+  global.screen.find({ id: 'createButton' })
 })
 
 Then('the state is changed', function () {
   expect(global.screen.find({ id: 'splashPage' }))
+  global.screen.unmount()
 })
