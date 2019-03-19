@@ -8,7 +8,7 @@ import ProfilePage from './profile-page/profile-page'
 import PageNotFound from './page-not-found/page-not-found'
 import Postings from './postings/postings'
 import MakePosting from './make-posting/make-posting'
-import theme from './theme'
+// import theme from './theme'
 
 //
 // Routes
