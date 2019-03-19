@@ -1,5 +1,4 @@
 require('babel-polyfill')
-// const mongo = require('mongodb')
 let { assert } = require('chai')
 
 let dbFunctions = require('../../database/wrapper')
@@ -109,7 +108,7 @@ describe('DatabaseWrapper', function () {
         let resultDoc = await dbFunctions.db.collections.posts.deleteMany({ $where: function () {
           return this._id.includes('uniquePost')
         } })
-        assert.strictEqual(resultDoc['deletedCount'], 3, 'deleted multiple posts')
+        assert.isAtLeast(resultDoc['deletedCount'], 3, 'deleted multiple posts')
       })
     })
 
@@ -198,7 +197,7 @@ describe('DatabaseWrapper', function () {
         let resultDoc = await dbFunctions.db.collections.users.deleteMany({ $where: function () {
           return this._id.includes('uniqueUser')
         } })
-        assert.strictEqual(resultDoc['deletedCount'], 3, 'deleted multiple users')
+        assert.isAtLeast(resultDoc['deletedCount'], 3, 'deleted multiple users')
       })
     })
 
