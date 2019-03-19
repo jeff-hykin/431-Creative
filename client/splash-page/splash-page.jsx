@@ -86,10 +86,10 @@ export const classes = theme => ({
     ...buttonStyles,
     color: colors.white,
     borderColor: colors.white,
-    // position: 'fixed',
-    // top: '1.2rem',
-    // right: '2rem',
-    backgroundColor: colors.blue
+    position: 'fixed',
+    top: '1.2rem',
+    right: '2rem',
+    backgroundColor: colors.teal
   }
 })
 
@@ -107,6 +107,11 @@ class SplashPage extends Component {
     e.preventDefault()
     /* istanbul ignore next */
     this.props.history.push('/profile')
+  }
+
+  navigateToNewPosting = (e) => {
+    e.preventDefault()
+    this.props.history.push('/makeposting')
   }
 
   render () {
@@ -142,7 +147,7 @@ class SplashPage extends Component {
       </div>
       {/* White */}
       <div className={this.props.classes.bottomLeftMessage}>
-        <Button id='createButton' className={this.props.classes.createButton} onClick={this.notify}>
+        <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
           <span>Make a Listing</span>
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
