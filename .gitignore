@@ -1,6 +1,7 @@
 dist/
 .cache/
 .DS_Store
+secrets.json
 
 # Logs
 logs
@@ -69,3 +70,6 @@ typings/
 /static/dist
 
 .idea
+
+# Secrets
+secrets.json

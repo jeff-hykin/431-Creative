@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
+import UserContext from '../user-context'
 import Page from '../page'
 
 const titleStyles = {
@@ -85,10 +86,10 @@ export const classes = theme => ({
     ...buttonStyles,
     color: colors.white,
     borderColor: colors.white,
-    // position: 'fixed',
-    // top: '1.2rem',
-    // right: '2rem',
-    backgroundColor: colors.blue
+    position: 'fixed',
+    top: '1.2rem',
+    right: '2rem',
+    backgroundColor: colors.teal
   }
 })
 
@@ -101,6 +102,17 @@ class SplashPage extends Component {
     e.preventDefault()
     this.props.history.push('/postings')
   }
+  navigateToProfile = (e) => {
+    /* istanbul ignore next */
+    e.preventDefault()
+    /* istanbul ignore next */
+    this.props.history.push('/profile')
+  }
+
+  navigateToNewPosting = (e) => {
+    e.preventDefault()
+    this.props.history.push('/makeposting')
+  }
 
   render () {
     return <div id='splashPage' className={this.props.className}>
@@ -108,9 +120,24 @@ class SplashPage extends Component {
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.notify}>
-            Login
-          </Button>
+          <UserContext.Consumer>
+            {user => {
+              /* istanbul ignore next */
+              if (user == null) {
+                return (
+                  <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Login
+                  </Button></a>
+                )
+              } else {
+                return (
+                  <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToProfile}>
+                    Profile
+                  </Button>
+                )
+              }
+            }}
+          </UserContext.Consumer>
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
             <span>Browse Postings</span>
@@ -120,7 +147,7 @@ class SplashPage extends Component {
       </div>
       {/* White */}
       <div className={this.props.classes.bottomLeftMessage}>
-        <Button id='createButton' className={this.props.classes.createButton} onClick={this.notify}>
+        <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
           <span>Make a Listing</span>
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
