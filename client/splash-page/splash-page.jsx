@@ -102,6 +102,12 @@ class SplashPage extends Component {
     e.preventDefault()
     this.props.history.push('/postings')
   }
+  navigateToProfile = (e) => {
+    /* istanbul ignore next */
+    e.preventDefault()
+    /* istanbul ignore next */
+    this.props.history.push('/profile')
+  }
 
   navigateToNewPosting = (e) => {
     e.preventDefault()
@@ -114,6 +120,24 @@ class SplashPage extends Component {
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
+          <UserContext.Consumer>
+            {user => {
+              /* istanbul ignore next */
+              if (user == null) {
+                return (
+                  <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+                    Login
+                  </Button></a>
+                )
+              } else {
+                return (
+                  <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToProfile}>
+                    Profile
+                  </Button>
+                )
+              }
+            }}
+          </UserContext.Consumer>
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
             <span>Browse Postings</span>

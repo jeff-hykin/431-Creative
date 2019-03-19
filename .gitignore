@@ -1,6 +1,7 @@
 dist/
 .cache/
 .DS_Store
+secrets.json
 
 # Logs
 logs

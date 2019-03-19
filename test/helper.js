@@ -12,6 +12,10 @@ function copyProps (src, target) {
     ...Object.getOwnPropertyDescriptors(target)
   })
 }
+window.history.pushState = (location) => {
+  window.lastedPushedLocation = location
+  return true
+}
 
 global.window = window
 global.document = window.document
