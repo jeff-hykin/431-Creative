@@ -103,7 +103,9 @@ class MakePosting extends Component {
     this.setState(this.state)
   }
 
+  /* istanbul ignore next */
   savePosting = (e) => {
+    /* istanbul ignore next */
     api['make-posting'](this.state).then(response => { console.log(response) })
   }
 
