@@ -152,24 +152,6 @@ class SplashPage extends Component {
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
       </div>
-      <UserContext.Consumer>
-        {user => {
-          /* istanbul ignore next */
-          if (user == null) {
-            return (
-              <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
-                    Login
-              </Button></a>
-            )
-          } else {
-            return (
-              <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
-                    Logout
-              </Button></a>
-            )
-          }
-        }}
-      </UserContext.Consumer>
       <ToastContainer />
     </div>
   }
