@@ -9,9 +9,9 @@ Feature: Splash page functionality
 	Scenario: I click browse on the splash page
 		Given I am on the splash page
 		When I click browse
-		Then the state is changed
+		Then I am on the postings page
 
 	Scenario: I click create on the splash page
 		Given I am on the splash page
 		When I click create
-		Then the state is changed
+		Then I am on the new posting page
