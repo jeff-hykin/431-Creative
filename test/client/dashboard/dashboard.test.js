@@ -3,14 +3,14 @@ import { mount } from 'enzyme'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 // import { expect } from 'chai'
-import ProfilePage from '../../../client/profile-page/profile-page'
+import Dashboard from '../../../client/dashboard/dashboard'
 import Button from '@material-ui/core/Button'
 
-describe('<ProfilePage />', () => {
-  it('has login, browse, and create buttons', () => {
+describe('<Dashboard />', () => {
+  it('has clickable buttons that dont crash', () => {
     const wrapper = mount(
       <Router>
-        <ProfilePage />
+        <Dashboard />
       </Router>
     )
 

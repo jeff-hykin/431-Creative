@@ -22,7 +22,7 @@ const classes = theme => ({
     padding: 40,
     flexShrink: 1
   },
-  profileName: {
+  dashboardName: {
     color: colors.white,
     margin: 10,
     width: '100vw'
@@ -60,14 +60,14 @@ const classes = theme => ({
   }
 })
 
-class ProfilePage extends Component {
+class Dashboard extends Component {
   navigateToPostings = (e) => {
     e.preventDefault()
     this.props.history.push('/postings')
   }
 
   render () {
-    return <div id='ProfilePage' className={this.props.className}>
+    return <div id='Dashboard' className={this.props.className}>
       <div className={this.props.classes.titleBar}>
         <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
             All Posts
@@ -81,11 +81,11 @@ class ProfilePage extends Component {
             if (user == null) {
               // location.assign('/auth/google')
               return (
-                <h3 className={this.props.classes.profileName} >Your Name</h3>
+                <h3 className={this.props.classes.dashboardName} >Your Name</h3>
               )
             } else {
               return (
-                <h3 className={this.props.classes.profileName} >{user.firstName + ' ' + user.lastName}</h3>
+                <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
               )
             }
           }
@@ -135,4 +135,4 @@ class ProfilePage extends Component {
   }
 }
 
-export default Page(withRouter(withStyles(classes)(ProfilePage)))
+export default Page(withRouter(withStyles(classes)(Dashboard)))
