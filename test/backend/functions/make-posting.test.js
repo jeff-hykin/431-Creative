@@ -29,12 +29,37 @@ describe('Make Posting', function () {
       assert.include(post, { ownerId: USER_ID })
     })
 
-    it('should return unauthorized', async function () {
-
+    it('should throw unauthorized', async function () {
+      let errStr = ''
+      try {
+        await makePosting(undefined, {
+          description: 'description',
+          title: 'default',
+          contactInfo: { 'email': 'test@gmail.com' },
+          skills: ['Python'],
+          fields: []
+        })
+      } catch (err) {
+        errStr = err.toString()
+      }
+      assert.strictEqual(errStr, 'Error: not authorized')
     })
 
     it('should return w/ error for missing parameters', async function () {
-
+      const USER_ID = 'testID'
+      let errStr = ''
+      try {
+        await makePosting({ _id: USER_ID }, {
+          description: '',
+          title: 'default',
+          contactInfo: { 'email': 'test@gmail.com' },
+          skills: ['Python'],
+          fields: []
+        })
+      } catch (err) {
+        errStr = err.toString()
+      }
+      assert.strictEqual(errStr, 'Error: missing post parameters')
     })
   })
 

@@ -103,8 +103,8 @@
       "backend/auth/index.js",
       "backend/config.js",
       "backend/setup-functions.js",
-      "app.js",
-      "backend/functions/"
+      "backend/functions/*",
+      "app.js"
     ],
     "extension": [
       ".jsx"
