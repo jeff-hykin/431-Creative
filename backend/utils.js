@@ -18,6 +18,31 @@ async function createUser (email, firstName = '', lastName = '', role = '') {
   return result
 }
 
+async function createPost(ownerId, title, description, contactInfo, skills, fields) {
+  let date = new Date()
+  let id = uuidv4()
+  let post = {
+    _id: id,
+    ownerId,
+    title,
+    description,
+    contactInfo
+    dateCreated: date,
+    dateModified: date,
+    skills,
+    fields // list of objects representing fields
+  }
+
+  // Add post
+  let result = await _db.db.collections.posts.insertOne(post)
+
+  // Update User to have post id
+  await _db.db.collections.users.updateOne({ _id: ownerId }, { $push: { myPosts: id } })
+
+  return result
+}
+
 module.exports = {
-  createUser
+  createUser,
+  createPost
 }
