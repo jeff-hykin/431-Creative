@@ -102,11 +102,11 @@ class SplashPage extends Component {
     e.preventDefault()
     this.props.history.push('/postings')
   }
-  navigateToProfile = (e) => {
+  navigateToDashboard = (e) => {
     /* istanbul ignore next */
     e.preventDefault()
     /* istanbul ignore next */
-    this.props.history.push('/profile')
+    this.props.history.push('/dashboard')
   }
 
   navigateToNewPosting = (e) => {
@@ -131,8 +131,8 @@ class SplashPage extends Component {
                 )
               } else {
                 return (
-                  <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToProfile}>
-                    Profile
+                  <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToDashboard}>
+                    Dashboard
                   </Button>
                 )
               }
