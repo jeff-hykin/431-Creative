@@ -23,7 +23,8 @@ module.exports.setupBackendFunctions = (app) => {
         res.send({ output })
       } catch (error) {
         // send the error to the frontend
-        res.send({ error })
+        console.error(error)
+        res.send({ error: error.toString() })
       }
     })
   }

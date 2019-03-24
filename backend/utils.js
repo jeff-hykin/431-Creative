@@ -18,7 +18,7 @@ async function createUser (email, firstName = '', lastName = '', role = '') {
   return result
 }
 
-async function createPost(ownerId, title, description, contactInfo, skills, fields) {
+async function createPost (ownerId, title, description, contactInfo, skills, fields) {
   let date = new Date()
   let id = uuidv4()
   let post = {
@@ -26,7 +26,7 @@ async function createPost(ownerId, title, description, contactInfo, skills, fiel
     ownerId,
     title,
     description,
-    contactInfo
+    contactInfo,
     dateCreated: date,
     dateModified: date,
     skills,
