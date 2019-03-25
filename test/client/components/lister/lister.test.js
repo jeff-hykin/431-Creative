@@ -1,21 +1,39 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { mount } from 'enzyme'
 
-import Page from '../page'
-import Lister from '../components/lister'
+import { expect } from 'chai'
+import Lister from '../../../../client/components/lister/lister'
 
-const styles = theme => ({
-  root: {
-    margin: '50px auto',
-    width: '100%',
-    maxWidth: '800px'
+describe('<Lister />', () => {
+  let props
+  let mountedLister
+  const postingsComponent = () => {
+    if (!mountedLister) {
+      mountedLister = mount(
+        <Lister {...props} />
+      )
+    }
+    return mountedLister
   }
-})
 
-function Postings ({ classes }) {
-  return (
-    <section className={classes.root}>
-      <Lister list={[{
+  beforeEach(() => {
+    props = {
+      list: undefined
+    }
+    mountedLister = undefined
+  })
+
+  it('shows message when no items provided', () => {
+    props = {
+      list: []
+    }
+    const p = postingsComponent().find('p')
+    expect(p.length).to.be.eq(1)
+  })
+
+  it('shows 1 item', () => {
+    props = {
+      list: [{
         title: 'Odd job #1',
         id: 0,
         showView: true,
@@ -36,9 +54,9 @@ function Postings ({ classes }) {
         onDelete: console.log,
         onView: console.log,
         onEdit: console.log
-      }]} />
-    </section>
-  )
-}
-
-export default Page(withStyles(styles)(Postings))
+      }]
+    }
+    const h2 = postingsComponent().find('h2')
+    expect(h2.length).to.be.eq(1)
+  })
+})
