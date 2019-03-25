@@ -1,6 +1,7 @@
 //
 // FIXME: change the res.send, and fetch() code so these functions actually work
 //
+
 let subdomain = '/backend'
 module.exports.setupBackendFunctions = (app) => {
   const fs = require('fs')
@@ -17,12 +18,12 @@ module.exports.setupBackendFunctions = (app) => {
     // create the route
     app.post(subdomain + '/' + eachName, async (req, res) => {
       try {
-        let output = await backendFunctions[eachName](...req.body.args)
+        let output = await backendFunctions[eachName](req.user, ...req.body.args)
         // run the backend function with the arguments
         res.send({ output })
       } catch (error) {
         // send the error to the frontend
-        res.send({ error })
+        res.send({ error: error.toString() })
       }
     })
   }
