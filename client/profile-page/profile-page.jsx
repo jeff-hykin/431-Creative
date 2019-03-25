@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Grid from '@material-ui/core/Grid'
-import Posting from '../postings/posting'
+import Lister from '../components/lister'
 import UserContext from '../user-context'
 import Page from '../page'
 
@@ -104,10 +104,10 @@ class ProfilePage extends Component {
             spacing={40}
           >
             <Grid item>
-              <Posting />
+              <Lister />
             </Grid>
             <Grid item>
-              <Posting />
+              <Lister />
             </Grid>
           </Grid>
         </div>
