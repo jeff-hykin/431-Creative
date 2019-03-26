@@ -9,18 +9,22 @@ const { createUser } = require('../utils')
 passport.use(new GoogleStrategy({
   clientID: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
-  callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`
+  callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`,
+  // This option tells the strategy to use the userinfo endpoint instead
+  userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
 }, async (accessToken, refreshToken, profile, cb) => {
-  try {
-    let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
-    // Create user if not found.
-    if (!user) {
-      await createUser(profile['emails'][0].value, profile['name']['givenName'], profile['name']['familyName'])
+  process.nextTick(async () => {
+    try {
+      let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
+      // Create user if not found.
+      if (!user) {
+        user = (await createUser(profile['emails'][0].value, profile['name']['givenName'], profile['name']['familyName'])).ops[0]
+      }
+      cb(null, user)
+    } catch (err) {
+      cb(err)
     }
-    cb(null, user)
-  } catch (err) {
-    cb(err)
-  }
+  })
 }))
 
 passport.serializeUser((user, cb) => {
