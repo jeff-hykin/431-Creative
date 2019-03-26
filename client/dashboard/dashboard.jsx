@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import Lister from '../components/lister'
 import UserContext from '../user-context'
 import Page from '../page'
+import { api } from '../../backend/setup-functions'
 
 const classes = theme => ({
   titleBar: {
@@ -66,6 +67,11 @@ class Dashboard extends Component {
     this.props.history.push('/postings')
   }
 
+  getPostings(user) {
+    console.log(user._id)
+    api['get-postings']({ 'OwnerId': user._id }).then(response => { console.log(response) })
+  }
+
   render () {
     return <div id='Dashboard' className={this.props.className}>
       <div className={this.props.classes.titleBar}>
@@ -84,6 +90,7 @@ class Dashboard extends Component {
                 <h3 className={this.props.classes.dashboardName} >Your Name</h3>
               )
             } else {
+              this.getPostings(user)
               return (
                 <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
               )
