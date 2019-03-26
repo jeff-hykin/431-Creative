@@ -8,6 +8,8 @@ import styles from './styles.sass'
 import { colors } from '../theme'
 import UserContext from '../user-context'
 import Page from '../page'
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
@@ -90,6 +92,22 @@ export const classes = theme => ({
     top: '1.2rem',
     right: '2rem',
     backgroundColor: colors.teal
+  },
+  title: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    zIndex: '100',
+    borderColor: colors.blue,
+    border: 'solid',
+    borderWidth: '2dp',
+    boxShadow: 'none',
+    borderRadius: '30px',
+  },
+  titleText: {
+    textAlign: 'center',
+    color: colors.blue,
   }
 })
 
@@ -116,6 +134,16 @@ class SplashPage extends Component {
 
   render () {
     return <div id='splashPage' className={this.props.className}>
+      <Card className={this.props.classes.title}>
+        <CardContent>
+          <h2 className={this.props.classes.titleText}>
+            Aggie Coding Connect
+          </h2>
+          <h6 className={this.props.classes.titleText}>
+            Where Coders Find Projects
+          </h6>
+        </CardContent>
+      </Card>
       {/* Blue triangle */}
       <div className={this.props.classes.topRightMessage}>
         <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>

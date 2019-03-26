@@ -62,10 +62,13 @@ const classes = theme => ({
     width: '70%',
     paddingLeft: '3%',
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    maxHeight: '100%',
+    overflow: 'auto'
   },
   contacts: {
     width: '30%',
+    height: '100%',
     paddingLeft: '3%',
     paddingRight: '3%'
   },
@@ -76,6 +79,9 @@ const classes = theme => ({
     display: 'flex',
     flexDirection: 'column-reverse',
     padding: '1rem'
+  },
+  card: {
+    height: '50%'
   }
 })
 
@@ -152,7 +158,7 @@ class MakePosting extends Component {
       <div className={this.props.classes.content}>
         <div className={this.props.classes.cards} id='cards'>
           { this.state.details.map((item) => (
-            <Card className={classes.card} key={item.ind} id={item.name}>
+            <Card className={this.props.classes.card} key={item.ind} id={item.name}>
               <CardContent>
                 <TextField
                   id='detailName'
@@ -172,7 +178,7 @@ class MakePosting extends Component {
                   onChange={this.handleCardDetail(item.ind)}
                   className={classes.textField}
                   margin='normal'
-                  variant='filled'
+                  variant='outlined'
                 />
               </CardContent>
             </Card>
@@ -184,7 +190,7 @@ class MakePosting extends Component {
           </div>
         </div>
         <div className={this.props.classes.contacts}>
-          <Card className={classes.card}>
+          <Card>
             <CardContent>
               <div className={this.props.classes.bigFont}>
                 Contact Info
