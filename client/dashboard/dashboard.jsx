@@ -55,7 +55,7 @@ const classes = theme => ({
   container: {
     display: 'flex'
   },
-  postings: {
+  postingsbox: {
     padding: 40,
     flexShrink: 1
   }
@@ -66,8 +66,35 @@ class Dashboard extends Component {
     e.preventDefault()
     this.props.history.push('/postings')
   }
-
+  
   getPostings(user) {
+    response = api['get-postings']({ 'OwnerId': user._id })
+    
+    let postings = []
+  
+    // Outer loop to create parent
+    // for (let i = 0; i < response.size; i++) {
+    //   let description 
+    //   for (let j = 0; j < 5; j++) {
+    //     children.push(<td>{`Column ${j + 1}`}</td>)
+    //   }
+    response.forEach(function(item) {
+      postings.push(
+        <Grid item>
+          <Lister list={[{
+            title: item.title,
+            id: 0,
+            showView: true,
+            descriptions: item.description,
+            skills: item.skills,
+            onDelete: console.log,
+            onView: console.log,
+            onEdit: console.log
+          }]} />
+        </Grid>
+      )
+    });
+    return postings
     console.log(user._id)
     api['get-postings']({ 'OwnerId': user._id }).then(response => { console.log(response) })
   }
@@ -101,7 +128,7 @@ class Dashboard extends Component {
       </div>
 
       <div className={this.props.classes.container}>
-        <div className={this.props.classes.postings}>
+        <div className={this.props.classes.postingsbox}>
           <Grid
             container
             direction='column'
@@ -110,12 +137,7 @@ class Dashboard extends Component {
             alignItems='center'
             spacing={40}
           >
-            <Grid item>
-              <Lister />
-            </Grid>
-            <Grid item>
-              <Lister />
-            </Grid>
+            {this.getPostings}
           </Grid>
         </div>
         <div className={this.props.classes.contactBox}>
