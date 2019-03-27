@@ -9,7 +9,6 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
 import SkillChips from '../skills'
-import ItemDescriptions from './item-description'
 import CardHeader from '@material-ui/core/CardHeader'
 import { CardActionArea, IconButton } from '@material-ui/core'
 
@@ -55,7 +54,7 @@ export function Item ({ classes, title, skills, description, _id, onDelete, onEd
       <CardActionArea onClick={onClick.bind(this, 'view')}>
         <CardHeader
           title={title}
-          titleTypographyProps={{ align: 'center', color:"inherit" }}
+          titleTypographyProps={{ align: 'center', color: 'inherit' }}
           className={classes.cardHeader}
         />
       </CardActionArea>
@@ -92,7 +91,6 @@ Item.propTypes = {
   onView: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   description: PropTypes.string,
-  descriptions: ItemDescriptions.propTypes.descriptions,
   skills: PropTypes.arrayOf(PropTypes.string)
 }
 
