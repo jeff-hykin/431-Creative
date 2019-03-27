@@ -14,10 +14,11 @@ classes.body = {
 }
 
 export const colors = {
-  teal: '#00b3b3',
+  teal: '#7cd50c',
   softRed: '#e57373',
   blue: '#2196f3',
   offWhite: 'whitesmoke',
   white: '#FFFFFF',
-  gray: '#808080'
+  gray: '#808080',
+  red: '#e60000'
 }

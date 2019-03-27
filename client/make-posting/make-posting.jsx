@@ -24,9 +24,10 @@ const classes = theme => ({
     paddingRight: '3%',
     paddingTop: '1%',
     paddingBottom: '1%',
-    backgroundColor: colors.teal,
+    backgroundColor: colors.blue,
     width: '100%',
-    height: '22vh'
+    display: 'flex',
+    //height: '22vh'
   },
   rightAlign: {
     justifyContent: 'right'
@@ -37,19 +38,29 @@ const classes = theme => ({
   cancelButton: {
     ...buttonStyles,
     color: colors.white,
-    borderColor: colors.gray,
-    backgroundColor: colors.gray
+    borderColor: colors.white,
+    backgroundColor: colors.red
   },
   saveButton: {
     ...buttonStyles,
     color: colors.white,
     borderColor: colors.white,
-    backgroundColor: colors.blue
+    backgroundColor: colors.teal,
+    float: 'right'
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    fontSize: 'calc(2.4vw + 1rem)'
+    fontSize: 'calc(2.4vw + 1rem)',
+    color: colors.white,
+  },
+  titleUnderline: {
+    '&:after': {
+      borderBottomColor: colors.white
+    },
+    '&:before': {
+      borderBottomColor: colors.white
+    }
   },
   content: {
     width: '100%',
@@ -63,7 +74,7 @@ const classes = theme => ({
     paddingLeft: '3%',
     display: 'flex',
     flexWrap: 'wrap',
-    maxHeight: '100%',
+    height: '100%',
     overflow: 'auto'
   },
   contacts: {
@@ -81,7 +92,38 @@ const classes = theme => ({
     padding: '1rem'
   },
   card: {
-    height: '50%'
+    height: '98%',
+    width: '98%'
+  },
+  skillsCard: {
+    height: '8%',
+    width: '100%',
+    paddingTop: '1%'
+  },
+  descriptionCard: {
+    height: '89%',
+    width: '100%',
+    paddingTop: '1%',
+    paddingBottom: '1%'
+  },
+  contactsCard: {
+    height: '99%'
+  },
+  submitContainer: {
+    flexBasis: '0',
+    flexGrow: '1',
+    width: '10%',
+  },
+  cancelContainer: {
+    flexBasis: '0',
+    flexGrow: '1',
+    width: '10%',
+  },
+  titleContainer: {
+    flexBasis: '0',
+    flexGrow: '1',
+    justifyContent: 'center',
+    width: '80%',
   }
 })
 
@@ -90,23 +132,6 @@ class MakePosting extends Component {
     let temp = this.state
     temp[name] = event.target.value
     this.setState(temp)
-  }
-
-  handleCardName = num => event => {
-    this.state.details[parseInt(num)].name = event.target.value
-    this.setState(this.state)
-  }
-
-  handleCardDetail = num => event => {
-    this.state.details[num].detail = event.target.value
-    console.log(num)
-    this.setState(this.state)
-  }
-
-  addCard = (e) => {
-    const tind = this.state.details.length
-    this.state.details = this.state.details.concat([{ name: '', detail: '', ind: tind }])
-    this.setState(this.state)
   }
 
   /* istanbul ignore next */
@@ -128,69 +153,54 @@ class MakePosting extends Component {
   render () {
     return <div id='makePosting' className={this.props.className} style={{ width: '100%' }}>
       <div className={this.props.classes.titleBar}>
-        <Grid container spacing={0}>
-          <Grid container item xs>
-            <Button id='cancelButton' variant='outlined' className={this.props.classes.cancelButton} onClick={this.goHome}>
-              Cancel
-            </Button>
-          </Grid>
-          <Grid container item xs justify='flex-end'>
-            <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton} onClick={this.savePosting}>
-              Save
-            </Button>
-          </Grid>
-        </Grid>
-        <TextField
-          id='postTitle'
-          label='Title'
-          name='Title'
-          className={this.props.classes.textField}
-          value={this.state.title}
-          InputProps={{
-            classes: {
-              input: this.props.classes.textField
-            }
-          }}
-          onChange={this.handleChange('name')}
-          margin='normal'
-        />
+        <div className={this.props.classes.cancelContainer}>
+          <Button id='cancelButton' variant='outlined' className={this.props.classes.cancelButton} onClick={this.goHome}>
+            Cancel
+          </Button>
+        </div>
+        <div className={this.props.classes.titleContainer}>
+          <TextField
+            id='postTitle'
+            placeholder='Title'
+            value={this.state.title}
+            InputProps={{
+              classes: {
+                underline: this.props.classes.titleUnderline,
+                input: this.props.classes.textField
+              }
+            }}
+            onChange={this.handleChange('name')}
+            margin='normal'
+          />
+        </div>
+        <div className={this.props.classes.submitContainer}> 
+          <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton} onClick={this.savePosting}>
+            Save
+          </Button>
+        </div>
       </div>
       <div className={this.props.classes.content}>
         <div className={this.props.classes.cards} id='cards'>
-          { this.state.details.map((item) => (
-            <Card className={this.props.classes.card} key={item.ind} id={item.name}>
-              <CardContent>
-                <TextField
-                  id='detailName'
-                  label='Detail'
-                  name='Detail'
-                  value={item.name}
-                  onChange={this.handleCardName(item.ind)}
-                  margin='normal'
-                />
-                <br />
-                <TextField
-                  id='filled-multiline-flexible'
-                  label='Description'
-                  multiline
-                  rowsMax='12'
-                  value={item.detail}
-                  onChange={this.handleCardDetail(item.ind)}
-                  className={classes.textField}
-                  margin='normal'
-                  variant='outlined'
-                />
-              </CardContent>
-            </Card>
-          ))}
-          <div className={this.props.classes.alignBottom}>
-            <Fab color='secondary' aria-label='Add' className={classes.margin} onClick={this.addCard}>
-              <AddIcon />
-            </Fab>
-          </div>
+          <Card className={this.props.classes.skillsCard}>
+            <CardContent />
+          </Card>
+          <Card className={this.props.classes.descriptionCard}>
+            <CardContent>
+              <TextField
+                id='filled-multiline-flexible'
+                label='Description'
+                multiline
+                rowsMax='12'
+                value={this.state.description}
+                onChange={this.handleChange('description')}
+                margin='normal'
+                variant='outlined'
+              />
+            </CardContent>
+          </Card>
         </div>
         <div className={this.props.classes.contacts}>
-          <Card>
+          <Card className={this.props.classes.contactsCard}>
             <CardContent>
               <div className={this.props.classes.bigFont}>
                 Contact Info

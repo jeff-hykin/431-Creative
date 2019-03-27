@@ -8,8 +8,8 @@ import styles from './styles.sass'
 import { colors } from '../theme'
 import UserContext from '../user-context'
 import Page from '../page'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 
 const titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
@@ -103,11 +103,11 @@ export const classes = theme => ({
     border: 'solid',
     borderWidth: '2dp',
     boxShadow: 'none',
-    borderRadius: '30px',
+    borderRadius: '30px'
   },
   titleText: {
     textAlign: 'center',
-    color: colors.blue,
+    color: colors.blue
   }
 })
 
@@ -146,7 +146,9 @@ class SplashPage extends Component {
       </Card>
       {/* Blue triangle */}
       <div className={this.props.classes.topRightMessage}>
-        <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
+        <h5 className={this.props.classes.topRightTitle} style={titleStyles}>
+          Browse Job Postings
+        </h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
           <UserContext.Consumer>
             {user => {
@@ -176,9 +178,9 @@ class SplashPage extends Component {
       {/* White */}
       <div className={this.props.classes.bottomLeftMessage}>
         <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
-          <span>Make a Listing</span>
+          <span>Make Posting</span>
         </Button>
-        <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
+        <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Create a Job Posting</h5>
       </div>
       <ToastContainer />
     </div>
