@@ -9,30 +9,36 @@ import Page from '../page'
 import { api } from '../../backend/setup-functions'
 
 const classes = theme => ({
+  body: {
+    backgroundColor: colors.offWhite
+  },
   titleBar: {
     display: 'flex',
     flexWrap: 'wrap',
     margin: 0,
     padding: 10,
-    paddingBottom: 60,
-    backgroundColor: colors.teal,
-    width: '100vw'
+    paddingBottom: 10,
+    backgroundColor: colors.blue,
+    width: '100vw',
+    boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)'
   },
   contactBox: {
     padding: 40,
-    flexShrink: 1
+    flexShrink: 1,
   },
   dashboardName: {
+    marginRight: 'auto',
     color: colors.white,
     margin: 10,
-    width: '100vw'
   },
   contactInfo: {
     color: colors.white,
     padding: 30,
     width: '40vw',
     margin: 0,
-    backgroundColor: colors.teal
+    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);',
+    borderRadius: '2px',
+    backgroundColor: colors.blue
   },
   leftButton: {
     marginRight: 'auto',
@@ -41,7 +47,7 @@ const classes = theme => ({
     borderRadius: '2rem',
     color: colors.white,
     borderColor: colors.white,
-    backgroundColor: colors.blue
+    backgroundColor: colors.teal
   },
   rightButton: {
     height: 40,
@@ -49,14 +55,14 @@ const classes = theme => ({
     borderRadius: '2rem',
     color: colors.white,
     borderColor: colors.white,
-    backgroundColor: colors.blue
+    backgroundColor: colors.teal
   },
   container: {
     display: 'flex'
   },
   postingsbox: {
-    // padding: 40,
-    // flexShrink: 1
+    padding: 40,
+    flexShrink: 1,
     width: '50vw'
   }
 })
@@ -84,7 +90,7 @@ class PostingsHelper extends Component {
   }))
 
   getPostings = () => {
-    api['get-postings']({ 'ownerId': this.props.user._id }).then(resp => (
+    api['get-postings']({}).then(resp => (
       this.setState({
         postings: this.transformPostings(resp)
       }))
@@ -118,10 +124,10 @@ class Dashboard extends Component {
         <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
             All Posts
         </Button>
+        <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
         <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
             Logout
         </Button></a>
-        <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
       </div>
 
       <div className={this.props.classes.container}>
@@ -129,9 +135,9 @@ class Dashboard extends Component {
           <PostingsHelper user={user} />
         </div>
         <div className={this.props.classes.contactBox}>
-          <div>
-            <h5 className={this.props.classes.contactInfo} >{'Contact info:'}</h5>
-            <div className={this.props.classes.contactInfo} >{'Email:  ' + user.email}</div>
+          <div className={this.props.classes.contactInfo}>
+            <h5>{'Contact info:'}</h5>
+            <div>{'Email:  ' + user.email}</div>
           </div>
         </div>
       </div>
