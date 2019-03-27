@@ -173,7 +173,7 @@ class MakePosting extends Component {
     /* istanbul ignore next */
     newPost.contactInfo = JSON.stringify(this.state.contact)
     /* istanbul ignore next */
-    newPost.skills = JSON.stringify(this.state.skills)
+    newPost.skills = this.state.skills
     /* istanbul ignore next */
     api['make-posting'](newPost).then(response => { console.log(response) })
   }
