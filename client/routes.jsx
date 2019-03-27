@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 // pages
 import SplashPage from './splash-page/splash-page'
-import ProfilePage from './profile-page/profile-page'
+import Dashboard from './dashboard/dashboard'
 import PageNotFound from './page-not-found/page-not-found'
 import Postings from './postings/postings'
 import MakePosting from './make-posting/make-posting'
@@ -20,7 +20,7 @@ export default (props) =>
       <Route component={SplashPage} path='/' exact />
       <Route component={Postings} path='/postings' exact />
       <Route component={MakePosting} path='/makeposting' exact />
-      <Route component={ProfilePage} path='/profile' exact />
+      <Route component={Dashboard} path='/dashboard' exact />
       <Route component={PageNotFound} />
     </Switch>
   </Router>

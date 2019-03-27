@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
  * @param {Array.<Object>} descriptions - Array of descriptions
  * @param {string} paperStyle - className that goes on the Paper component of each description
  */
-function PostDescriptions ({ descriptions, paperStyle }) {
+function ItemDescriptions ({ descriptions, paperStyle }) {
   return (
     <Grid
       justify='flex-start'
@@ -34,8 +34,8 @@ function PostDescriptions ({ descriptions, paperStyle }) {
   )
 }
 
-PostDescriptions.propTypes = {
-  paperStyle: PropTypes.string.isRequired,
+ItemDescriptions.propTypes = {
+  paperStyle: PropTypes.string,
   descriptions: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -45,4 +45,4 @@ PostDescriptions.propTypes = {
   )
 }
 
-export default PostDescriptions
+export default ItemDescriptions
