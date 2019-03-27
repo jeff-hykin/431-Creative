@@ -11,7 +11,6 @@ async function createUser (email, firstName = '', lastName = '', role = '') {
     dateCreated: date,
     dateModified: date,
     myPosts: [], // list of post Ids
-    fields: [], // list of objects representing fields
     role
   }
   let result = await _db.db.collections.users.insertOne(user)

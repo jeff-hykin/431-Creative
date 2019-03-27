@@ -73,7 +73,7 @@ const classes = theme => ({
     height: '78vh',
     display: 'flex',
     paddingTop: '1rem',
-    backgroundColor: '#fbf7f5'
+    backgroundColor: colors.offWhite
   },
   cards: {
     width: '70%',
