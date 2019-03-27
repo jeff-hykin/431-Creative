@@ -56,8 +56,9 @@ const classes = theme => ({
     display: 'flex'
   },
   postingsbox: {
-    padding: 40,
-    flexShrink: 1
+    // padding: 40,
+    // flexShrink: 1
+    width: '50vw'
   }
 })
 
@@ -74,7 +75,14 @@ class PostingsHelper extends Component {
     this.getPostings()
   }
 
-  transformPostings = postings => postings
+  transformPostings = postings => postings.map(p => Object.assign(p, {
+    showEdit: true,
+    showView: true,
+    showDelete: true,
+    onEdit: console.log,
+    onDelete: console.log,
+    onView: console.log
+  }))
 
   getPostings = () => {
     api['get-postings']({ 'ownerId': this.props.user._id }).then(resp => (

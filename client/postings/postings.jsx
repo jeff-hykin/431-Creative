@@ -1,43 +1,60 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Page from '../page'
 import Lister from '../components/lister'
+import { api } from '../../backend/setup-functions'
+import Navbar from '../components/navbar'
 
 const styles = theme => ({
+  color: {
+    backgroundColor: '#fbf7f5',
+    width: '100vw'
+  },
   root: {
-    margin: '50px auto',
-    width: '100%',
-    maxWidth: '800px'
+    backgroundColor: '#fbf7f5',
+    width: 'auto',
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
+      width: 900,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
+  },
+  heroContent: {
+    maxWidth: 600,
+    margin: '0 auto',
+    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`
   }
 })
 
 function Postings ({ classes }) {
+  const [postings, setPostings] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await api['get-postings']()
+      console.log(result)
+      setPostings(result)
+    }
+    fetchData().catch(console.warn)
+  }, [])
   return (
-    <section className={classes.root}>
-      <Lister list={[{
-        title: 'Odd job #1',
-        id: 0,
-        showView: true,
-        descriptions: [
-          { title: 'Description', body: 'really long dumb stuff', id: 1212 },
-          { title: 'Description', body: 'really long dumb stuff saldkfj aslkdfjlk aslkdfjllkj  laksdjf', id: 121234 },
-          { title: 'Description', body: 'really long dumb stuff', id: 1213245 },
-          { title: 'Description', body: 'really long dumb stuff', id: 12451 },
-          { title: 'Description', body: 'really long dumb stuff', id: 123 }
-        ],
-        skills: [
-          { key: 222, label: 'Angular' },
-          { key: 11212, label: 'jQuery' },
-          { key: 2234234, label: 'Polymer' },
-          { key: 3234, label: 'React' },
-          { key: 234, label: 'Vue.js' }
-        ],
-        onDelete: console.log,
-        onView: console.log,
-        onEdit: console.log
-      }]} />
-    </section>
+    <div className={classes.color}>
+      <CssBaseline />
+      <Navbar title='Postings' />
+      <section className={classes.root}>
+        <div className={classes.heroContent}>
+          <Typography component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
+            Postings
+          </Typography>
+        </div>
+        <Lister list={postings} />
+      </section>
+    </div>
   )
 }
 

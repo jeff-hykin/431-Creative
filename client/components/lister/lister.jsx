@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid'
 
 import Item from './item'
 
-function Lister ({ list }) {
+function Lister ({ list, xs }) {
   const data = list.map(l => (
-    <Grid item key={l._id}>
+    <Grid item key={l._id} xs={xs} zeroMinWidth>
       <Item {...l} />
     </Grid>
   ))
@@ -17,7 +17,6 @@ function Lister ({ list }) {
   return (
     <Grid
       container
-      direction='column'
       justify='center'
       alignItems='center'
       spacing={40}
@@ -28,11 +27,13 @@ function Lister ({ list }) {
 }
 
 Lister.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape(Item.propTypes))
+  list: PropTypes.arrayOf(PropTypes.shape(Item.propTypes)),
+  xs: PropTypes.number
 }
 
 Lister.defaultProps = {
-  list: []
+  list: [],
+  xs: 10
 }
 
 export default Lister
