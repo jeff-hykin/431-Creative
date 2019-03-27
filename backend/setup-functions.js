@@ -1,7 +1,8 @@
 //
 // FIXME: change the res.send, and fetch() code so these functions actually work
 //
-
+require('isomorphic-fetch')
+const { HOST_AND_PROTOCOL } = require('./config')
 let subdomain = '/backend'
 module.exports.setupBackendFunctions = (app) => {
   const fs = require('fs')
@@ -32,7 +33,7 @@ module.exports.setupBackendFunctions = (app) => {
 module.exports.api = new Proxy({}, {
   get: (target, key) => async (...args) => {
     return new Promise((resolve, reject) => {
-      fetch(subdomain + '/' + key, {
+      fetch(HOST_AND_PROTOCOL + subdomain + '/' + key, {
         method: 'post',
         body: JSON.stringify({ args }),
         headers: {
