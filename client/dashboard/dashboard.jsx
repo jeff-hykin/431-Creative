@@ -61,7 +61,7 @@ const classes = theme => ({
   }
 })
 
-class Postings extends Component {
+class PostingsHelper extends Component {
   constructor (props) {
     super(props)
 
@@ -89,7 +89,7 @@ class Postings extends Component {
   }
 }
 
-Postings.defaultProps = {
+PostingsHelper.defaultProps = {
   user: {}
 }
 
@@ -100,6 +100,12 @@ class Dashboard extends Component {
   }
 
   render () {
+    const user = this.context
+    if (user == null) {
+      // TODO: redirect?
+      return null
+    }
+
     return <div id='Dashboard' className={this.props.className}>
       <div className={this.props.classes.titleBar}>
         <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
@@ -108,61 +114,24 @@ class Dashboard extends Component {
         <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
             Logout
         </Button></a>
-        <UserContext.Consumer>
-          {user => {
-            /* istanbul ignore next */
-            if (user == null) {
-              // location.assign('/auth/google')
-              return (
-                <h3 className={this.props.classes.dashboardName} >Your Name</h3>
-              )
-            } else {
-              // TODO: move the context to encapsulate where this should actually go
-              return <Postings user={user} />
-              return (
-                <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
-              )
-            }
-          }
-          }
-        </UserContext.Consumer>
+        <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
       </div>
 
       <div className={this.props.classes.container}>
         <div className={this.props.classes.postingsbox}>
-          <Grid
-            container
-            direction='column'
-            margin={5}
-            justify='center'
-            alignItems='center'
-            spacing={40}
-          >
-            {/*{this.getPostings()}*/}
-          </Grid>
+          <PostingsHelper user={user} />
         </div>
         <div className={this.props.classes.contactBox}>
-          <UserContext.Consumer>
-            {user => {
-              /* istanbul ignore next */
-              if (user == null) {
-                return (
-                  <h5 className={this.props.classes.contactInfo} >Your Name</h5>
-                )
-              } else {
-                return (<div>
-                  <h5 className={this.props.classes.contactInfo} >{'Contact info:'}</h5>
-                  <div className={this.props.classes.contactInfo} >{'Email:  ' + user.email}</div>
-                </div>
-                )
-              }
-            }
-            }
-          </UserContext.Consumer>
+          <div>
+            <h5 className={this.props.classes.contactInfo} >{'Contact info:'}</h5>
+            <div className={this.props.classes.contactInfo} >{'Email:  ' + user.email}</div>
+          </div>
         </div>
       </div>
     </div>
   }
 }
+
+Dashboard.contextType = UserContext
 
 export default Page(withRouter(withStyles(classes)(Dashboard)))
