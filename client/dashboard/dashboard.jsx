@@ -90,7 +90,7 @@ class PostingsHelper extends Component {
   }))
 
   getPostings = () => {
-    api['get-postings']({ ownerId: this.props.user._id}).then(resp => (
+    api['get-postings']({ ownerId: this.props.user._id }).then(resp => (
       this.setState({
         postings: this.transformPostings(resp)
       }))
