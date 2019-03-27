@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import AddIcon from '@material-ui/icons/Add'
 import Fab from '@material-ui/core/Fab'
+import Chip from '@material-ui/core/Chip'
 import { api } from '../../backend/setup-functions'
 
 let buttonStyles = {
@@ -26,8 +27,8 @@ const classes = theme => ({
     paddingBottom: '1%',
     backgroundColor: colors.blue,
     width: '100%',
-    display: 'flex',
-    //height: '22vh'
+    display: 'flex'
+    // height: '22vh'
   },
   rightAlign: {
     justifyContent: 'right'
@@ -48,11 +49,19 @@ const classes = theme => ({
     backgroundColor: colors.teal,
     float: 'right'
   },
+  addSkill: {
+    ...buttonStyles,
+    color: colors.white,
+    borderColor: colors.white,
+    backgroundColor: colors.teal,
+    marginRight: '2%',
+    marginLeft: '2%',
+  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     fontSize: 'calc(2.4vw + 1rem)',
-    color: colors.white,
+    color: colors.white
   },
   titleUnderline: {
     '&:after': {
@@ -84,7 +93,7 @@ const classes = theme => ({
     paddingRight: '3%'
   },
   bigFont: {
-    fontSize: 'calc(2.4vw + 1rem)'
+    fontSize: 'calc(2.2vw + 1rem)'
   },
   alignBottom: {
     display: 'flex',
@@ -96,12 +105,12 @@ const classes = theme => ({
     width: '98%'
   },
   skillsCard: {
-    height: '8%',
+    height: '10%',
     width: '100%',
     paddingTop: '1%'
   },
   descriptionCard: {
-    height: '89%',
+    height: '86%',
     width: '100%',
     paddingTop: '1%',
     paddingBottom: '1%'
@@ -112,18 +121,25 @@ const classes = theme => ({
   submitContainer: {
     flexBasis: '0',
     flexGrow: '1',
-    width: '10%',
+    width: '10%'
   },
   cancelContainer: {
     flexBasis: '0',
     flexGrow: '1',
-    width: '10%',
+    width: '10%'
   },
   titleContainer: {
     flexBasis: '0',
     flexGrow: '1',
     justifyContent: 'center',
-    width: '80%',
+    width: '80%'
+  },
+  chipsBar: {
+    display: 'flex'
+  },
+  description: {
+    width: '100%',
+    height: '100%'
   }
 })
 
@@ -134,10 +150,39 @@ class MakePosting extends Component {
     this.setState(temp)
   }
 
+  handleContactChange = name => event => {
+    let temp = this.state
+    temp.contact[name] = event.target.value
+    this.setState(temp)
+  }
+
+  handleSkillDelete = skill => () => {
+    let temp = this.state
+    let index = temp.skills.indexOf(skill)
+    if (index != -1) {
+      temp.skills.splice(index,1)
+    }
+    this.setState(temp)
+  }
+
   /* istanbul ignore next */
   savePosting = (e) => {
     /* istanbul ignore next */
-    api['make-posting'](this.state).then(response => { console.log(response) })
+    let newPost         = {}
+    newPost.title       = this.state.title
+    newPost.description = this.state.description
+    newPost.contactInfo = JSON.stringify(this.state.contact)
+    newPost.skills      = JSON.stringify(this.state.skills)
+    api['make-posting'](newPost).then(response => { console.log(response) })
+  }
+
+  addSkill = (e) => {
+    let temp = this.state
+    if (temp.newSkill != '') {
+      temp.skills.push(temp.newSkill)
+      temp.newSkill = ''
+      this.setState(temp)
+    }
   }
 
   goHome = (e) => {
@@ -147,7 +192,7 @@ class MakePosting extends Component {
 
   constructor (props) {
     super(props)
-    this.state = { id: 0, details: [{ name: '', detail: '', ind: 0 }] }
+    this.state = { title: '', description: '', skills: [], contact: {}, newSkill: ''}
   }
 
   render () {
@@ -169,11 +214,11 @@ class MakePosting extends Component {
                 input: this.props.classes.textField
               }
             }}
-            onChange={this.handleChange('name')}
+            onChange={this.handleChange('title')}
             margin='normal'
           />
         </div>
-        <div className={this.props.classes.submitContainer}> 
+        <div className={this.props.classes.submitContainer}>
           <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton} onClick={this.savePosting}>
             Save
           </Button>
@@ -182,18 +227,40 @@ class MakePosting extends Component {
       <div className={this.props.classes.content}>
         <div className={this.props.classes.cards} id='cards'>
           <Card className={this.props.classes.skillsCard}>
-            <CardContent />
+            <CardContent className={this.props.classes.chipsBar}>
+              <TextField
+                id="skill"
+                placeholder= 'Skills'
+                className={classes.textField}
+                value={this.state.newSkill}
+                onChange={this.handleChange('newSkill')}
+              />
+              <Button id='skillButton' variant='outlined' className={this.props.classes.addSkill} onClick={this.addSkill}>
+                Add Skill
+              </Button>
+              <div> 
+                { this.state.skills.map((item) => (
+                  <Chip
+                    label={item}
+                    key={item}
+                    onDelete={this.handleSkillDelete(item)}
+                  />
+                ))}
+              </div>
+            </CardContent>
           </Card>
           <Card className={this.props.classes.descriptionCard}>
             <CardContent>
+              <div className={this.props.classes.bigFont}>
+                Description
+              </div>
               <TextField
-                id='filled-multiline-flexible'
-                label='Description'
                 multiline
-                rowsMax='12'
+                className={this.props.classes.description}
                 value={this.state.description}
                 onChange={this.handleChange('description')}
-                margin='normal'
+                placeholder="description"
+                rows="15"
                 variant='outlined'
               />
             </CardContent>
@@ -212,7 +279,7 @@ class MakePosting extends Component {
                 name='Email'
                 className={this.props.classes.textField}
                 value={this.state.email}
-                onChange={this.handleChange('email')}
+                onChange={this.handleContactChange('email')}
                 margin='normal'
               />
               <TextField
@@ -221,7 +288,7 @@ class MakePosting extends Component {
                 name='Title'
                 className={this.props.classes.textField}
                 value={this.state.company}
-                onChange={this.handleChange('company')}
+                onChange={this.handleContactChange('company')}
                 margin='normal'
               />
               <TextField
@@ -230,7 +297,7 @@ class MakePosting extends Component {
                 name='Title'
                 className={this.props.classes.textField}
                 value={this.state.phone}
-                onChange={this.handleChange('phone')}
+                onChange={this.handleContactChange('phone')}
                 margin='normal'
               />
               <TextField
@@ -239,7 +306,7 @@ class MakePosting extends Component {
                 name='Title'
                 className={this.props.classes.textField}
                 value={this.state.linkedin}
-                onChange={this.handleChange('linkedin')}
+                onChange={this.handleContactChange('linkedin')}
                 margin='normal'
               />
             </CardContent>
