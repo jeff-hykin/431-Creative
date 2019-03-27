@@ -24,12 +24,12 @@ const classes = theme => ({
   },
   contactBox: {
     padding: 40,
-    flexShrink: 1,
+    flexShrink: 1
   },
   dashboardName: {
     marginRight: 'auto',
     color: colors.white,
-    margin: 10,
+    margin: 10
   },
   contactInfo: {
     color: colors.white,

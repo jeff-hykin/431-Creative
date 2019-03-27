@@ -23,4 +23,3 @@ classes.body = {
   scrollBehavior: 'auto',
   backgroundColor: colors.offWhite
 }
-
