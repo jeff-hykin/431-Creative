@@ -61,42 +61,42 @@ const classes = theme => ({
   }
 })
 
+class Postings extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      postings: []
+    }
+  }
+
+  componentDidMount () {
+    this.getPostings()
+  }
+
+  transformPostings = postings => postings
+
+  getPostings = () => {
+    api['get-postings']({ 'ownerId': this.props.user._id }).then(resp => (
+      this.setState({
+        postings: this.transformPostings(resp)
+      }))
+    )
+  }
+
+  render () {
+    return <Lister list={this.state.postings} />
+  }
+}
+
+Postings.defaultProps = {
+  user: {}
+}
+
 class Dashboard extends Component {
   navigateToPostings = (e) => {
     e.preventDefault()
     this.props.history.push('/postings')
-  }
-  
-  getPostings(user) {
-    response = api['get-postings']({ 'OwnerId': user._id })
-    
-    let postings = []
-  
-    // Outer loop to create parent
-    // for (let i = 0; i < response.size; i++) {
-    //   let description 
-    //   for (let j = 0; j < 5; j++) {
-    //     children.push(<td>{`Column ${j + 1}`}</td>)
-    //   }
-    response.forEach(function(item) {
-      postings.push(
-        <Grid item>
-          <Lister list={[{
-            title: item.title,
-            id: 0,
-            showView: true,
-            descriptions: item.description,
-            skills: item.skills,
-            onDelete: console.log,
-            onView: console.log,
-            onEdit: console.log
-          }]} />
-        </Grid>
-      )
-    });
-    return postings
-    console.log(user._id)
-    api['get-postings']({ 'OwnerId': user._id }).then(response => { console.log(response) })
   }
 
   render () {
@@ -117,7 +117,8 @@ class Dashboard extends Component {
                 <h3 className={this.props.classes.dashboardName} >Your Name</h3>
               )
             } else {
-              this.getPostings(user)
+              // TODO: move the context to encapsulate where this should actually go
+              return <Postings user={user} />
               return (
                 <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
               )
@@ -137,7 +138,7 @@ class Dashboard extends Component {
             alignItems='center'
             spacing={40}
           >
-            {this.getPostings}
+            {/*{this.getPostings()}*/}
           </Grid>
         </div>
         <div className={this.props.classes.contactBox}>

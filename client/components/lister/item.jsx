@@ -52,15 +52,15 @@ const styles = theme => ({
  * @returns {*}
  * @constructor
  */
-export function Item ({ classes, title, skills, descriptions, id, onDelete, onEdit, onView, showView, showDelete, showEdit }) {
+export function Item ({ classes, title, skills, descriptions, _id, onDelete, onEdit, onView, showView, showDelete, showEdit }) {
   const onClick = type => {
     switch (type) {
       case 'delete':
-        return onDelete(id)
+        return onDelete(_id)
       case 'edit':
-        return onEdit(id)
+        return onEdit(_id)
       case 'view':
-        return onView(id)
+        return onView(_id)
     }
   }
 
@@ -94,7 +94,7 @@ export function Item ({ classes, title, skills, descriptions, id, onDelete, onEd
         </Grid>
       </CardActions>
       <CardContent>
-        <ItemDescriptions descriptions={descriptions} paperStyle={classes.paperStyle} />
+        {/*<ItemDescriptions descriptions={descriptions} paperStyle={classes.paperStyle} />*/}
       </CardContent>
     </Card>
   )
@@ -105,15 +105,13 @@ Item.propTypes = {
   showView: PropTypes.bool,
   showEdit: PropTypes.bool,
   showDelete: PropTypes.bool,
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
   onView: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   descriptions: ItemDescriptions.propTypes.descriptions,
-  skills: PropTypes.arrayOf(
-    PropTypes.shape({ key: PropTypes.number, label: PropTypes.string })
-  )
+  skills: PropTypes.arrayOf(PropTypes.string)
 }
 
 Item.defaultProps = {

@@ -6,7 +6,7 @@ import Item from './item'
 
 function Lister ({ list }) {
   const data = list.map(l => (
-    <Grid item key={l.id}>
+    <Grid item key={l._id}>
       <Item {...l} />
     </Grid>
   ))
