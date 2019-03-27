@@ -41,6 +41,24 @@ describe('Utils-Backend', function () {
     })
   })
 
+  describe('#deleteUser', function () {
+    it.skip('should remove posts associated with the user', async function () {
+      // TODO: Need to wait for Nicko's changes to be pushed for posts
+    })
+
+    it('should delete the user', async function () {
+      // Add user
+      let email = 'test1@test.com'
+      let result = await utils.createUser(email)
+      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted user')
+      const USER_ID = result['ops'][0]._id
+
+      // delete user
+      result = await utils.deleteUser(USER_ID)
+      assert.strictEqual(result.deletedCount, 1)
+    })
+  })
+
   after(async function () {
     dbFunctions.close()
   })

@@ -42,7 +42,16 @@ async function createPost (ownerId, title, description, contactInfo, skills, fie
   return result
 }
 
+async function deleteUser (userId) {
+  // Delete posts associated with user
+  await _db.db.collections.posts.deleteMany({ ownerId: userId })
+
+  // Delete user
+  return _db.db.collections.users.deleteOne({ _id: userId })
+}
+
 module.exports = {
   createUser,
-  createPost
+  createPost,
+  deleteUser
 }
