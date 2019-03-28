@@ -26,7 +26,9 @@ describe('<Postings />', () => {
   })
 
   it('is able to mount', () => {
-    const section = postingsComponent().find('section')
+    const wrapper = postingsComponent()
+    let section = wrapper.find('section')
     expect(section.length).to.be.eq(1)
+    wrapper.unmount()
   })
 })

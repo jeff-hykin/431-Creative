@@ -15,14 +15,14 @@ const styles = theme => ({
   }
 })
 
-function SkillChips ({ classes, skills }) {
+export function SkillChips ({ classes, skills }) {
   return (
     <>
       {skills.map(data => {
         return (
           <Chip
-            key={data.key}
-            label={data.label}
+            key={data}
+            label={data}
             className={classes.chip}
           />
         )
@@ -32,10 +32,8 @@ function SkillChips ({ classes, skills }) {
 }
 
 SkillChips.propTypes = {
-  classes: PropTypes.object.isRequired,
-  skills: PropTypes.arrayOf(
-    PropTypes.shape({ key: PropTypes.number, label: PropTypes.string })
-  )
+  classes: PropTypes.object,
+  skills: PropTypes.arrayOf(PropTypes.string)
 }
 
 SkillChips.defaultProps = {

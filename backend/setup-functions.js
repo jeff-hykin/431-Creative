@@ -1,6 +1,8 @@
 //
 // FIXME: change the res.send, and fetch() code so these functions actually work
 //
+require('isomorphic-fetch')
+const { HOST_AND_PROTOCOL } = require('./config')
 let subdomain = '/backend'
 module.exports.setupBackendFunctions = (app) => {
   const fs = require('fs')
@@ -17,12 +19,12 @@ module.exports.setupBackendFunctions = (app) => {
     // create the route
     app.post(subdomain + '/' + eachName, async (req, res) => {
       try {
-        let output = await backendFunctions[eachName](...req.body.args)
+        let output = await backendFunctions[eachName](req.user, ...req.body.args)
         // run the backend function with the arguments
         res.send({ output })
       } catch (error) {
         // send the error to the frontend
-        res.send({ error })
+        res.send({ error: error.toString() })
       }
     })
   }
@@ -31,7 +33,7 @@ module.exports.setupBackendFunctions = (app) => {
 module.exports.api = new Proxy({}, {
   get: (target, key) => async (...args) => {
     return new Promise((resolve, reject) => {
-      fetch(subdomain + '/' + key, {
+      fetch(HOST_AND_PROTOCOL + subdomain + '/' + key, {
         method: 'post',
         body: JSON.stringify({ args }),
         headers: {
