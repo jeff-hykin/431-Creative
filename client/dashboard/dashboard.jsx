@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
@@ -114,9 +114,9 @@ class Dashboard extends Component {
 
   render () {
     const user = this.context
+    console.log('USER:', this.context)
     if (user == null) {
-      // TODO: redirect?
-      return null
+      return <Redirect to='/' />
     }
 
     return <div id='Dashboard' className={this.props.className}>

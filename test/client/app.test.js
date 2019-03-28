@@ -13,8 +13,8 @@ describe('<App />', () => {
     wrapper.unmount()
   })
 
-  it('componentDidMount gets called', () => {
-    let spy = sinon.spy(App.prototype, 'componentDidMount')
+  it('componentWillMount gets called', () => {
+    let spy = sinon.spy(App.prototype, 'componentWillMount')
     const wrapper = mount(<App />)
     expect(spy.called).to.equal(true)
     wrapper.unmount()
