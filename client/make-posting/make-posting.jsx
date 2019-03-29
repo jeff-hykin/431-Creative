@@ -16,6 +16,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import Snackbar from '@material-ui/core/Snackbar'
 
+/* istanbul ignore next */
 const classes = theme => ({
   root: {
     backgroundColor: colors.offWhite,
@@ -81,17 +82,22 @@ class MakePosting extends Component {
   handleSkillDelete = skill => () => {
     let temp = this.state
     let index = temp.skills.indexOf(skill)
+    /* istanbul ignore else */
     if (index !== -1) {
       temp.skills.splice(index, 1)
     }
     this.setState(temp)
   }
 
+  /* istanbul ignore next */
   handleSkillSnackBarClose = () => {
+    /* istanbul ignore next */
     this.setState({ skillSnackBarOpen: false })
   }
 
+  /* istanbul ignore next */
   handleErrorSnackBarClose = () => {
+    /* istanbul ignore next */
     this.setState({ errorSnackBarOpen: false })
   }
 

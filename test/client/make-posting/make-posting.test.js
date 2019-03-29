@@ -65,13 +65,20 @@ describe('<MakePosting />', () => {
       stateSpy.restore()
     })
 
-    it('should not call setState when skill == \'\'', () => {
+    // it('should not call setState when skill == \'\'', () => {
+    //   const wrapper = shallow(<MakePosting {...fakeProps} />)
+    //   const instance = wrapper.instance()
+    //   let stateSpy = sinon.spy(instance, 'setState')
+    //   instance.addSkill({})
+    //   expect(stateSpy.called).to.equal(false)
+    //   stateSpy.restore()
+    // })
+
+    it('should set skillSnackBarOpen state to true when skill == \'\'', () => {
       const wrapper = shallow(<MakePosting {...fakeProps} />)
       const instance = wrapper.instance()
-      let stateSpy = sinon.spy(instance, 'setState')
       instance.addSkill({})
-      expect(stateSpy.called).to.equal(false)
-      stateSpy.restore()
+      expect(instance.state.skillSnackBarOpen).to.equal(true)
     })
   })
 
