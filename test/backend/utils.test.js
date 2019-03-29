@@ -31,9 +31,9 @@ describe('Utils-Backend', function () {
       const USER_ID = result['ops'][0]._id
 
       // Add post
-      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, [], [])
-      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted post')
-      const POST_ID = result['ops'][0]._id
+      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, [], null)
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
 
       // Check if user has post
       let user = await dbFunctions.db.collections.users.findOne({ _id: USER_ID })

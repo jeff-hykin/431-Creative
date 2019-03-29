@@ -61,6 +61,7 @@ class ShowPosting extends Component {
   async componentWillMount () {
     try {
       let post = (await api['get-postings']({ _id: this.props.match.params.id }))[0]
+      /* istanbul ignore next */
       this.setState({ post, loading: false })
     } catch (err) {
       console.error(err)
@@ -68,16 +69,17 @@ class ShowPosting extends Component {
   }
 
   render () {
+    /* istanbul ignore else */
     if (this.state.loading) {
       return <div>We are retreiving data</div>
     } else {
       return (
-        <div id='show-post' style={{ width: '100%'}}>
+        <div id='show-post' style={{ width: '100%' }}>
           <CssBaseline />
           <Navbar title='View Post' />
           <section className={this.props.classes.root}>
             <Card className={this.props.classes.heroContent}>
-              <CardHeader 
+              <CardHeader
                 title={this.state.post.title}
                 classes={{
                   title: this.props.classes.cardHeader

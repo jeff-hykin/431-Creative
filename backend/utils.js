@@ -33,7 +33,6 @@ async function createPost (ownerId, title, description, contactInfo, skills, pos
 
   // Add post
   let result = await _db.db.collections.posts.updateOne({ _id: id }, post, { upsert: true })
-
   // Update User to have post id
   await _db.db.collections.users.updateOne({ _id: ownerId }, { $push: { myPosts: id } })
 
