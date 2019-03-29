@@ -114,7 +114,6 @@ class Dashboard extends Component {
 
   render () {
     const user = this.context
-    console.log('USER:', this.context)
     if (user == null) {
       return <Redirect to='/' />
     }
