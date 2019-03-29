@@ -39,7 +39,16 @@ async function createPost (ownerId, title, description, contactInfo, skills, pos
   return result
 }
 
+async function deletePost (postId) {
+  // Remove id from user
+  await _db.db.collections.users.updateOne({ myPosts: { $in: [postId] } }, { $pull: { myPosts: postId } })
+
+  // Delete post
+  return _db.db.collections.posts.deleteOne({ _id: postId })
+}
+
 module.exports = {
   createUser,
-  createPost
+  createPost,
+  deletePost
 }
