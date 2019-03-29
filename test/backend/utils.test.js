@@ -51,8 +51,8 @@ describe('Utils-Backend', function () {
 
       // Add post
       result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, ['TEST'])
-      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted post')
-      const POST_ID = result['ops'][0]._id
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
 
       // delete post and check user no longer has it
       result = await utils.deletePost(POST_ID)
@@ -69,8 +69,8 @@ describe('Utils-Backend', function () {
 
       // Add post
       result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, ['TEST'])
-      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted post')
-      const POST_ID = result['ops'][0]._id
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
 
       // delete post
       result = await utils.deletePost(POST_ID)
