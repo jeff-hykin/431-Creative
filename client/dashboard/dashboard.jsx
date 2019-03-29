@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
-import UserContext from '../user-context'
+// import UserContext from '../user-context'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
 
@@ -113,37 +113,38 @@ class Dashboard extends Component {
   }
 
   render () {
-    const user = this.context
-    if (user == null) {
+    let user = window.user
+    console.log('USER:', window.user)
+    if (!window.user) {
+      console.log('NO USER')
       return <Redirect to='/' />
-    }
-
-    return <div id='Dashboard' className={this.props.className}>
-      <div className={this.props.classes.titleBar}>
-        <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
-            All Posts
-        </Button>
-        <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
-        <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
-            Logout
-        </Button></a>
-      </div>
-
-      <div className={this.props.classes.container}>
-        <div className={this.props.classes.postingsbox}>
-          <PostingsHelper user={user} />
+    } else {
+      console.log('GOT HERE')
+      return <div id='Dashboard' className={this.props.className}>
+        <div className={this.props.classes.titleBar}>
+          <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
+              All Posts
+          </Button>
+          <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
+          <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
+              Logout
+          </Button></a>
         </div>
-        <div className={this.props.classes.contactBox}>
-          <div className={this.props.classes.contactInfo}>
-            <h5>{'Contact info:'}</h5>
-            <div>{'Email:  ' + user.email}</div>
+
+        <div className={this.props.classes.container}>
+          <div className={this.props.classes.postingsbox}>
+            <PostingsHelper user={user} />
+          </div>
+          <div className={this.props.classes.contactBox}>
+            <div className={this.props.classes.contactInfo}>
+              <h5>{'Contact info:'}</h5>
+              <div>{'Email:  ' + user.email}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    }
   }
 }
-
-Dashboard.contextType = UserContext
 
 export default Page(withRouter(withStyles(classes)(Dashboard)))

@@ -119,7 +119,8 @@
       "mocha"
     ],
     "globals": [
-      "fetch"
+      "fetch",
+      "localStorage"
     ],
     "parser": "babel-eslint"
   },

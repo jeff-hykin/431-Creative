@@ -8,7 +8,7 @@ import Routes from './routes'
 import { classes } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
 
-import UserContext from './user-context'
+// import UserContext from './user-context'
 
 //
 // set body
@@ -24,12 +24,15 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: true,
-      user: null
+      loading: true
     }
   }
 
   async componentWillMount () {
+    if (localStorage.user) {
+      window.user = localStorage.user
+      this.setState({ loading: false })
+    }
     await this.authenticate()
   }
 
@@ -43,13 +46,16 @@ class App extends React.Component {
       /* istanbul ignore if */
       if (data.authenticated) {
         console.log('AUTHENTICATED')
-        this.setState({ user: data.user, loading: false })
+        localStorage.user = data.user
+        window.user = data.user
       } else {
         console.log('NOT AUTHENTICATED')
-        this.setState({ loading: false })
+        localStorage.user = undefined
+        window.user = undefined
       }
     } catch (err) {
       console.error('Ran into an issue checking authentication...', err)
+    } finally {
       this.setState({ loading: false })
     }
   }
@@ -57,9 +63,7 @@ class App extends React.Component {
   render () {
     return this.state.loading
       ? <div />
-      : <UserContext.Provider value={this.state.user}>
-        <Routes />
-      </UserContext.Provider>
+      : <Routes />
   }
 }
 
