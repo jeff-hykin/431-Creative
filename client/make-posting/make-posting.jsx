@@ -6,137 +6,62 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import { colors } from '../theme'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
 import Chip from '@material-ui/core/Chip'
+import Navbar from '../components/navbar'
 import { api } from '../../backend/setup-functions'
-
-let buttonStyles = {
-  borderRadius: '10rem',
-  transform: 'scale(1.3)',
-  zIndex: 100
-}
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Typography from '@material-ui/core/Typography'
+import Snackbar from '@material-ui/core/Snackbar'
 
 const classes = theme => ({
-  titleBar: {
-    paddingLeft: '3%',
-    paddingRight: '3%',
-    paddingTop: '1%',
-    paddingBottom: '1%',
-    backgroundColor: colors.blue,
-    width: '100%',
-    display: 'flex'
-    // height: '22vh'
-  },
-  rightAlign: {
-    justifyContent: 'right'
-  },
-  flexInline: {
-    display: 'inline-flex'
-  },
-  cancelButton: {
-    ...buttonStyles,
-    color: colors.white,
-    borderColor: colors.white,
-    backgroundColor: colors.red
-  },
-  saveButton: {
-    ...buttonStyles,
-    color: colors.white,
-    borderColor: colors.white,
-    backgroundColor: colors.teal,
-    float: 'right'
-  },
-  addSkill: {
-    ...buttonStyles,
-    color: colors.white,
-    borderColor: colors.white,
-    backgroundColor: colors.teal,
-    marginRight: '2%',
-    marginLeft: '2%'
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    fontSize: 'calc(2.4vw + 1rem)',
-    color: colors.white
-  },
-  titleUnderline: {
-    '&:after': {
-      borderBottomColor: colors.white
+  root: {
+    backgroundColor: colors.offWhite,
+    width: '100vw',
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
+      width: 900,
+      marginLeft: 'auto',
+      marginRight: 'auto'
     },
-    '&:before': {
-      borderBottomColor: colors.white
-    }
+    marginTop: 50
   },
-  content: {
-    width: '100%',
-    height: '78vh',
+  heroContent: {
+    maxWidth: 600,
+    margin: '0 auto 24px auto'
+  },
+  appBar: {
+    position: 'relative',
+    background: '#2096F3',
+    color: 'white'
+  },
+  inputFields: {
+    margin: '4px',
+    display: 'block'
+  },
+  contactHeader: {
+    marginTop: '12px'
+  },
+  skillInput: {
     display: 'flex',
-    paddingTop: '1rem',
-    backgroundColor: colors.offWhite
-  },
-  cards: {
-    width: '70%',
-    paddingLeft: '3%',
-    display: 'flex',
-    flexWrap: 'wrap',
-    height: '100%',
-    overflow: 'auto'
-  },
-  contacts: {
-    width: '30%',
-    height: '100%',
-    paddingLeft: '3%',
-    paddingRight: '3%'
-  },
-  bigFont: {
-    fontSize: 'calc(2.2vw + 1rem)'
-  },
-  alignBottom: {
-    display: 'flex',
-    flexDirection: 'column-reverse',
-    padding: '1rem'
-  },
-  card: {
-    height: '98%',
-    width: '98%'
-  },
-  skillsCard: {
-    height: '15%',
-    width: '100%',
-    paddingTop: '1%'
-  },
-  descriptionCard: {
-    height: '81%',
-    width: '100%',
-    paddingTop: '1%',
-    paddingBottom: '1%'
-  },
-  contactsCard: {
-    height: '99%'
-  },
-  submitContainer: {
-    flexBasis: '0',
-    flexGrow: '1',
-    width: '10%'
-  },
-  cancelContainer: {
-    flexBasis: '0',
-    flexGrow: '1',
-    width: '10%'
-  },
-  titleContainer: {
-    flexBasis: '0',
-    flexGrow: '1',
-    justifyContent: 'center',
-    width: '80%'
-  },
-  chipsBar: {
-    display: 'flex'
+    alignItems: 'center'
   },
   description: {
-    width: '100%',
-    height: '100%'
+    marginTop: '12px'
+  },
+  snackBarError: {
+    background: '#d32f2f'
+  },
+  saveButton: {
+    background: '#2fd32f',
+    color: 'white'
+  },
+  cancelButton: {
+    background: '#d32f2f',
+    color: 'white'
   }
 })
 
@@ -162,6 +87,14 @@ class MakePosting extends Component {
     this.setState(temp)
   }
 
+  handleSkillSnackBarClose = () => {
+    this.setState({ skillSnackBarOpen: false })
+  }
+
+  handleErrorSnackBarClose = () => {
+    this.setState({ errorSnackBarOpen: false })
+  }
+
   /* istanbul ignore next */
   savePosting = (e) => {
     /* istanbul ignore next */
@@ -175,15 +108,26 @@ class MakePosting extends Component {
     /* istanbul ignore next */
     newPost.skills = this.state.skills
     /* istanbul ignore next */
-    api['make-posting'](newPost).then(response => { console.log(response) })
+    api['make-posting'](newPost).then(response => {
+      console.log(response)
+      this.props.history.push('/dashboard')
+    }).catch(err => {
+      let msg
+      if (err.toString() === 'Error: missing post parameters') msg = 'Missing Form Fields'
+      if (err.toString() === 'Error: not authorized') msg = 'You need to be logged in'
+      this.setState({ errorSnackBarOpen: true, errorMsg: msg })
+      console.error(err)
+    })
   }
 
   addSkill = (e) => {
     let temp = this.state
-    if (temp.newSkill !== '') {
+    if (temp.newSkill !== '' && !(temp.skills.includes(temp.newSkill))) {
       temp.skills.push(temp.newSkill)
       temp.newSkill = ''
       this.setState(temp)
+    } else {
+      this.setState({ skillSnackBarOpen: true })
     }
   }
 
@@ -194,52 +138,42 @@ class MakePosting extends Component {
 
   constructor (props) {
     super(props)
-    this.state = { title: '', description: '', skills: [], contact: {}, newSkill: '' }
+    this.state = { title: '', description: '', skills: [], contact: {}, newSkill: '', skillSnackBarOpen: false, errorSnackBarOpen: false, errorMsg: '' }
   }
 
   render () {
     return <div id='makePosting' className={this.props.className} style={{ width: '100%' }}>
-      <div className={this.props.classes.titleBar}>
-        <div className={this.props.classes.cancelContainer}>
-          <Button id='cancelButton' variant='outlined' className={this.props.classes.cancelButton} onClick={this.goHome}>
-            Cancel
-          </Button>
-        </div>
-        <div className={this.props.classes.titleContainer}>
-          <TextField
-            id='postTitle'
-            placeholder='Title'
-            value={this.state.title}
-            InputProps={{
-              classes: {
-                underline: this.props.classes.titleUnderline,
-                input: this.props.classes.textField
-              }
-            }}
-            onChange={this.handleChange('title')}
-            margin='normal'
-          />
-        </div>
-        <div className={this.props.classes.submitContainer}>
-          <Button id='saveButton' variant='outlined' className={this.props.classes.saveButton} onClick={this.savePosting}>
-            Save
-          </Button>
-        </div>
-      </div>
-      <div className={this.props.classes.content}>
-        <div className={this.props.classes.cards} id='cards'>
-          <Card className={this.props.classes.skillsCard}>
-            <CardContent className={this.props.classes.chipsBar}>
-              <TextField
-                id='skill'
-                placeholder='Skills'
-                className={classes.textField}
-                value={this.state.newSkill}
-                onChange={this.handleChange('newSkill')}
-              />
-              <Button id='skillButton' variant='outlined' className={this.props.classes.addSkill} onClick={this.addSkill}>
-                Add Skill
-              </Button>
+
+      <CssBaseline />
+      <Navbar title='Make a Post' />
+      <section className={this.props.classes.root}>
+        <Card className={this.props.classes.heroContent}>
+          <CardHeader title='Make a Post' />
+          <CardContent>
+            <Typography color='textSecondary' gutterBottom>
+              Post Information
+            </Typography>
+            <TextField
+              id='title'
+              placeholder='Title'
+              value={this.state.title}
+              label='Post Title'
+              onChange={this.handleChange('title')}
+              className={this.props.classes.inputFields} />
+            <div>
+              <div className={this.props.classes.skillInput}>
+                <TextField
+                  id='skill'
+                  placeholder='Skills'
+                  className={this.props.classes.inputFields}
+                  value={this.state.newSkill}
+                  onChange={this.handleChange('newSkill')}
+                  label='Add a Skill'
+                />
+                <Button id='skillButton' variant='outlined' onClick={this.addSkill} className={this.props.inputFields}>
+                  Add Skill
+                </Button>
+              </div>
               <div>
                 { this.state.skills.map((item) => (
                   <Chip
@@ -249,72 +183,96 @@ class MakePosting extends Component {
                   />
                 ))}
               </div>
-            </CardContent>
-          </Card>
-          <Card className={this.props.classes.descriptionCard}>
-            <CardContent>
-              <div className={this.props.classes.bigFont}>
-                Description
-              </div>
-              <TextField
-                multiline
-                className={this.props.classes.description}
-                value={this.state.description}
-                onChange={this.handleChange('description')}
-                placeholder='description'
-                rows='15'
-                variant='outlined'
-              />
-            </CardContent>
-          </Card>
-        </div>
-        <div className={this.props.classes.contacts}>
-          <Card className={this.props.classes.contactsCard}>
-            <CardContent>
-              <div className={this.props.classes.bigFont}>
-                Contact Info
-              </div>
-              <hr />
-              <TextField
-                id='postEmail'
-                label='Email'
-                name='Email'
-                className={this.props.classes.textField}
-                value={this.state.email}
-                onChange={this.handleContactChange('email')}
-                margin='normal'
-              />
-              <TextField
-                id='post'
-                label='Company'
-                name='Title'
-                className={this.props.classes.textField}
-                value={this.state.company}
-                onChange={this.handleContactChange('company')}
-                margin='normal'
-              />
-              <TextField
-                id='postName'
-                label='Phone'
-                name='Title'
-                className={this.props.classes.textField}
-                value={this.state.phone}
-                onChange={this.handleContactChange('phone')}
-                margin='normal'
-              />
-              <TextField
-                id='postName'
-                label='LinkedIn'
-                name='Title'
-                className={this.props.classes.textField}
-                value={this.state.linkedin}
-                onChange={this.handleContactChange('linkedin')}
-                margin='normal'
-              />
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+            </div>
+            <TextField
+              multiline
+              className={this.props.classes.description}
+              value={this.state.description}
+              onChange={this.handleChange('description')}
+              placeholder='description'
+              rows='15'
+              variant='outlined'
+              fullWidth
+              label='Job Description'
+            />
+            {/* CONTACT INFO */}
+            <Typography color='textSecondary' gutterBottom className={this.props.classes.contactHeader}>
+              Post Contact Information
+            </Typography>
+            <TextField
+              id='postEmail'
+              label='Email'
+              name='Email'
+              className={this.props.classes.inputFields}
+              value={this.state.email}
+              onChange={this.handleContactChange('email')}
+            />
+            <TextField
+              id='post'
+              label='Company'
+              name='Title'
+              className={this.props.classes.inputFields}
+              value={this.state.company}
+              onChange={this.handleContactChange('company')}
+            />
+            <TextField
+              id='postName'
+              label='Phone'
+              name='Title'
+              className={this.props.classes.inputFields}
+              value={this.state.phone}
+              onChange={this.handleContactChange('phone')}
+            />
+            <TextField
+              id='postName'
+              label='LinkedIn'
+              name='Title'
+              className={this.props.classes.inputFields}
+              value={this.state.linkedin}
+              onChange={this.handleContactChange('linkedin')}
+            />
+          </CardContent>
+          <CardActions>
+            <Button id='cancelButton' variant='outlined' onClick={this.goHome}
+              classes={{
+                root: this.props.classes.cancelButton
+              }}>
+              Cancel
+            </Button>
+            <Button id='saveButton' variant='outlined' onClick={this.savePosting}
+              classes={{
+                root: this.props.classes.saveButton
+              }}>
+              Save
+            </Button>
+          </CardActions>
+        </Card>
+      </section>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={this.state.skillSnackBarOpen}
+        onClose={this.handleSkillSnackBarClose}
+        ContentProps={{
+          'aria-describedby': 'message-id'
+        }}
+        message={<span id='message-id'>Skill is empty or already exists</span>}
+        autoHideDuration={2000}
+      />
+
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={this.state.errorSnackBarOpen}
+        onClose={this.handleErrorSnackBarClose}
+        ContentProps={{
+          classes: {
+            root: this.props.classes.snackBarError
+          },
+          'aria-describedby': 'message-id'
+        }}
+        message={<span id='message-id'>{this.state.errorMsg}</span>}
+        autoHideDuration={2000}
+      />
+
     </div>
   }
 }
