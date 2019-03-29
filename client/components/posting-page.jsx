@@ -164,7 +164,7 @@ class PostingPage extends Component {
     return <div id='makePosting' className={this.props.className} style={{ width: '100%' }}>
 
       <CssBaseline />
-      <Navbar title='Make a Post' />
+      <Navbar title='Post Modification' />
       <section className={this.props.classes.root}>
         <Card className={this.props.classes.heroContent}>
           <CardHeader title={this.props.pageTitle} />

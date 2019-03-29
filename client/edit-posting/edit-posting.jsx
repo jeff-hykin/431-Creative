@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.min.css'
-import fetch from 'isomorphic-fetch'
 import PostingPage from '../components/posting-page'
 import { api } from '../../backend/setup-functions'
 
