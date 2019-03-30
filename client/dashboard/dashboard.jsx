@@ -114,9 +114,7 @@ class Dashboard extends Component {
 
   render () {
     let user = window.user
-    console.log('USER:', window.user)
     if (!window.user) {
-      console.log('NO USER')
       return <Redirect to='/' />
     } else {
       console.log('GOT HERE')

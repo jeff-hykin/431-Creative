@@ -29,8 +29,8 @@ class App extends React.Component {
   }
 
   async componentWillMount () {
-    if (localStorage.user) {
-      window.user = localStorage.user
+    if (localStorage.getItem('user') != 'undefined') {
+      window.user = JSON.parse(localStorage.getItem('user'))
       this.setState({ loading: false })
     }
     await this.authenticate()
@@ -46,11 +46,11 @@ class App extends React.Component {
       /* istanbul ignore if */
       if (data.authenticated) {
         console.log('AUTHENTICATED')
-        localStorage.user = data.user
+        localStorage.setItem('user', JSON.stringify(data.user))
         window.user = data.user
       } else {
         console.log('NOT AUTHENTICATED')
-        localStorage.user = undefined
+        localStorage.setItem('user', undefined)
         window.user = undefined
       }
     } catch (err) {
