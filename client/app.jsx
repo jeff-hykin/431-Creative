@@ -8,8 +8,6 @@ import Routes from './routes'
 import { classes } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
 
-// import UserContext from './user-context'
-
 //
 // set body
 //
@@ -28,12 +26,12 @@ class App extends React.Component {
     }
   }
 
-  async componentWillMount () {
-    if (localStorage.getItem('user') != 'undefined') {
+  componentWillMount () {
+    this.authenticate()
+    if (localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== undefined) {
       window.user = JSON.parse(localStorage.getItem('user'))
       this.setState({ loading: false })
     }
-    await this.authenticate()
   }
 
   async authenticate () {

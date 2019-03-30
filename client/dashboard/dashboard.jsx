@@ -117,7 +117,6 @@ class Dashboard extends Component {
     if (!window.user) {
       return <Redirect to='/' />
     } else {
-      console.log('GOT HERE')
       return <div id='Dashboard' className={this.props.className}>
         <div className={this.props.classes.titleBar}>
           <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
