@@ -4,7 +4,6 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/styles'
-import UserContext from '../user-context'
 import { Avatar } from '@material-ui/core'
 
 const styles = theme => ({
@@ -24,7 +23,6 @@ const styles = theme => ({
 class Navbar extends Component {
   render () {
     const { classes } = this.props
-    const user = this.context
     return (
       <AppBar position='static' color='default' className={classes.appBar}>
         <Toolbar>
@@ -42,7 +40,5 @@ class Navbar extends Component {
     )
   }
 }
-
-Navbar.contextType = UserContext
 
 export default withStyles(styles)(Navbar)

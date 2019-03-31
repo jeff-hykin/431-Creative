@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
-// import UserContext from '../user-context'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
 
