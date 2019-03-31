@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import { expect } from 'chai'
-import Postings from '../../../client/postings/postings'
+import { Postings } from '../../../client/postings/postings'
 
 describe('<Postings />', () => {
   let props
@@ -20,7 +20,9 @@ describe('<Postings />', () => {
     props = {
       wallpaperPath: undefined,
       userInfoMessage: undefined,
-      onUnlocked: undefined
+      onUnlocked: undefined,
+      classes: {},
+      history: {}
     }
     mountedPostings = undefined
   })

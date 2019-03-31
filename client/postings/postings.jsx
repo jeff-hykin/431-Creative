@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import { withRouter } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
@@ -7,6 +8,7 @@ import Page from '../page'
 import Lister from '../components/lister'
 import { api } from '../../backend/setup-functions'
 import Navbar from '../components/navbar'
+import { navigateToShowPosting, transformPostings } from '../components/lister/utils'
 
 const styles = theme => ({
   color: {
@@ -31,13 +33,17 @@ const styles = theme => ({
   }
 })
 
-function Postings ({ classes }) {
+export function Postings ({ classes, history }) {
   const [postings, setPostings] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api['get-postings']()
-      console.log(result)
+      const result = await api['get-postings']().then(resp => (
+        transformPostings(resp, {
+          showView: true,
+          onView: navigateToShowPosting.bind(this, history)
+        }
+        )))
       setPostings(result)
     }
     fetchData().catch(console.warn)
@@ -58,4 +64,4 @@ function Postings ({ classes }) {
   )
 }
 
-export default Page(withStyles(styles)(Postings))
+export default Page(withRouter(withStyles(styles)(Postings)))
