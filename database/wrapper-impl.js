@@ -32,6 +32,7 @@ async function connect (database = DEFAULT_DB) {
     prodcluster-shard-00-02-zwe3b.mongodb.net:27017/${database}?ssl=true&replicaSet=ProdCluster-shard-0&authSource=admin&retryWrites=true`, options)
     dbo = db.db(database)
   }
+  dbo.collection(POST_COLLECTION).createIndex({ 'dateModified': 1 }, { expireAfterSeconds: 2629800 })
   return db
 }
 
