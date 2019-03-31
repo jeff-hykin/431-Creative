@@ -8,8 +8,6 @@ import Routes from './routes'
 import { classes } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
 
-import UserContext from './user-context'
-
 //
 // set body
 //
@@ -24,38 +22,46 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: null
+      loading: true
     }
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.authenticate()
+    if (localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== undefined) {
+      window.user = JSON.parse(localStorage.getItem('user'))
+      this.setState({ loading: false })
+    }
   }
 
-  authenticate () {
-    fetch(`${HOST_AND_PROTOCOL}/auth/google/authenticate`, {
-      mode: 'no-cors'
-    }).then(res => {
-      return res.json()
-    }).then(data => {
+  async authenticate () {
+    try {
+      let res = await fetch(`${HOST_AND_PROTOCOL}/auth/google/authenticate`, {
+        mode: 'no-cors'
+      })
+      let data = await res.json()
+
       /* istanbul ignore if */
       if (data.authenticated) {
         console.log('AUTHENTICATED')
-        this.setState({ user: data.user })
+        localStorage.setItem('user', JSON.stringify(data.user))
+        window.user = data.user
       } else {
         console.log('NOT AUTHENTICATED')
+        localStorage.setItem('user', undefined)
+        window.user = undefined
       }
-    }).catch(err => {
+    } catch (err) {
       console.error('Ran into an issue checking authentication...', err)
-    })
+    } finally {
+      this.setState({ loading: false })
+    }
   }
 
   render () {
-    return (
-      <UserContext.Provider value={this.state.user}>
-        <Routes />
-      </UserContext.Provider>
-    )
+    return this.state.loading
+      ? <div />
+      : <Routes />
   }
 }
 

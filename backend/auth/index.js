@@ -57,7 +57,7 @@ function setupGoogleAuth (app) {
     if (req.user) {
       res.json({ authenticated: true, user: req.user })
     } else {
-      res.json({ authenticated: false })
+      res.json({ authenticated: false, user: null })
     }
   })
 

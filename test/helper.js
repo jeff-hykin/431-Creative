@@ -29,6 +29,19 @@ global.requestAnimationFrame = function (callback) {
 global.cancelAnimationFrame = function (id) {
   clearTimeout(id)
 }
+global.pseudoLocalStorage = {}
+global.localStorage = {
+  getItem: (key) => {
+    return global.pseudoLocalStorage[key]
+  },
+  setItem: (key, value) => {
+    global.pseudoLocalStorage[key] = `${value}`
+  },
+  removeItem: (key) => {
+    delete global.pseudoLocalStorage[key]
+  }
+}
+
 copyProps(window, global)
 
 configure({ adapter: new Adapter() })

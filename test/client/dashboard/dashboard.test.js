@@ -8,6 +8,14 @@ import Button from '@material-ui/core/Button'
 
 describe('<Dashboard />', () => {
   it('has clickable buttons that dont crash', () => {
+    const user = {
+      email: 'test@gmail.com',
+      firstName: 'Test',
+      lastName: 'Smith'
+    }
+
+    window.user = user
+
     const wrapper = mount(
       <Router>
         <Dashboard />
