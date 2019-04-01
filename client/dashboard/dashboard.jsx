@@ -89,7 +89,7 @@ class PostingsHelper extends Component {
           showView: true,
           showDelete: true,
           onEdit: navigateToEditPosting.bind(this, this.props.history),
-          onDelete: navigateToShowPosting.bind(this, this.props.history),
+          onDelete: console.log,
           onView: navigateToShowPosting.bind(this, this.props.history)
         })
       }))
