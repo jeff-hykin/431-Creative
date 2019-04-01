@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { expect } from 'chai'
-import { Postings } from '../../../client/postings/postings'
+import { AllPostings } from '../../../client/all-postings/all-postings'
 import BigButton from '../../../client/components/big-button'
 import * as tools from '../../tools'
 
@@ -14,11 +14,11 @@ let mountPostings = (props = {
   history: []
 }) => mount(
   <Router>
-    <Postings {...props} />
+    <AllPostings {...props} />
   </Router>
 )
 
-describe('<Postings />', () => {
+describe('<AllPostings />', () => {
   it('is able to mount', () => {
     const wrapper = mountPostings()
     let section = wrapper.find('section')

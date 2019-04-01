@@ -42,7 +42,7 @@ let onClickNewPosting = (e, history) => {
 }
 
 /* istanbul ignore next */
-export function Postings ({ classes, history }) {
+export function AllPostings ({ classes, history }) {
   const [postings, setPostings] = useState([])
 
   useEffect(() => {
@@ -88,4 +88,4 @@ export function Postings ({ classes, history }) {
 }
 
 /* istanbul ignore next */
-export default Page(withRouter(withStyles(styles)(Postings)))
+export default Page(withRouter(withStyles(styles)(AllPostings)))
