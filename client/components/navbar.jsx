@@ -1,44 +1,55 @@
-import React, { Component } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import React from 'react'
 import { withStyles } from '@material-ui/styles'
-import { Avatar } from '@material-ui/core'
 
-const styles = theme => ({
-  appBar: {
-    position: 'relative',
-    background: '#2096F3',
-    color: 'white'
+let viewPadding = 4
+let emPadding = '3em'
+let leftAndRight = {
+  display: 'flex',
+  flexDirection: 'row',
+  paddingLeft: `calc(${viewPadding}vw + 1em)`,
+  paddingRight: `calc(${viewPadding}vw + 1em)`,
+  paddingTop: `calc(${viewPadding / 2}vw + 1em)`,
+  paddingBottom: emPadding,
+  width: 'fit-content',
+  boxSizing: 'content-box',
+  flexWrap: 'wrap'
+}
+const classes = theme => ({
+  main: {
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'space-between',
+    // position: 'sticky', // this could enabled but it would mess up the mobile view
+    top: 0
   },
-  avatar: {
-    backgroundColor: '#f36e20'
+  left: {
+    ...leftAndRight,
+    justifyContent: 'flex-start'
   },
-  toolbarTitle: {
-    flex: 1
+  right: {
+    ...leftAndRight,
+    justifyContent: 'flex-end'
   }
 })
 
-class Navbar extends Component {
-  render () {
-    const { classes } = this.props
-    return (
-      <AppBar position='static' color='default' className={classes.appBar}>
-        <Toolbar>
-          <Typography variant='h6' color='inherit' noWrap className={classes.toolbarTitle}>
-            ACC
-          </Typography>
-          {user === null && <a href='/auth/google'><Button id='loginButton' variant='outlined' className={classes.loginButton}>
-            Login
-          </Button></a>}
-          {user !== null && <Avatar className={classes.avatar}>
-            {user.firstName[0]}
-          </Avatar>}
-        </Toolbar>
-      </AppBar>
-    )
-  }
-}
+export let NavSpacer = () => <div style={{ width: '1.5em' }} />
 
-export default withStyles(styles)(Navbar)
+export let Nav = withStyles(classes)(({ classes, children }) => {
+  return <nav className={classes.main}>
+    {children}
+  </nav>
+})
+
+export let NavLeft = withStyles(classes)(({ classes, children }) => {
+  return <div className={classes.left} >
+    <div className={classes.arcBackground} />
+    {children}
+  </div>
+})
+
+export let NavRight = withStyles(classes)(({ classes, children }) => {
+  return <div className={classes.right} >
+    <div className={classes.arcBackground} />
+    {children}
+  </div>
+})
