@@ -4,9 +4,13 @@ import Fab from '@material-ui/core/Fab'
 import { colors } from '../theme'
 
 const classes = {
+  button: {
+    minWidth: 'max-content'
+  },
   adjustFont: {
     padding: '1em',
-    transform: 'scale(1.16)'
+    transform: 'scale(1.16)',
+    minWidth: 'max-content'
   },
   gray: {
     backgroundColor: colors.gray,
@@ -23,11 +27,18 @@ const classes = {
   green: {
     backgroundColor: colors.teal,
     color: 'white'
+  },
+  isNav: {
+    marginBottom: '1em'
   }
 }
 
-let BigButton = ({ classes, color, children, label, className, ...otherProps }) => {
-  return <Fab variant='extended' size='large' className={classes[color] + ' ' + className} {...otherProps}>
+let BigButton = ({ classes, color, isNav, children, label, className, ...otherProps }) => {
+  let classString = classes.button
+  classString += ' ' + (className || '')
+  classString += ' ' + (color ? classes[color] : '')
+  classString += ' ' + (isNav ? classes.isNav : '')
+  return <Fab variant='extended' size='large' className={classString} {...otherProps}>
     <span className={classes.adjustFont}>
       {children}
     </span>
