@@ -113,7 +113,7 @@ class Dashboard extends Component {
 
   render () {
     let user = window.user
-    if (!window.user) {
+    if (window.user == null) {
       return <Redirect to='/' />
     } else {
       return <div id='Dashboard' className={this.props.className}>

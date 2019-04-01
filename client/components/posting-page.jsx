@@ -56,6 +56,7 @@ class PostingPage extends Component {
     }
   }
 
+  /* istanbul ignore next */
   async componentWillMount () {
     // if the id exists, then get the data
     let postId = this.props.match?.params?.id

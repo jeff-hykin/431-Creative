@@ -24,22 +24,22 @@ let onLogout = (e) => {
 }
 
 let LoginArea = ({ classes, history }) => {
-  /* istanbul ignore next */
   if (window.user == null) {
-    return <BigButton isNav color='green' onClick={onLogin}>
+    return <BigButton id='loginButton' isNav color='green' onClick={onLogin}>
         Login
     </BigButton>
   } else {
     return <Fragment>
-      <BigButton isNav color='green' onClick={e => history.push('/dashboard')}>
+      <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
         Dashboard
       </BigButton>
       <NavSpacer />
-      <BigButton isNav color='gray' id='logoutButton' onClick={onLogout}>
+      <BigButton id='logoutButton' isNav color='gray' onClick={onLogout}>
             Logout
       </BigButton>
     </Fragment>
   }
 }
 
+export { LoginArea }
 export default withRouter(withStyles(classes)(LoginArea))

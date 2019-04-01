@@ -9,6 +9,7 @@ import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import LoginArea from '../components/login-area'
 import BigButton from '../components/big-button'
 
+/* istanbul ignore next */
 const styles = theme => ({
   wrapper: {
     width: '100vw'
@@ -30,6 +31,7 @@ const styles = theme => ({
   }
 })
 
+/* istanbul ignore next */
 let onClickNewPosting = (e, history) => {
   if (window.user != null) {
     history.push('/makeposting')
@@ -38,6 +40,7 @@ let onClickNewPosting = (e, history) => {
   }
 }
 
+/* istanbul ignore next */
 function Postings ({ classes, history }) {
   const [postings, setPostings] = useState([])
 
@@ -77,5 +80,5 @@ function Postings ({ classes, history }) {
     </div>
   )
 }
-
+/* istanbul ignore next */
 export default withRouter(Page(withStyles(styles)(Postings)))

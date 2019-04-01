@@ -23,26 +23,6 @@ describe('<PostingPage />', () => {
     expect(wrapper.exists('#saveButton')).to.equal(true)
   })
 
-  describe('#goHome', () => {
-    it('adds \'/\' to the history', () => {
-      const wrapper = shallow(<PostingPage {...fakeProps} />)
-      const instance = wrapper.instance()
-      instance.goHome({ preventDefault: sinon.stub() })
-      expect(instance.props.history).to.deep.equal(['/'])
-    })
-  })
-
-  describe('#handleChange', () => {
-    it('calls setState', () => {
-      const wrapper = shallow(<PostingPage {...fakeProps} />)
-      const instance = wrapper.instance()
-      let stateSpy = sinon.spy(instance, 'setState')
-      instance.handleChange(0)({ target: { value: 0 } })
-      expect(stateSpy.called).to.equal(true)
-      stateSpy.restore()
-    })
-  })
-
   describe('#handleContactChange', () => {
     it('calls setState', () => {
       const wrapper = shallow(<PostingPage {...fakeProps} />)
@@ -73,13 +53,6 @@ describe('<PostingPage />', () => {
     //   expect(stateSpy.called).to.equal(false)
     //   stateSpy.restore()
     // })
-
-    it('should set skillSnackBarOpen state to true when skill == \'\'', () => {
-      const wrapper = shallow(<PostingPage {...fakeProps} />)
-      const instance = wrapper.instance()
-      instance.addSkill({})
-      expect(instance.state.skillSnackBarOpen).to.equal(true)
-    })
   })
 
   describe('#handleSkillDelete', () => {

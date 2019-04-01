@@ -42,12 +42,20 @@ class GlobalSnackbar extends React.Component {
     window.removeEventListener('snackbar-error-message', this.errorMessageListener)
   }
 
+  errorCloseHandler () {
+    this.setState({ errorSnackBarIsOpen: false })
+  }
+
+  normalCloseHandler () {
+    this.setState({ normalSnackbarIsOpen: false })
+  }
+
   render () {
     return <Fragment>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={this.state.normalSnackbarIsOpen}
-        onClose={e => this.setState({ normalSnackbarIsOpen: false })}
+        onClose={this.normalCloseHandler}
         ContentProps={{
           'aria-describedby': 'message-id'
         }}
@@ -58,7 +66,7 @@ class GlobalSnackbar extends React.Component {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={this.state.errorSnackBarIsOpen}
-        onClose={e => this.setState({ errorSnackBarIsOpen: false })}
+        onClose={this.errorCloseHandler}
         ContentProps={{
           classes: {
             root: this.props.classes.snackBarError
