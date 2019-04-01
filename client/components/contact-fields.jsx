@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
@@ -15,7 +15,8 @@ let classes = {
   fieldWrapper: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    paddingBottom: '0.9em'
   },
   contactHeader: {
     marginTop: '12px',

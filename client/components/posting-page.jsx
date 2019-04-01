@@ -29,7 +29,8 @@ const classes = theme => ({
     paddingBottom: '2em'
   },
   titleInput: {
-    fontSize: '2.3em'
+    fontSize: '2.3em',
+    lineHeight: '1em'
   }
 })
 
