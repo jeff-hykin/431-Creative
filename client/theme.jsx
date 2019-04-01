@@ -7,12 +7,12 @@ classes.vbox = {
 }
 
 export const colors = {
-  teal: '#7cd50c',
+  teal: '#00BFA5',
   softRed: '#e57373',
   blue: '#2196f3',
   offWhite: 'whitesmoke',
   white: '#FFFFFF',
-  gray: '#808080',
+  gray: 'gray',
   red: '#e60000'
 }
 

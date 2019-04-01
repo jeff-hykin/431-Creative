@@ -10,4 +10,5 @@ const NotFound = () =>
     </MatrixParallax>
   </div>
 
+export { NotFound }
 export default Page(NotFound)

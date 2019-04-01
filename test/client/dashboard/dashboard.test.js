@@ -1,20 +1,13 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { BrowserRouter as Router } from 'react-router-dom'
-
-// import { expect } from 'chai'
+import * as tools from '../../tools'
 import Dashboard from '../../../client/dashboard/dashboard'
 import Button from '@material-ui/core/Button'
 
 describe('<Dashboard />', () => {
   it('has clickable buttons that dont crash', () => {
-    const user = {
-      email: 'test@gmail.com',
-      firstName: 'Test',
-      lastName: 'Smith'
-    }
-
-    window.user = user
+    tools.setNormalUser()
 
     const wrapper = mount(
       <Router>
@@ -26,5 +19,7 @@ describe('<Dashboard />', () => {
       wrapper.find(Button).at(i).simulate('click')
     }
     wrapper.unmount()
+
+    tools.unsetUser()
   })
 })

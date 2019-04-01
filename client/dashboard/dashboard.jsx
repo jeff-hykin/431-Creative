@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
-// import UserContext from '../user-context'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
 
@@ -114,7 +113,7 @@ class Dashboard extends Component {
 
   render () {
     let user = window.user
-    if (!window.user) {
+    if (window.user == null) {
       return <Redirect to='/' />
     } else {
       return <div id='Dashboard' className={this.props.className}>
@@ -144,4 +143,5 @@ class Dashboard extends Component {
   }
 }
 
+export { Dashboard, classes }
 export default Page(withRouter(withStyles(classes)(Dashboard)))

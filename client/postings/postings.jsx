@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import CssBaseline from '@material-ui/core/CssBaseline'
-
 import Page from '../page'
 import Lister from '../components/lister'
 import { api } from '../../backend/setup-functions'
-import Navbar from '../components/navbar'
+import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
+import LoginArea from '../components/login-area'
+import BigButton from '../components/big-button'
 
+/* istanbul ignore next */
 const styles = theme => ({
-  color: {
-    backgroundColor: '#fbf7f5',
+  wrapper: {
     width: '100vw'
   },
   root: {
-    backgroundColor: '#fbf7f5',
     width: 'auto',
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -31,7 +31,17 @@ const styles = theme => ({
   }
 })
 
-function Postings ({ classes }) {
+/* istanbul ignore next */
+let onClickNewPosting = (e, history) => {
+  if (window.user != null) {
+    history.push('/makeposting')
+  } else {
+    window.location.href = '/auth/google'
+  }
+}
+
+/* istanbul ignore next */
+function Postings ({ classes, history }) {
   const [postings, setPostings] = useState([])
 
   useEffect(() => {
@@ -42,10 +52,23 @@ function Postings ({ classes }) {
     }
     fetchData().catch(console.warn)
   }, [])
+
   return (
-    <div className={classes.color}>
-      <CssBaseline />
-      <Navbar title='Postings' />
+    <div className={classes.wrapper}>
+      <Nav>
+        <NavLeft>
+          <BigButton isNav color='gray' onClick={e => history.push('/about')}>
+            About
+          </BigButton>
+          <NavSpacer />
+          <BigButton isNav color='blue' id='createButton' onClick={e => onClickNewPosting(e, history)}>
+            New Post
+          </BigButton>
+        </NavLeft>
+        <NavRight>
+          <LoginArea />
+        </NavRight>
+      </Nav>
       <section className={classes.root}>
         <div className={classes.heroContent}>
           <Typography component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
@@ -57,5 +80,5 @@ function Postings ({ classes }) {
     </div>
   )
 }
-
-export default Page(withStyles(styles)(Postings))
+/* istanbul ignore next */
+export default withRouter(Page(withStyles(styles)(Postings)))
