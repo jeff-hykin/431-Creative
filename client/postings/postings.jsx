@@ -8,6 +8,7 @@ import { api } from '../../backend/setup-functions'
 import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import LoginArea from '../components/login-area'
 import BigButton from '../components/big-button'
+import { navigateToShowPosting, transformPostings } from '../components/lister/utils'
 
 /* istanbul ignore next */
 const styles = theme => ({
@@ -41,13 +42,17 @@ let onClickNewPosting = (e, history) => {
 }
 
 /* istanbul ignore next */
-function Postings ({ classes, history }) {
+export function Postings ({ classes, history }) {
   const [postings, setPostings] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api['get-postings']()
-      console.log(result)
+      const result = await api['get-postings']().then(resp => (
+        transformPostings(resp, {
+          showView: true,
+          onView: navigateToShowPosting.bind(this, history)
+        }
+        )))
       setPostings(result)
     }
     fetchData().catch(console.warn)
@@ -80,5 +85,6 @@ function Postings ({ classes, history }) {
     </div>
   )
 }
+
 /* istanbul ignore next */
-export default withRouter(Page(withStyles(styles)(Postings)))
+export default Page(withRouter(withStyles(styles)(Postings)))

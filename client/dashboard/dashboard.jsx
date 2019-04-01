@@ -4,13 +4,11 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
+import { navigateToEditPosting, navigateToShowPosting, transformPostings } from '../components/lister/utils'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
 
 const classes = theme => ({
-  body: {
-    backgroundColor: colors.offWhite
-  },
   titleBar: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -79,19 +77,17 @@ class PostingsHelper extends Component {
     this.getPostings()
   }
 
-  transformPostings = postings => postings.map(p => Object.assign(p, {
-    showEdit: true,
-    showView: true,
-    showDelete: true,
-    onEdit: console.log,
-    onDelete: console.log,
-    onView: console.log
-  }))
-
   getPostings = () => {
     api['get-postings']({ ownerId: this.props.user._id }).then(resp => (
       this.setState({
-        postings: this.transformPostings(resp)
+        postings: transformPostings(resp, {
+          showEdit: true,
+          showView: true,
+          showDelete: true,
+          onEdit: navigateToEditPosting.bind(this, this.props.history),
+          onDelete: console.log,
+          onView: navigateToShowPosting.bind(this, this.props.history)
+        })
       }))
     )
   }
@@ -129,7 +125,7 @@ class Dashboard extends Component {
 
         <div className={this.props.classes.container}>
           <div className={this.props.classes.postingsbox}>
-            <PostingsHelper user={user} />
+            <PostingsHelper user={user} history={this.props.history} />
           </div>
           <div className={this.props.classes.contactBox}>
             <div className={this.props.classes.contactInfo}>
