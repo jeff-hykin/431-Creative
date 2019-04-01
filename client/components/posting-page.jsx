@@ -1,75 +1,44 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import 'react-toastify/dist/ReactToastify.min.css'
-import { colors } from '../theme'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardHeader from '@material-ui/core/CardHeader'
 import Chip from '@material-ui/core/Chip'
-import Navbar from './navbar'
 import { api } from '../../backend/setup-functions'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Typography from '@material-ui/core/Typography'
-import Snackbar from '@material-ui/core/Snackbar'
+import BigButton from './big-button'
+import Button from '@material-ui/core/Button'
+import ContactFields from './contact-fields'
+import { sendSnackbarMessage, sendSnackbarError } from './snackbar'
+import { setupHandleChange } from '../tools'
 
 /* istanbul ignore next */
 const classes = theme => ({
-  root: {
-    backgroundColor: colors.offWhite,
-    width: '100vw',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-      width: 900,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    },
-    marginTop: 50
-  },
   heroContent: {
     maxWidth: 600,
-    margin: '0 auto 24px auto'
+    minWidth: '60%',
+    margin: '10vh 0 0 0'
   },
-  appBar: {
-    position: 'relative',
-    background: '#2096F3',
-    color: 'white'
-  },
-  inputFields: {
-    margin: '4px',
-    display: 'block'
-  },
-  contactHeader: {
-    marginTop: '12px'
-  },
-  skillInput: {
-    display: 'flex',
-    alignItems: 'center'
+  skillButton: {
+    borderRadius: '100vh'
   },
   description: {
     marginTop: '12px'
   },
-  snackBarError: {
-    background: '#d32f2f'
+  titleInputContainer: {
+    paddingBottom: '2em'
   },
-  saveButton: {
-    background: '#2fd32f',
-    color: 'white'
-  },
-  cancelButton: {
-    background: '#d32f2f',
-    color: 'white'
+  titleInput: {
+    fontSize: '2.3em'
   }
 })
 
 class PostingPage extends Component {
   constructor (props) {
     super(props)
+    this.handleChange = setupHandleChange(this)
     this.state = {
+      loading: true,
       title: this.props.title || '',
       description: this.props.description || '',
       skills: this.props.skills || [],
@@ -82,13 +51,33 @@ class PostingPage extends Component {
       newSkill: '',
       skillSnackBarOpen: false,
       errorSnackBarOpen: false,
-      errorMsg: '' }
+      errorMsg: ''
+    }
   }
 
-  handleChange = name => event => {
-    let temp = this.state
-    temp[name] = event.target.value
-    this.setState(temp)
+  async componentWillMount () {
+    // if the id exists, then get the data
+    let postId = this.props.match?.params?.id
+    if (postId) {
+      // check if edit or view
+      let currentPath = window.location.pathname.replace(/^\/(.+?)\/.+/, '$1')
+      if (currentPath === 'edit') {
+        this.mode = 'edit'
+      } else {
+        this.mode = 'view'
+      }
+      try {
+        let post = (await api['get-postings']({ _id: postId }))[0]
+        /* istanbul ignore next */
+        this.setState({ post, loading: false })
+      } catch (err) {
+        console.error(err)
+      }
+    // if not getting data from the backend, then theres no loading time
+    } else {
+      this.setState({ loading: false })
+      this.mode = 'new'
+    }
   }
 
   handleContactChange = name => event => {
@@ -105,18 +94,6 @@ class PostingPage extends Component {
       temp.skills.splice(index, 1)
     }
     this.setState(temp)
-  }
-
-  /* istanbul ignore next */
-  handleSkillSnackBarClose = () => {
-    /* istanbul ignore next */
-    this.setState({ skillSnackBarOpen: false })
-  }
-
-  /* istanbul ignore next */
-  handleErrorSnackBarClose = () => {
-    /* istanbul ignore next */
-    this.setState({ errorSnackBarOpen: false })
   }
 
   /* istanbul ignore next */
@@ -139,7 +116,7 @@ class PostingPage extends Component {
       let msg
       if (err.toString() === 'Error: missing post parameters') msg = 'Missing Form Fields'
       if (err.toString() === 'Error: not authorized') msg = 'You need to be logged in'
-      this.setState({ errorSnackBarOpen: true, errorMsg: msg })
+      sendSnackbarError(msg)
       console.error(err)
     })
   }
@@ -151,147 +128,80 @@ class PostingPage extends Component {
       temp.newSkill = ''
       this.setState(temp)
     } else {
-      this.setState({ skillSnackBarOpen: true })
+      sendSnackbarMessage('Skill is empty or already exists')
     }
   }
 
-  goHome = (e) => {
-    e.preventDefault()
-    this.props.history.push('/')
-  }
-
   render () {
-    return <div id='makePosting' className={this.props.className} style={{ width: '100%' }}>
-
-      <CssBaseline />
-      <Navbar title='Post Modification' />
-      <section className={this.props.classes.root}>
-        <Card className={this.props.classes.heroContent}>
-          <CardHeader title={this.props.pageTitle} />
-          <CardContent>
-            <Typography color='textSecondary' gutterBottom>
-              Post Information
-            </Typography>
-            <TextField
-              id='title'
-              placeholder='Title'
-              value={this.state.title}
-              label='Post Title'
-              onChange={this.handleChange('title')}
-              className={this.props.classes.inputFields} />
-            <div>
-              <div className={this.props.classes.skillInput}>
-                <TextField
-                  id='skill'
-                  placeholder='Skills'
-                  className={this.props.classes.inputFields}
-                  value={this.state.newSkill}
-                  onChange={this.handleChange('newSkill')}
-                  label='Add a Skill'
-                />
-                <Button id='skillButton' variant='outlined' onClick={this.addSkill} className={this.props.inputFields}>
+    let classes = this.props.classes
+    return <div id='makePosting' className={this.props.className} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Card className={this.props.classes.heroContent}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: 'calc(1em + 2vw)' }} >
+          <TextField
+            id='title'
+            placeholder='Title'
+            value={this.state.title}
+            onChange={this.handleChange('title')}
+            className={classes.titleInputContainer}
+            InputProps={{
+              classes: {
+                input: classes.titleInput
+              }
+            }}
+          />
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', paddingBottom: '2em' }}>
+              <TextField
+                id='skill'
+                placeholder='Skills'
+                value={this.state.newSkill}
+                onChange={this.handleChange('newSkill')}
+                label='Skills Needed'
+                variant='outlined'
+              />
+              <div style={{ width: '1em' }} />
+              <Button size='large' id='skillButton' style={{ borderRadius: '100vh' }} variant='outlined' onClick={this.addSkill}>
+                <span style={{ minWidth: 'max-content' }} >
                   Add Skill
-                </Button>
-              </div>
-              <div>
-                { this.state.skills.map((item) => (
-                  <Chip
-                    label={item}
-                    key={item}
-                    onDelete={this.handleSkillDelete(item)}
-                  />
-                ))}
-              </div>
+                </span>
+              </Button>
             </div>
-            <TextField
-              multiline
-              className={this.props.classes.description}
-              value={this.state.description}
-              onChange={this.handleChange('description')}
-              placeholder='description'
-              rows='15'
-              variant='outlined'
-              fullWidth
-              label='Job Description'
-            />
-            {/* CONTACT INFO */}
-            <Typography color='textSecondary' gutterBottom className={this.props.classes.contactHeader}>
-              Post Contact Information
-            </Typography>
-            <TextField
-              id='postEmail'
-              label='Email'
-              name='Email'
-              className={this.props.classes.inputFields}
-              value={this.state.contact.email}
-              onChange={this.handleContactChange('email')}
-            />
-            <TextField
-              id='post'
-              label='Company'
-              name='Title'
-              className={this.props.classes.inputFields}
-              value={this.state.contact.company}
-              onChange={this.handleContactChange('company')}
-            />
-            <TextField
-              id='postName'
-              label='Phone'
-              name='Title'
-              className={this.props.classes.inputFields}
-              value={this.state.contact.phone}
-              onChange={this.handleContactChange('phone')}
-            />
-            <TextField
-              id='postName'
-              label='LinkedIn'
-              name='Title'
-              className={this.props.classes.inputFields}
-              value={this.state.contact.linkedin}
-              onChange={this.handleContactChange('linkedin')}
-            />
-          </CardContent>
-          <CardActions>
-            <Button id='cancelButton' variant='outlined' onClick={this.goHome}
-              classes={{
-                root: this.props.classes.cancelButton
-              }}>
-              Cancel
-            </Button>
-            <Button id='saveButton' variant='outlined' onClick={this.savePosting}
-              classes={{
-                root: this.props.classes.saveButton
-              }}>
-              Save
-            </Button>
-          </CardActions>
-        </Card>
-      </section>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        open={this.state.skillSnackBarOpen}
-        onClose={this.handleSkillSnackBarClose}
-        ContentProps={{
-          'aria-describedby': 'message-id'
-        }}
-        message={<span id='message-id'>Skill is empty or already exists</span>}
-        autoHideDuration={2000}
-      />
-
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        open={this.state.errorSnackBarOpen}
-        onClose={this.handleErrorSnackBarClose}
-        ContentProps={{
-          classes: {
-            root: this.props.classes.snackBarError
-          },
-          'aria-describedby': 'message-id'
-        }}
-        message={<span id='message-id'>{this.state.errorMsg}</span>}
-        autoHideDuration={2000}
-      />
-
+            <div>
+              { this.state.skills.map((item) => <span style={{ paddingRight: '0.5em' }}>
+                <Chip
+                  label={item}
+                  key={item}
+                  onDelete={this.handleSkillDelete(item)}
+                />
+              </span>
+              )}
+            </div>
+          </div>
+          <TextField
+            multiline
+            className={this.props.classes.description}
+            value={this.state.description}
+            onChange={this.handleChange('description')}
+            placeholder='description'
+            rows='15'
+            variant='outlined'
+            fullWidth
+            label='Job Description'
+          />
+          {/* CONTACT INFO */}
+          <ContactFields state={this.state.contact} handleChange={this.handleContactChange} />
+          {/* Save and Cancel buttons */}
+          <div style={{ paddingTop: '4em', display: 'flex' }}>
+            <BigButton color='gray' id='cancelButton' onClick={() => this.props.history.goBack()}>
+                Cancel
+            </BigButton>
+            <div style={{ width: '2em' }} />
+            <BigButton color='green' id='saveButton' onClick={this.savePosting}>
+                Save
+            </BigButton>
+          </div>
+        </div>
+      </Card>
     </div>
   }
 }
