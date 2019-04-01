@@ -12,7 +12,9 @@ function Lister ({ list, xs }) {
   ))
 
   if (data.length === 0) {
-    return <p>No data to show!</p>
+    return <div style={{ textAlign: 'center', width: '100%' }}>
+      No Posts ¯\_(ツ)_/¯
+    </div>
   }
   return (
     <Grid
