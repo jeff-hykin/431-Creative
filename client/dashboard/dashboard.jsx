@@ -143,4 +143,5 @@ class Dashboard extends Component {
   }
 }
 
+export { Dashboard, classes }
 export default Page(withRouter(withStyles(classes)(Dashboard)))
