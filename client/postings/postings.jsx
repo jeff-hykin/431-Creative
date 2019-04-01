@@ -46,6 +46,7 @@ export function Postings ({ classes, history }) {
   const [postings, setPostings] = useState([])
 
   useEffect(() => {
+    /* istanbul ignore next */
     const fetchData = async () => {
       const result = await api['get-postings']().then(resp => (
         transformPostings(resp, {
