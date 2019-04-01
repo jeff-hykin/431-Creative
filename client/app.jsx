@@ -8,6 +8,9 @@ import Routes from './routes'
 import { classes } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
 
+// CSS for toast notifications
+import 'react-toastify/dist/ReactToastify.min.css'
+
 //
 // set body
 //
@@ -29,7 +32,9 @@ class App extends React.Component {
   componentWillMount () {
     this.authenticate()
     if (localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== undefined) {
-      window.user = JSON.parse(localStorage.getItem('user'))
+      try {
+        window.user = JSON.parse(localStorage.getItem('user'))
+      } catch (e) {}
       this.setState({ loading: false })
     }
   }
