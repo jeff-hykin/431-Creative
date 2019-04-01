@@ -29,12 +29,17 @@ class GlobalSnackbar extends React.Component {
   }
 
   componentWillMount () {
-    window.addEventListener('snackbar-normal-message', ({ detail }) =>
+    this.normalMessageListener = window.addEventListener('snackbar-normal-message', ({ detail }) =>
       this?.setState({ normalMessage: detail, normalSnackbarIsOpen: true })
     )
-    window.addEventListener('snackbar-error-message', ({ detail }) =>
+    this.errorMessageListener = window.addEventListener('snackbar-error-message', ({ detail }) =>
       this?.setState({ normalMessage: detail, normalSnackbarIsOpen: true })
     )
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener(this.normalMessageListener)
+    window.removeEventListener(this.errorMessageListener)
   }
 
   render () {
