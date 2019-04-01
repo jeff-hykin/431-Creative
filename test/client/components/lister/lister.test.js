@@ -27,7 +27,7 @@ describe('<Lister />', () => {
     props = {
       list: []
     }
-    const p = postingsComponent().find('p')
+    const p = postingsComponent().find('div')
     expect(p.length).to.be.eq(1)
   })
 
