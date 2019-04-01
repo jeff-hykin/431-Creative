@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import BigButton from './big-button'
 import { withStyles } from '@material-ui/core'
+import { withRouter } from 'react-router-dom'
 import { colors } from '../theme'
 import { NavSpacer } from '../components/navbar'
 
@@ -12,13 +13,6 @@ export const classes = theme => ({
   }
 })
 
-let redirectOnLogin = (e) => {
-  /* istanbul ignore next */
-  e.preventDefault()
-  /* istanbul ignore next */
-  this.props.history.push(window.location.pathname)
-}
-
 let onLogin = (e) => {
   window.location.href = '/auth/google'
 }
@@ -29,7 +23,7 @@ let onLogout = (e) => {
   window.user = undefined
 }
 
-let LoginArea = ({ classes }) => {
+let LoginArea = ({ classes, history }) => {
   /* istanbul ignore next */
   if (window.user == null) {
     return <BigButton isNav color='green' onClick={onLogin}>
@@ -37,7 +31,7 @@ let LoginArea = ({ classes }) => {
     </BigButton>
   } else {
     return <Fragment>
-      <BigButton isNav color='green' onClick={redirectOnLogin}>
+      <BigButton isNav color='green' onClick={e => history.push('/dashboard')}>
         Dashboard
       </BigButton>
       <NavSpacer />
@@ -48,4 +42,4 @@ let LoginArea = ({ classes }) => {
   }
 }
 
-export default withStyles(classes)(LoginArea)
+export default withRouter(withStyles(classes)(LoginArea))
