@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
-import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
+import { Nav, NavLeft, NavRight } from '../components/navbar'
 import { navigateToEditPosting, navigateToShowPosting, transformPostings } from '../components/lister/utils'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
+import BigButton from '../components/big-button'
+import LoginArea from '../components/login-area'
+import ContactFields from '../components/contact-fields'
+import * as tools from '../tools'
 
 const classes = theme => ({
   titleBar: {
@@ -55,7 +59,9 @@ const classes = theme => ({
     backgroundColor: colors.teal
   },
   container: {
-    display: 'flex'
+    display: 'flex',
+    flexWrap: 'wrap-reverse',
+    justifyContent: 'center'
   },
   postingsbox: {
     padding: 40,
@@ -67,7 +73,6 @@ const classes = theme => ({
 class PostingsHelper extends Component {
   constructor (props) {
     super(props)
-
     this.state = {
       postings: []
     }
@@ -102,6 +107,12 @@ PostingsHelper.defaultProps = {
 }
 
 class Dashboard extends Component {
+  constructor (props) {
+    super(props)
+    this.handleChange = tools.setupHandleChange(this)
+    this.state = {}
+  }
+
   navigateToPostings = (e) => {
     e.preventDefault()
     this.props.history.push('/postings')
@@ -109,29 +120,29 @@ class Dashboard extends Component {
 
   render () {
     let user = window.user
-    if (window.user == null) {
-      return <Redirect to='/' />
+    if (user == null) {
+      return <Redirect to='/postings' />
     } else {
       return <div id='Dashboard' className={this.props.className}>
-        <div className={this.props.classes.titleBar}>
-          <Button id='allposts' variant='outlined' className={this.props.classes.leftButton} onClick={this.navigateToPostings}>
+        <Nav banner>
+          <NavLeft>
+            <BigButton id='allposts' size='medium' color='gray' variant='flat' onClick={this.navigateToPostings} >
               All Posts
-          </Button>
-          <h3 className={this.props.classes.dashboardName} >{user.firstName + ' ' + user.lastName}</h3>
-          <a href='/auth/google/logout'><Button id='loginButton' variant='outlined' className={this.props.classes.rightButton}>
-              Logout
-          </Button></a>
-        </div>
-
+            </BigButton>
+          </NavLeft>
+          <NavRight>
+            <LoginArea size='medium' variant='flat' />
+          </NavRight>
+        </Nav>
+        <h2 style={{ marginTop: '-20vh', marginLeft: '10vw', marginBottom: '7vh' }} className={this.props.classes.dashboardName} >
+          {user.firstName + ' ' + user.lastName}
+        </h2>
         <div className={this.props.classes.container}>
-          <div className={this.props.classes.postingsbox}>
+          <div style={{ minWidth: '50vw', width: 'calc(50vw + 10em)' }} >
             <PostingsHelper user={user} history={this.props.history} />
           </div>
-          <div className={this.props.classes.contactBox}>
-            <div className={this.props.classes.contactInfo}>
-              <h5>{'Contact info:'}</h5>
-              <div>{'Email:  ' + user.email}</div>
-            </div>
+          <div style={{ padding: '3em', minWidth: '21em' }} >
+            <ContactFields state={user} handleChange={this.handleChange} readOnly />
           </div>
         </div>
       </div>
