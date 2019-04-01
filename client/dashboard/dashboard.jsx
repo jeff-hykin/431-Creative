@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
-import { navigateToEditPosting, navigateToShowPosting, transformPostings } from '../components/lister/utils'
+import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformPostings } from '../components/lister/utils'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
 
@@ -85,7 +85,7 @@ class PostingsHelper extends Component {
           showView: true,
           showDelete: true,
           onEdit: navigateToEditPosting.bind(this, this.props.history),
-          onDelete: console.log,
+          onDelete: deletePosting,
           onView: navigateToShowPosting.bind(this, this.props.history)
         })
       }))
