@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime'
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { DIV } from 'good-dom'
 import fetch from 'isomorphic-fetch'
@@ -7,6 +7,7 @@ import fetch from 'isomorphic-fetch'
 import Routes from './routes'
 import { classes } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
+import GlobalSnackbar from './components/snackbar'
 
 // CSS for toast notifications
 import 'react-toastify/dist/ReactToastify.min.css'
@@ -64,9 +65,14 @@ class App extends React.Component {
   }
 
   render () {
-    return this.state.loading
-      ? <div />
-      : <Routes />
+    return <Fragment>
+      {
+        this.state.loading
+          ? <div />
+          : <Routes />
+      }
+      <GlobalSnackbar />
+    </Fragment>
   }
 }
 

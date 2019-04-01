@@ -121,7 +121,8 @@
     ],
     "globals": [
       "fetch",
-      "localStorage"
+      "localStorage",
+      "CustomEvent"
     ],
     "parser": "babel-eslint"
   },
