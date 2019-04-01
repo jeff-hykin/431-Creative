@@ -1,9 +1,8 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import BigButton from './big-button'
 import { withStyles } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { colors } from '../theme'
-import { NavSpacer } from '../components/navbar'
 
 export const classes = theme => ({
   loginButton: {
