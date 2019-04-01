@@ -38,8 +38,8 @@ class GlobalSnackbar extends React.Component {
   }
 
   componentWillUnmount () {
-    window.removeEventListener(this.normalMessageListener)
-    window.removeEventListener(this.errorMessageListener)
+    window.removeEventListener('snackbar-normal-message', this.normalMessageListener)
+    window.removeEventListener('snackbar-error-message', this.errorMessageListener)
   }
 
   render () {
