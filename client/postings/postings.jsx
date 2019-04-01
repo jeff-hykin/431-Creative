@@ -54,12 +54,12 @@ function Postings ({ classes, history }) {
     <div className={classes.wrapper}>
       <Nav>
         <NavLeft>
-          <BigButton isNav color='blue' id='createButton' onClick={e => onClickNewPosting(e, history)}>
-            New Post
-          </BigButton>
-          <NavSpacer />
           <BigButton isNav color='gray' onClick={e => history.push('/about')}>
             About
+          </BigButton>
+          <NavSpacer />
+          <BigButton isNav color='blue' id='createButton' onClick={e => onClickNewPosting(e, history)}>
+            New Post
           </BigButton>
         </NavLeft>
         <NavRight>
