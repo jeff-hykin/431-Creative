@@ -13,60 +13,17 @@ import ContactFields from '../components/contact-fields'
 import * as tools from '../tools'
 
 const classes = theme => ({
-  titleBar: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    margin: 0,
-    padding: 10,
-    paddingBottom: 10,
-    backgroundColor: colors.blue,
-    width: '100vw',
-    boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)'
-  },
-  contactBox: {
-    padding: 40,
-    flexShrink: 1
-  },
   dashboardName: {
-    marginRight: 'auto',
-    color: colors.white,
-    margin: 10
-  },
-  contactInfo: {
-    color: colors.white,
-    padding: 30,
-    width: '40vw',
-    margin: 0,
-    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);',
-    borderRadius: '2px',
-    backgroundColor: colors.blue
-  },
-  leftButton: {
-    marginRight: 'auto',
-    height: 40,
-    margin: 10,
-    borderRadius: '2rem',
-    color: colors.white,
-    borderColor: colors.white,
-    backgroundColor: colors.teal
-  },
-  rightButton: {
-    height: 40,
-    margin: 10,
-    borderRadius: '2rem',
-    color: colors.white,
-    borderColor: colors.white,
-    backgroundColor: colors.teal
+    marginTop: '-20vh',
+    marginLeft: '10vw',
+    marginBottom: '7vh',
+    color: colors.offWhite
   },
   container: {
     display: 'flex',
     flexWrap: 'wrap-reverse',
-    justifyContent: 'center'
-  },
-  postingsbox: {
-    padding: 40,
-    flexShrink: 1,
-    width: '50vw'
+    justifyContent: 'center',
+    paddingBottom: '2em'
   }
 })
 
@@ -134,7 +91,7 @@ class Dashboard extends Component {
             <LoginArea size='medium' variant='flat' />
           </NavRight>
         </Nav>
-        <h2 style={{ marginTop: '-20vh', marginLeft: '10vw', marginBottom: '7vh' }} className={this.props.classes.dashboardName} >
+        <h2 className={this.props.classes.dashboardName} >
           {user.firstName + ' ' + user.lastName}
         </h2>
         <div className={this.props.classes.container}>
