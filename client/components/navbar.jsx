@@ -1,48 +1,64 @@
-import React, { Component } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import React from 'react'
 import { withStyles } from '@material-ui/styles'
-import UserContext from '../user-context'
-import { Avatar } from '@material-ui/core'
+import { colors } from '../theme'
 
-const styles = theme => ({
-  appBar: {
-    position: 'relative',
-    background: '#2096F3',
-    color: 'white'
+let viewPadding = 4
+let leftAndRight = {
+  display: 'flex',
+  flexDirection: 'row',
+  padding: '1em',
+  width: 'fit-content',
+  boxSizing: 'content-box',
+  flexWrap: 'wrap'
+}
+const classes = theme => ({
+  main: {
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'space-between',
+    // position: 'sticky', // this could enabled but it would mess up the mobile view
+    top: 0,
+    paddingLeft: `${viewPadding}vw`,
+    paddingRight: `${viewPadding}vw`,
+    paddingTop: `${viewPadding / 2}vw`
   },
-  avatar: {
-    backgroundColor: '#f36e20'
+  left: {
+    ...leftAndRight,
+    justifyContent: 'flex-start'
   },
-  toolbarTitle: {
-    flex: 1
+  right: {
+    ...leftAndRight,
+    justifyContent: 'flex-end'
+  },
+  banner: {
+    backgroundColor: colors.teal,
+    height: '33vh',
+    paddingLeft: `${viewPadding / 2}vw`,
+    paddingRight: `${viewPadding / 2}vw`,
+    paddingTop: `${viewPadding / 4}vw`
   }
 })
 
-class Navbar extends Component {
-  render () {
-    const { classes } = this.props
-    const user = this.context
-    return (
-      <AppBar position='static' color='default' className={classes.appBar}>
-        <Toolbar>
-          <Typography variant='h6' color='inherit' noWrap className={classes.toolbarTitle}>
-            ACC
-          </Typography>
-          {user === null && <a href='/auth/google'><Button id='loginButton' variant='outlined' className={classes.loginButton}>
-            Login
-          </Button></a>}
-          {user !== null && <Avatar className={classes.avatar}>
-            {user.firstName[0]}
-          </Avatar>}
-        </Toolbar>
-      </AppBar>
-    )
-  }
-}
+export let NavSpacer = () => <div style={{ width: '1.5em' }} />
 
-Navbar.contextType = UserContext
+export let Nav = withStyles(classes)(({ classes, children, banner, ...otherProps }) => {
+  let classString = classes.main
+  classString += ' ' + (banner ? classes.banner : '')
+  return <nav className={classString} {...otherProps}>
+    {children}
+  </nav>
+})
 
-export default withStyles(styles)(Navbar)
+export let NavLeft = withStyles(classes)(({ classes, children }) => {
+  return <div className={classes.left} >
+    <div className={classes.arcBackground} />
+    {children}
+  </div>
+})
+
+export let NavRight = withStyles(classes)(({ classes, children }) => {
+  return <div className={classes.right} >
+    <div className={classes.arcBackground} />
+    {children}
+  </div>
+})

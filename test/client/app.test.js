@@ -7,13 +7,6 @@ import '../../app'
 import Routes from '../../client/routes'
 
 describe('<App />', () => {
-  it.skip('has a user in state', () => {
-    const wrapper = mount(<App />)
-    console.log('WRAPPER STATE:', wrapper.state())
-    expect(wrapper.state('user')).to.equal(null)
-    wrapper.unmount()
-  })
-
   it('componentWillMount gets called', () => {
     let spy = sinon.spy(App.prototype, 'componentWillMount')
     const wrapper = mount(<App />)

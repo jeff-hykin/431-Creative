@@ -14,8 +14,6 @@ import PhoneIcon from '@material-ui/icons/PhoneOutlined'
 import PeopleIcon from '@material-ui/icons/PeopleOutlined'
 import Chip from '@material-ui/core/Chip'
 import Typography from '@material-ui/core/Typography'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Navbar from '../components/navbar'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -40,7 +38,7 @@ const classes = theme => ({
   },
   appBar: {
     position: 'relative',
-    background: '#2096F3',
+    background: colors.blue,
     color: 'white'
   },
   cardHeader: {
@@ -75,8 +73,6 @@ class ShowPosting extends Component {
     } else {
       return (
         <div id='show-post' style={{ width: '100%' }}>
-          <CssBaseline />
-          <Navbar title='View Post' />
           <section className={this.props.classes.root}>
             <Card className={this.props.classes.heroContent}>
               <CardHeader

@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime'
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { DIV } from 'good-dom'
 import fetch from 'isomorphic-fetch'
@@ -7,6 +7,10 @@ import fetch from 'isomorphic-fetch'
 import Routes from './routes'
 import { classes } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
+import GlobalSnackbar from './components/snackbar'
+
+// CSS for toast notifications
+import 'react-toastify/dist/ReactToastify.min.css'
 
 //
 // set body
@@ -28,8 +32,13 @@ class App extends React.Component {
 
   componentWillMount () {
     this.authenticate()
+    /* istanbul ignore else */
     if (localStorage.getItem('user') !== 'undefined' && localStorage.getItem('user') !== undefined) {
-      window.user = JSON.parse(localStorage.getItem('user'))
+      /* istanbul ignore next */
+      try {
+        window.user = JSON.parse(localStorage.getItem('user'))
+      } catch (e) /* istanbul ignore next */ {}
+      /* istanbul ignore next */
       this.setState({ loading: false })
     }
   }
@@ -51,7 +60,7 @@ class App extends React.Component {
         localStorage.setItem('user', undefined)
         window.user = undefined
       }
-    } catch (err) {
+    } catch (err) /* istanbul ignore next */ {
       console.error('Ran into an issue checking authentication...', err)
     } finally {
       this.setState({ loading: false })
@@ -59,9 +68,14 @@ class App extends React.Component {
   }
 
   render () {
-    return this.state.loading
-      ? <div />
-      : <Routes />
+    return <Fragment>
+      {
+        this.state.loading
+          ? <div />
+          : <Routes />
+      }
+      <GlobalSnackbar />
+    </Fragment>
   }
 }
 
