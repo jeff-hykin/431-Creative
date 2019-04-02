@@ -20,7 +20,7 @@ export default (props) =>
     {/* Pick which page to render */}
     <Switch>
       <Route component={SplashPage} path='/' exact />
-      <Route component={GoBack} path='/goback/:amount' exact />
+      <Route component={GoBack} path='/goback' exact />
       <Route component={SplashPage} path='/about' exact />
       <Route component={AllPostings} path='/postings' exact />
       <Route component={MakePosting} path='/makeposting' exact />
