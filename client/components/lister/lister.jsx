@@ -5,14 +5,14 @@ import Grid from '@material-ui/core/Grid'
 import Item from './item'
 
 function Lister ({ list, xs }) {
-  const data = list.map(l => (
+  const data = list.reverse().map(l => (
     <Grid item key={l._id} xs={xs} zeroMinWidth>
       <Item {...l} />
     </Grid>
   ))
 
   if (data.length === 0) {
-    return <div style={{ textAlign: 'center', width: '100%' }}>
+    return <div style={{ textAlign: 'center', color: 'white', width: '100%' }}>
       No Posts ¯\_(ツ)_/¯
     </div>
   }
