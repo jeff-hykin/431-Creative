@@ -31,9 +31,9 @@ describe('Utils-Backend', function () {
       const USER_ID = result['ops'][0]._id
 
       // Add post
-      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, [], [])
-      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted post')
-      const POST_ID = result['ops'][0]._id
+      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, [], null)
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
 
       // Check if user has post
       let user = await dbFunctions.db.collections.users.findOne({ _id: USER_ID })
@@ -51,8 +51,8 @@ describe('Utils-Backend', function () {
 
       // Add post
       result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, ['TEST'])
-      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted post')
-      const POST_ID = result['ops'][0]._id
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
 
       // delete post and check user no longer has it
       result = await utils.deletePost(POST_ID)
@@ -69,8 +69,8 @@ describe('Utils-Backend', function () {
 
       // Add post
       result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, ['TEST'])
-      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted post')
-      const POST_ID = result['ops'][0]._id
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
 
       // delete post
       result = await utils.deletePost(POST_ID)

@@ -17,7 +17,7 @@ describe('Delete User', function () {
   })
 
   beforeEach(async function () {
-    POST_ID = (await createPost(USER_ID, 'TEST_TITLE', 'THIS IS A DESCRIPTION', {}, ['Python'])).ops[0]._id
+    POST_ID = (await createPost(USER_ID, 'TEST_TITLE', 'THIS IS A DESCRIPTION', {}, ['Python'])).upsertedId._id
   })
 
   describe('#delete-post', function () {

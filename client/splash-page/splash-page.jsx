@@ -6,7 +6,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
-import UserContext from '../user-context'
 import Page from '../page'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -132,6 +131,23 @@ class SplashPage extends Component {
     this.props.history.push('/makeposting')
   }
 
+  renderUserButton () {
+    /* istanbul ignore next */
+    if (!window.user) {
+      return (
+        <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+            Login
+        </Button></a>
+      )
+    } else {
+      return (
+        <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToDashboard}>
+            Dashboard
+        </Button>
+      )
+    }
+  }
+
   render () {
     return <div id='splashPage' className={this.props.className}>
       <Card className={this.props.classes.title}>
@@ -150,24 +166,7 @@ class SplashPage extends Component {
           Browse Job Postings
         </h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <UserContext.Consumer>
-            {user => {
-              /* istanbul ignore next */
-              if (user == null) {
-                return (
-                  <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
-                    Login
-                  </Button></a>
-                )
-              } else {
-                return (
-                  <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToDashboard}>
-                    Dashboard
-                  </Button>
-                )
-              }
-            }}
-          </UserContext.Consumer>
+          { this.renderUserButton() }
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
             <span>Browse Postings</span>

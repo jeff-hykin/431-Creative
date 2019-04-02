@@ -17,10 +17,10 @@ async function createUser (email, firstName = '', lastName = '', role = '') {
   return result
 }
 
-async function createPost (ownerId, title, description, contactInfo, skills) {
+async function createPost (ownerId, title, description, contactInfo, skills, postId) {
   let date = new Date()
-  let id = uuidv4()
-  let post = {
+  let id = postId || uuidv4()
+  let post = { $set: {
     _id: id,
     ownerId,
     title,
@@ -29,11 +29,10 @@ async function createPost (ownerId, title, description, contactInfo, skills) {
     dateCreated: date,
     dateModified: date,
     skills
-  }
+  } }
 
   // Add post
-  let result = await _db.db.collections.posts.insertOne(post)
-
+  let result = await _db.db.collections.posts.updateOne({ _id: id }, post, { upsert: true })
   // Update User to have post id
   await _db.db.collections.users.updateOne({ _id: ownerId }, { $push: { myPosts: id } })
 
