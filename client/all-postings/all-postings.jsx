@@ -72,9 +72,9 @@ export function AllPostings ({ classes, history }) {
           </BigButton>
         </NavLeft>
         <NavRight>
-          <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
+          { window.user != null && <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
             Dashboard
-          </BigButton>
+          </BigButton>}
           <NavSpacer />
           <LoginArea />
         </NavRight>
