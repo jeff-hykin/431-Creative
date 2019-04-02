@@ -50,7 +50,7 @@ export function Item ({ classes, title, skills, description, _id, onDelete, onEd
   }
 
   return (
-    <Card>
+    <Card elevation={10}>
       <CardActionArea onClick={onClick.bind(this, 'view')}>
         <CardHeader
           title={title}

@@ -1,15 +1,12 @@
 import React from 'react'
 import { withStyles } from '@material-ui/styles'
+import { colors } from '../theme'
 
 let viewPadding = 4
-let emPadding = '3em'
 let leftAndRight = {
   display: 'flex',
   flexDirection: 'row',
-  paddingLeft: `calc(${viewPadding}vw + 1em)`,
-  paddingRight: `calc(${viewPadding}vw + 1em)`,
-  paddingTop: `calc(${viewPadding / 2}vw + 1em)`,
-  paddingBottom: emPadding,
+  padding: '1em',
   width: 'fit-content',
   boxSizing: 'content-box',
   flexWrap: 'wrap'
@@ -20,7 +17,10 @@ const classes = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     // position: 'sticky', // this could enabled but it would mess up the mobile view
-    top: 0
+    top: 0,
+    paddingLeft: `${viewPadding}vw`,
+    paddingRight: `${viewPadding}vw`,
+    paddingTop: `${viewPadding / 2}vw`
   },
   left: {
     ...leftAndRight,
@@ -29,13 +29,22 @@ const classes = theme => ({
   right: {
     ...leftAndRight,
     justifyContent: 'flex-end'
+  },
+  banner: {
+    backgroundColor: colors.teal,
+    height: '33vh',
+    paddingLeft: `${viewPadding / 2}vw`,
+    paddingRight: `${viewPadding / 2}vw`,
+    paddingTop: `${viewPadding / 4}vw`
   }
 })
 
 export let NavSpacer = () => <div style={{ width: '1.5em' }} />
 
-export let Nav = withStyles(classes)(({ classes, children }) => {
-  return <nav className={classes.main}>
+export let Nav = withStyles(classes)(({ classes, children, banner, ...otherProps }) => {
+  let classString = classes.main
+  classString += ' ' + (banner ? classes.banner : '')
+  return <nav className={classString} {...otherProps}>
     {children}
   </nav>
 })

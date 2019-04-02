@@ -27,3 +27,9 @@ export let unsetUser = () => {
   window.user = undefined
   global.user = undefined
 }
+
+export let clickAll = (mountedComponent, subComponent) => {
+  for (let i = 0; i < mountedComponent.find(subComponent).length; i++) {
+    mountedComponent.find(subComponent).at(i).simulate('click')
+  }
+}

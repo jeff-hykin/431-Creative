@@ -29,7 +29,7 @@ let IconWrapper = ({ children }) => <div style={{ width: 'fit-content', paddingR
   {children}
 </div>
 
-let ContactInfo = ({ classes, state, handleChange }) => {
+let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
   return <Fragment>
     <Typography color='textSecondary' gutterBottom className={classes.contactHeader}>
       Contact Information
@@ -44,6 +44,9 @@ let ContactInfo = ({ classes, state, handleChange }) => {
         className={classes.inputFields}
         value={state.email}
         onChange={handleChange('email')}
+        InputProps={{
+          readOnly
+        }}
       />
     </div>
     <div className={classes.fieldWrapper}>
@@ -55,6 +58,9 @@ let ContactInfo = ({ classes, state, handleChange }) => {
         className={classes.inputFields}
         value={state.company}
         onChange={handleChange('company')}
+        InputProps={{
+          readOnly
+        }}
       />
     </div>
     <div className={classes.fieldWrapper}>
@@ -66,6 +72,9 @@ let ContactInfo = ({ classes, state, handleChange }) => {
         className={classes.inputFields}
         value={state.phone}
         onChange={handleChange('phone')}
+        InputProps={{
+          readOnly
+        }}
       />
     </div>
     <div className={classes.fieldWrapper}>
@@ -77,6 +86,9 @@ let ContactInfo = ({ classes, state, handleChange }) => {
         className={classes.inputFields}
         value={state.linkedin}
         onChange={handleChange('linkedin')}
+        InputProps={{
+          readOnly
+        }}
       />
     </div>
   </Fragment>
