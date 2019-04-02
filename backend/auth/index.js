@@ -50,7 +50,7 @@ function setupGoogleAuth (app) {
 
   app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
     // On success
-    res.redirect('/goback/2')
+    res.redirect('/goback')
   })
 
   app.get('/auth/google/authenticate', (req, res) => {
@@ -63,7 +63,7 @@ function setupGoogleAuth (app) {
 
   app.get('/auth/google/logout', (req, res) => {
     req.logout()
-    res.redirect('/goback/1')
+    res.redirect('/goback')
   })
 }
 
