@@ -10,7 +10,6 @@ export const navigateToEditPosting = (history, id) => {
 
 export const deletePosting = (id) => {
   api['delete-post'](id)
-  window.location.reload()
 }
 
 export const transformPostings = (postings, obj) => postings.map(p => Object.assign(p, obj))
