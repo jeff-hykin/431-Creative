@@ -24,60 +24,21 @@ const buttonSideAdditionalOffset = '1.9rem'
 const offsetBottomAndTop = '15vh'
 
 export const classes = theme => ({
-  bottomLeftTitle: {
-    color: colors.blue,
-    marginLeft: offsetSides
-  },
-  topRightTitle: {
-    color: colors.white,
-    marginRight: offsetSides
-  },
-  bottomLeftMessage: {
-    bottom: offsetBottomAndTop,
-    left: '0',
+  triangle: {
+    backgroundColor: colors.blue,
+    width: '800vw',
+    height: '116vh',
     position: 'fixed',
-    flexDirection: 'column',
-    marginRight: '25vw',
-    alignItems: 'flex-start',
-    textAlign: 'left'
+    left: '50vw',
+    filter: 'drop-shadow(0px 10px 5px rgba(0,0,0,0.4))',
+    transform: 'skew(45deg, 0)'
   },
-  topRightMessage: {
-    top: offsetBottomAndTop,
-    right: '0',
-    position: 'fixed',
-    flexDirection: 'column',
-    marginLeft: '25vw',
-    alignItems: 'flex-end',
-    textAlign: 'right',
-    zIndex: '10',
-    [`&:hover .${styles.primaryTriangle}`]: {
-      top: 0
-    },
-    [`&:not(:hover) .${styles.primaryTriangle}`]: {
-      top: '-15vh'
-    }
-  },
-  blueBackground: {
-    backgroundColor: colors.blue
-  },
-  whiteBackground: {
-    backgroundColor: colors.white
-  },
-  browseButton: {
-    ...buttonStyles,
-    padding: '0.4rem 0.7rem',
-    marginRight: buttonSideAdditionalOffset,
-    backgroundColor: colors.white,
-    color: colors.blue,
-    '&:hover': {
-      color: colors.white
-    }
-  },
-  createButton: {
+  button: {
     ...buttonStyles,
     padding: '0.4rem 0.7rem',
     marginLeft: `calc(${buttonSideAdditionalOffset} + ${offsetSides})`,
     marginBottom: '1rem',
+    marginRight: '1%',
     backgroundColor: colors.blue,
     color: colors.white,
     '&:hover': {
@@ -93,21 +54,28 @@ export const classes = theme => ({
     right: '2rem',
     backgroundColor: colors.teal
   },
-  title: {
+  titleText: {
+    textAlign: 'center',
+    color: colors.blue
+  },
+  cards: {
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%,-50%)',
-    zIndex: '100',
-    borderColor: colors.blue,
-    border: 'solid',
-    borderWidth: '2dp',
-    boxShadow: 'none',
-    borderRadius: '30px'
   },
-  titleText: {
+  marginBottom: {
+    marginBottom: '3%'
+  },
+  alignCenter: {
     textAlign: 'center',
     color: colors.blue
+  },
+  contentCenter: {
+    width: '100%',
+    height: '100%',
+    alignContent: 'center',
+    display: 'flex'
   }
 })
 
@@ -151,36 +119,43 @@ class SplashPage extends Component {
 
   render () {
     return <div id='splashPage' className={this.props.className}>
-      <Card className={this.props.classes.title}>
-        <CardContent>
-          <h2 className={this.props.classes.titleText}>
-            Aggie Coding Connect
-          </h2>
-          <h6 className={this.props.classes.titleText}>
-            Where Coders Find Projects
-          </h6>
-        </CardContent>
-      </Card>
-      {/* Blue triangle */}
-      <div className={this.props.classes.topRightMessage}>
-        <h5 className={this.props.classes.topRightTitle} style={titleStyles}>
-          Browse Job Postings
-        </h5>
-        <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          { this.renderUserButton() }
-          <div style={{ width: '3rem' }} />
-          <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
-            <span>Browse Postings</span>
-          </Button>
-        </div>
-        <div className={styles.primaryTriangle + ' ' + this.props.classes.blueBackground} />
-      </div>
-      {/* White */}
-      <div className={this.props.classes.bottomLeftMessage}>
-        <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
-          <span>Make Posting</span>
-        </Button>
-        <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Create a Job Posting</h5>
+      <div className={this.props.classes.triangle} />
+      { this.renderUserButton() }
+      <div className={this.props.classes.cards}>
+        <Card className={this.props.classes.marginBottom}>
+          <CardContent>
+            <h2 className={this.props.classes.alignCenter}>
+              Aggie Coding Connect
+            </h2>
+            <h6 className={this.props.classes.alignCenter}>
+              Where Coders Find Projects
+            </h6>
+          </CardContent>
+        </Card>
+        <Card className={this.props.classes.marginBottom}>
+          <CardContent>
+            <div className={this.props.classes.contentCenter}>
+              <h5 className={this.props.classes.alignCenter}>
+                Browse Job Postings
+              </h5>
+              <Button id='browseButton' className={this.props.classes.button} onClick={this.navigateToPostings}>
+                <span>Browse Postings</span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent>
+            <div className={this.props.classes.contentCenter}>
+              <h5 className={this.props.classes.alignCenter}>
+                Create a Job Posting
+              </h5>
+              <Button id='createButton' className={this.props.classes.button} onClick={this.navigateToNewPosting}>
+                <span>Make Posting</span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
       <ToastContainer />
     </div>
