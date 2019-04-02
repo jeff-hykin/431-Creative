@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
@@ -111,10 +110,6 @@ export const classes = theme => ({
 })
 
 class SplashPage extends Component {
-  notify = () => {
-    toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
-  }
-
   navigateToPostings = (e) => {
     e.preventDefault()
     this.props.history.push('/postings')
@@ -133,6 +128,7 @@ class SplashPage extends Component {
 
   renderUserButton () {
     /* istanbul ignore next */
+    localStorage.setItem('lastPage', window.location.pathname)
     if (!window.user) {
       return (
         <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
@@ -181,7 +177,6 @@ class SplashPage extends Component {
         </Button>
         <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Create a Job Posting</h5>
       </div>
-      <ToastContainer />
     </div>
   }
 }

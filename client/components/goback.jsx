@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 
 /* istanbul ignore next */
 let GoBack = ({ history, match }) => {
-  history.go(-Number(match.params.amount))
+  history.push(localStorage.getItem('lastPage'))
   return <Fragment />
 }
 
