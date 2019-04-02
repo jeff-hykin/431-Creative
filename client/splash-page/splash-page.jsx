@@ -61,10 +61,7 @@ export const classes = theme => ({
     position: 'fixed',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%,-50%)',
-  },
-  marginBottom: {
-    marginBottom: '3%'
+    transform: 'translate(-50%,-50%)'
   },
   alignCenter: {
     textAlign: 'center',
@@ -73,6 +70,8 @@ export const classes = theme => ({
   contentCenter: {
     width: '100%',
     height: '100%',
+    marginTop: '2%',
+    marginBottom: '2%',
     alignContent: 'center',
     display: 'flex'
   }
@@ -121,7 +120,7 @@ class SplashPage extends Component {
       <div className={this.props.classes.triangle} />
       { this.renderUserButton() }
       <div className={this.props.classes.cards}>
-        <Card className={this.props.classes.marginBottom}>
+        <Card>
           <CardContent>
             <h2 className={this.props.classes.alignCenter}>
               Aggie Coding Connect
@@ -129,10 +128,6 @@ class SplashPage extends Component {
             <h6 className={this.props.classes.alignCenter}>
               Where Coders Find Projects
             </h6>
-          </CardContent>
-        </Card>
-        <Card className={this.props.classes.marginBottom}>
-          <CardContent>
             <div className={this.props.classes.contentCenter}>
               <h5 className={this.props.classes.alignCenter}>
                 Browse Job Postings
@@ -141,10 +136,6 @@ class SplashPage extends Component {
                 <span>Browse Postings</span>
               </Button>
             </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
             <div className={this.props.classes.contentCenter}>
               <h5 className={this.props.classes.alignCenter}>
                 Create a Job Posting
