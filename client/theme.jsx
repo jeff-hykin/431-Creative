@@ -8,12 +8,12 @@ classes.vbox = {
 
 export const colors = {
   teal: '#00BFA5',
-  softRed: '#e57373',
+  red: '#ff6868',
   blue: '#2196f3',
-  offWhite: 'whitesmoke',
+  offWhite: '#f5f3f3',
   white: '#FFFFFF',
   gray: 'gray',
-  red: '#e60000'
+  lightGray: '#e0e0e0'
 }
 
 classes.body = {

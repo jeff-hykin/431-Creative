@@ -24,7 +24,7 @@ const classes = {
     color: 'white'
   },
   red: {
-    backgroundColor: colors.softRed,
+    backgroundColor: colors.red,
     color: 'white'
   },
   blue: {
