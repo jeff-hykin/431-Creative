@@ -20,7 +20,7 @@ const classes = {
     transform: 'scale(1.16)'
   },
   gray: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.darkGray,
     color: 'white'
   },
   red: {

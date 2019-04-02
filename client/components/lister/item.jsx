@@ -40,7 +40,7 @@ const classes = theme => ({
     padding,
     display: 'flex',
     flexDirection: 'column',
-    color: colors.gray,
+    color: colors.darkGray,
     '&:hover': {
       backgroundColor: colors.offWhite
     }

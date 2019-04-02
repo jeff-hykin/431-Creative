@@ -2,6 +2,7 @@ import React from 'react'
 import * as PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/styles'
 import Chip from '@material-ui/core/Chip'
+import { colors } from '../theme'
 
 const styles = theme => ({
   root: {
@@ -11,7 +12,9 @@ const styles = theme => ({
     padding: 8 / 2
   },
   chip: {
-    margin: 8 / 2
+    margin: 8 / 2,
+    backgroundColor: colors.gray,
+    color: 'white'
   }
 })
 

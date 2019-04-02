@@ -13,11 +13,10 @@ let leftAndRight = {
 }
 const classes = theme => ({
   main: {
+    top: 0,
     width: '100vw',
     display: 'flex',
     justifyContent: 'space-between',
-    // position: 'sticky', // this could enabled but it would mess up the mobile view
-    top: 0,
     paddingLeft: `${viewPadding}vw`,
     paddingRight: `${viewPadding}vw`,
     paddingTop: `${viewPadding / 2}vw`
@@ -31,7 +30,7 @@ const classes = theme => ({
     justifyContent: 'flex-end'
   },
   banner: {
-    backgroundColor: colors.teal,
+    backgroundColor: colors.blue,
     height: '33vh',
     paddingLeft: `${viewPadding / 2}vw`,
     paddingRight: `${viewPadding / 2}vw`,

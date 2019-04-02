@@ -85,7 +85,7 @@ export function AllPostings ({ classes, history }) {
             Postings
           </Typography>
         </div>
-        <Lister list={postings} />
+        <Lister color list={postings} />
       </section>
     </div>
   )
