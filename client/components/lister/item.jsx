@@ -4,15 +4,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
 import { colors } from '../../theme'
 import Grid from '@material-ui/core/Grid'
 import SkillChips from '../skills'
-import CardHeader from '@material-ui/core/CardHeader'
-import { CardActionArea, IconButton } from '@material-ui/core'
-import { colors } from '../../theme'
+import { IconButton } from '@material-ui/core'
 
 let padding = '1.2rem 3rem'
 const classes = theme => ({
@@ -91,7 +86,7 @@ export class Item extends React.Component {
     this.onDelete = () => onDelete(_id)
 
     return <Grid item xs={10} zeroMinWidth>
-        <Card elevation={9}>
+      <Card elevation={9}>
         <div className={classes.title}>
           {title}
           <div style={{ display: 'flex' }}>
@@ -110,9 +105,9 @@ export class Item extends React.Component {
           </div>
         </div>
       </Card>
-      </Grid>
+    </Grid>
+  }
 }
-
 Item.propTypes = {
   title: PropTypes.string,
   showView: PropTypes.bool,
