@@ -50,7 +50,6 @@ export function AllPostings ({ classes, history }) {
     const fetchData = async () => {
       const result = await api['get-postings']().then(resp => (
         transformPostings(resp, {
-          showView: true,
           onView: navigateToShowPosting.bind(this, history)
         }
         )))

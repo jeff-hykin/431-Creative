@@ -8,7 +8,7 @@ function Lister ({ list, color }) {
   const data = list.map(each => <Item color={color} key={each._id} {...each} />)
 
   if (data.length === 0) {
-    return <div style={{ textAlign: 'center', width: '100%' }}>
+    return <div style={{ textAlign: 'center', color: color ? 'black' : 'white', width: '100%' }}>
       No Posts ¯\_(ツ)_/¯
     </div>
   }

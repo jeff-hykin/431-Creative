@@ -8,9 +8,11 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import { colors } from '../../theme'
+import Grid from '@material-ui/core/Grid'
 import SkillChips from '../skills'
 import CardHeader from '@material-ui/core/CardHeader'
 import { CardActionArea, IconButton } from '@material-ui/core'
+import { colors } from '../../theme'
 
 let padding = '1.2rem 3rem'
 const classes = theme => ({
@@ -62,36 +64,53 @@ const classes = theme => ({
  * @returns {*}
  * @constructor
  */
-export function Item ({ classes, title, skills, description, _id, onDelete, onEdit, onView, showView, showDelete, showEdit }) {
-  const onClick = type => {
-    switch (type) {
-      case 'delete':
-        return onDelete(_id)
-      case 'edit':
-        return onEdit(_id)
-      case 'view':
-        return onView(_id)
+
+export class Item extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      wasDeleted: false
+    }
+    let { _id, onDelete } = this.props
+    this.onDelete = () => onDelete(_id)
+  }
+
+  onDeleteWrapper = () => {
+    let answer = window.confirm('Are you sure you want to delete this?')
+    if (answer) {
+      this.onDelete()
+      this.setState({ wasDeleted: true })
     }
   }
-  return <Card elevation={9}>
-    <div className={classes.title}>
-      {title}
-      <div style={{ display: 'flex' }}>
-        {showDelete && <IconButton onClick={onClick.bind(this, 'delete')}>
-          <DeleteIcon classes={{ root: classes.deleteIcon }} />
-        </IconButton>}
-        {showEdit && <IconButton onClick={onClick.bind(this, 'edit')}>
-          <Edit classes={{ root: classes.editIcon }} />
-        </IconButton>}
-      </div>
-    </div>
-    <div className={classes.body} onClick={onClick.bind(this, 'view')}>
-      {description}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '1rem' }}>
-        <SkillChips className={classes.skills} skills={skills} />
-      </div>
-    </div>
-  </Card>
+  render () {
+    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit } = this.props
+    // if this one was just deleted then don't show it
+    if (this.state.wasDeleted) {
+      return <div key={_id} />
+    }
+    this.onDelete = () => onDelete(_id)
+
+    return <Grid item xs={10} zeroMinWidth>
+        <Card elevation={9}>
+        <div className={classes.title}>
+          {title}
+          <div style={{ display: 'flex' }}>
+            {showDelete && <IconButton onClick={this.onDeleteWrapper}>
+              <DeleteIcon classes={{ root: classes.deleteIcon }} />
+            </IconButton>}
+            {showEdit && <IconButton onClick={() => onEdit(_id)}>
+              <Edit classes={{ root: classes.editIcon }} />
+            </IconButton>}
+          </div>
+        </div>
+        <div className={classes.body} onClick={() => onView(_id)}>
+          {description}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '1rem' }}>
+            <SkillChips className={classes.skills} skills={skills} />
+          </div>
+        </div>
+      </Card>
+      </Grid>
 }
 
 Item.propTypes = {
