@@ -50,7 +50,6 @@ export function AllPostings ({ classes, history }) {
     const fetchData = async () => {
       const result = await api['get-postings']().then(resp => (
         transformPostings(resp, {
-          showView: true,
           onView: navigateToShowPosting.bind(this, history)
         }
         )))
@@ -72,9 +71,9 @@ export function AllPostings ({ classes, history }) {
           </BigButton>
         </NavLeft>
         <NavRight>
-          <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
+          { window.user != null && <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
             Dashboard
-          </BigButton>
+          </BigButton>}
           <NavSpacer />
           <LoginArea />
         </NavRight>

@@ -13,13 +13,15 @@ export const classes = theme => ({
 })
 
 let onLogin = (e) => {
+  localStorage.setItem('lastPage', window.location.pathname)
   window.location.href = '/auth/google'
 }
 
 let onLogout = (e) => {
-  window.location.href = '/auth/google/logout'
+  localStorage.setItem('lastPage', window.location.pathname)
   localStorage.removeItem('user')
   window.user = undefined
+  window.location.href = '/auth/google/logout'
 }
 
 let LoginArea = ({ classes, history, ...otherProps }) => {

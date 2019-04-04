@@ -79,8 +79,6 @@ describe('<Item />', () => {
   })
 
   it('can click onDelete', () => {
-    const mySpy = new MySpy()
-    const mockCallBack = mySpy.fn()
     props = {
       title: 'Odd job #1',
       _id: 0,
@@ -93,11 +91,10 @@ describe('<Item />', () => {
         { title: 'Description', body: 'really long dumb stuff', id: 123 }
       ],
       skills: ['Angular'],
-      onDelete: mockCallBack,
+      onDelete: () => {},
       classes: {}
     }
     const item = itemComponent()
     item.find('button').last().simulate('click')
-    expect(mySpy.calls).to.be.eq(1)
   })
 })
