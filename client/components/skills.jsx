@@ -21,15 +21,13 @@ const styles = theme => ({
 export function SkillChips ({ classes, skills }) {
   return (
     <>
-      {skills.map(data => {
-        return (
-          <Chip
-            key={data}
-            label={data}
-            className={classes.chip}
-          />
-        )
-      })}
+      {skills.map(data =>
+        <Chip
+          key={data}
+          label={data}
+          className={classes.chip}
+        />
+      )}
     </>
   )
 }
