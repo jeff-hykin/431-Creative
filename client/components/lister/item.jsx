@@ -24,7 +24,7 @@ const classes = theme => ({
   actionBtn: {
     marginLeft: 'auto'
   },
-  title: {
+  titleWhite: {
     width: '100%',
     padding,
     fontSize: '21pt',
@@ -32,6 +32,20 @@ const classes = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'baseline'
+  },
+  titleColor: {
+    width: '100%',
+    padding,
+    fontSize: '21pt',
+    backgroundColor: colors.blue,
+    color: 'white',
+    borderBottom: `solid ${colors.lightGray}`,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    '&:hover': {
+      opacity: 0.9
+    }
   },
   body: {
     padding,
@@ -42,11 +56,17 @@ const classes = theme => ({
       backgroundColor: colors.offWhite
     }
   },
-  deleteIcon: {
+  deleteIconOnWhite: {
     color: colors.red
   },
-  editIcon: {
+  editIconOnWhite: {
     color: colors.blue
+  },
+  deleteIconOnColor: {
+    color: colors.offWhite
+  },
+  editIconOnColor: {
+    color: colors.offWhite
   }
 })
 
@@ -70,31 +90,39 @@ export class Item extends React.Component {
     this.onDelete = () => onDelete(_id)
   }
 
-  onDeleteWrapper = () => {
+  onDeleteWrapper = (e) => {
+    e.stopPropagation()
     let answer = window.confirm('Are you sure you want to delete this?')
     if (answer) {
       this.onDelete()
       this.setState({ wasDeleted: true })
     }
   }
+
+  onEditWrapper = (e) => {
+    e.stopPropagation()
+    this.onEdit()
+  }
+
   render () {
-    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit } = this.props
+    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit, color } = this.props
     // if this one was just deleted then don't show it
     if (this.state.wasDeleted) {
       return <div key={_id} />
     }
     this.onDelete = () => onDelete(_id)
+    this.onEdit = () => onEdit(_id)
 
     return <Grid item xs={10} zeroMinWidth>
       <Card elevation={9}>
-        <div className={classes.title}>
+        <div className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
           {title}
           <div style={{ display: 'flex' }}>
             {showDelete && <IconButton onClick={this.onDeleteWrapper}>
-              <DeleteIcon classes={{ root: classes.deleteIcon }} />
+              <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
             </IconButton>}
-            {showEdit && <IconButton onClick={() => onEdit(_id)}>
-              <Edit classes={{ root: classes.editIcon }} />
+            {showEdit && <IconButton onClick={this.onEditWrapper}>
+              <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
             </IconButton>}
           </div>
         </div>
