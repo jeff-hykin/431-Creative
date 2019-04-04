@@ -30,40 +30,12 @@ describe('<Item />', () => {
     mountedItem = undefined
   })
 
-  it('shows only view button on Item', () => {
-    props = {
-      title: 'Odd job #1',
-      id: 0,
-      showView: true,
-      descriptions: [
-        { title: 'Description', body: 'really long dumb stuff', id: 1212 },
-        { title: 'Description', body: 'really long dumb stuff saldkfj aslkdfjlk aslkdfjllkj  laksdjf', id: 121234 },
-        { title: 'Description', body: 'really long dumb stuff', id: 1213245 },
-        { title: 'Description', body: 'really long dumb stuff', id: 12451 },
-        { title: 'Description', body: 'really long dumb stuff', id: 123 }
-      ],
-      skills: [
-        { key: 222, label: 'Angular' },
-        { key: 11212, label: 'jQuery' },
-        { key: 2234234, label: 'Polymer' },
-        { key: 3234, label: 'React' },
-        { key: 234, label: 'Vue.js' }
-      ],
-      onDelete: console.log,
-      onView: console.log,
-      onEdit: console.log,
-      classes: {}
-    }
-    const svg = itemComponent().find('svg')
-    expect(svg.length).to.be.eq(1)
-  })
-
   it('can click onView', () => {
     const mySpy = new MySpy()
     const mockCallBack = mySpy.fn()
     props = {
       title: 'Odd job #1',
-      id: 0,
+      _id: 0,
       showView: true,
       descriptions: [
         { title: 'Description', body: 'really long dumb stuff', id: 1212 },
@@ -72,13 +44,7 @@ describe('<Item />', () => {
         { title: 'Description', body: 'really long dumb stuff', id: 12451 },
         { title: 'Description', body: 'really long dumb stuff', id: 123 }
       ],
-      skills: [
-        { key: 222, label: 'Angular' },
-        { key: 11212, label: 'jQuery' },
-        { key: 2234234, label: 'Polymer' },
-        { key: 3234, label: 'React' },
-        { key: 234, label: 'Vue.js' }
-      ],
+      skills: ['Angular'],
       onDelete: console.log,
       onView: mockCallBack,
       onEdit: console.log,
@@ -94,7 +60,7 @@ describe('<Item />', () => {
     const mockCallBack = mySpy.fn()
     props = {
       title: 'Odd job #1',
-      id: 0,
+      _id: 0,
       showEdit: true,
       descriptions: [
         { title: 'Description', body: 'really long dumb stuff', id: 1212 },
@@ -103,27 +69,19 @@ describe('<Item />', () => {
         { title: 'Description', body: 'really long dumb stuff', id: 12451 },
         { title: 'Description', body: 'really long dumb stuff', id: 123 }
       ],
-      skills: [
-        { key: 222, label: 'Angular' },
-        { key: 11212, label: 'jQuery' },
-        { key: 2234234, label: 'Polymer' },
-        { key: 3234, label: 'React' },
-        { key: 234, label: 'Vue.js' }
-      ],
+      skills: ['Angular'],
       onEdit: mockCallBack,
       classes: {}
     }
     const item = itemComponent()
-    item.find('button').simulate('click')
+    item.find('button').last().simulate('click')
     expect(mySpy.calls).to.be.eq(1)
   })
 
   it('can click onDelete', () => {
-    const mySpy = new MySpy()
-    const mockCallBack = mySpy.fn()
     props = {
       title: 'Odd job #1',
-      id: 0,
+      _id: 0,
       showDelete: true,
       descriptions: [
         { title: 'Description', body: 'really long dumb stuff', id: 1212 },
@@ -132,18 +90,11 @@ describe('<Item />', () => {
         { title: 'Description', body: 'really long dumb stuff', id: 12451 },
         { title: 'Description', body: 'really long dumb stuff', id: 123 }
       ],
-      skills: [
-        { key: 222, label: 'Angular' },
-        { key: 11212, label: 'jQuery' },
-        { key: 2234234, label: 'Polymer' },
-        { key: 3234, label: 'React' },
-        { key: 234, label: 'Vue.js' }
-      ],
-      onDelete: mockCallBack,
+      skills: ['Angular'],
+      onDelete: () => {},
       classes: {}
     }
     const item = itemComponent()
-    item.find('button').simulate('click')
-    expect(mySpy.calls).to.be.eq(1)
+    item.find('button').last().simulate('click')
   })
 })

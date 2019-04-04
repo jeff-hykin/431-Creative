@@ -21,8 +21,8 @@ export function SkillChips ({ classes, skills }) {
       {skills.map(data => {
         return (
           <Chip
-            key={data.key}
-            label={data.label}
+            key={data}
+            label={data}
             className={classes.chip}
           />
         )
@@ -33,9 +33,7 @@ export function SkillChips ({ classes, skills }) {
 
 SkillChips.propTypes = {
   classes: PropTypes.object,
-  skills: PropTypes.arrayOf(
-    PropTypes.shape({ key: PropTypes.number, label: PropTypes.string })
-  )
+  skills: PropTypes.arrayOf(PropTypes.string)
 }
 
 SkillChips.defaultProps = {

@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import styles from './styles.sass'
 import { colors } from '../theme'
-import UserContext from '../user-context'
 import Page from '../page'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 
 const titleStyles = {
   fontSize: 'calc(2.4vw + 1rem)'
@@ -90,14 +90,26 @@ export const classes = theme => ({
     top: '1.2rem',
     right: '2rem',
     backgroundColor: colors.teal
+  },
+  title: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    zIndex: '100',
+    borderColor: colors.blue,
+    border: 'solid',
+    borderWidth: '2dp',
+    boxShadow: 'none',
+    borderRadius: '30px'
+  },
+  titleText: {
+    textAlign: 'center',
+    color: colors.blue
   }
 })
 
 class SplashPage extends Component {
-  notify = () => {
-    toast.success('You Clicked Something!', { position: toast.POSITION.BOTTOM_RIGHT })
-  }
-
   navigateToPostings = (e) => {
     e.preventDefault()
     this.props.history.push('/postings')
@@ -114,30 +126,43 @@ class SplashPage extends Component {
     this.props.history.push('/makeposting')
   }
 
+  renderUserButton () {
+    /* istanbul ignore next */
+    localStorage.setItem('lastPage', window.location.pathname)
+    if (!window.user) {
+      return (
+        <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
+            Login
+        </Button></a>
+      )
+    } else {
+      return (
+        <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToDashboard}>
+            Dashboard
+        </Button>
+      )
+    }
+  }
+
   render () {
     return <div id='splashPage' className={this.props.className}>
+      <Card className={this.props.classes.title}>
+        <CardContent>
+          <h2 className={this.props.classes.titleText}>
+            Aggie Coding Connect
+          </h2>
+          <h6 className={this.props.classes.titleText}>
+            Where Coders Find Projects
+          </h6>
+        </CardContent>
+      </Card>
       {/* Blue triangle */}
       <div className={this.props.classes.topRightMessage}>
-        <h5 className={this.props.classes.topRightTitle} style={titleStyles}>Looking for a project?</h5>
+        <h5 className={this.props.classes.topRightTitle} style={titleStyles}>
+          Browse Job Postings
+        </h5>
         <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          <UserContext.Consumer>
-            {user => {
-              /* istanbul ignore next */
-              if (user == null) {
-                return (
-                  <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
-                    Login
-                  </Button></a>
-                )
-              } else {
-                return (
-                  <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToDashboard}>
-                    Dashboard
-                  </Button>
-                )
-              }
-            }}
-          </UserContext.Consumer>
+          { this.renderUserButton() }
           <div style={{ width: '3rem' }} />
           <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
             <span>Browse Postings</span>
@@ -148,11 +173,10 @@ class SplashPage extends Component {
       {/* White */}
       <div className={this.props.classes.bottomLeftMessage}>
         <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
-          <span>Make a Listing</span>
+          <span>Make Posting</span>
         </Button>
-        <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Need Some Work Done?</h5>
+        <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Create a Job Posting</h5>
       </div>
-      <ToastContainer />
     </div>
   }
 }

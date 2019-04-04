@@ -31,9 +31,9 @@ describe('Utils-Backend', function () {
       const USER_ID = result['ops'][0]._id
 
       // Add post
-      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, [], [])
-      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted post')
-      const POST_ID = result['ops'][0]._id
+      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, [], null)
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
 
       // Check if user has post
       let user = await dbFunctions.db.collections.users.findOne({ _id: USER_ID })
@@ -42,8 +42,22 @@ describe('Utils-Backend', function () {
   })
 
   describe('#deleteUser', function () {
-    it.skip('should remove posts associated with the user', async function () {
-      // TODO: Need to wait for Nicko's changes to be pushed for posts
+    it('should remove posts associated with the user', async function () {
+      // Add user
+      let email = 'test1@test.com'
+      let result = await utils.createUser(email)
+      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted user')
+      const USER_ID = result['ops'][0]._id
+
+      // Add post
+      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, ['TEST'])
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
+
+      // delete user and check post no longer exists
+      result = await utils.deleteUser(USER_ID)
+      let post = await dbFunctions.db.collections.posts.findOne({ _id: POST_ID })
+      assert.isNull(post)
     })
 
     it('should delete the user', async function () {
@@ -55,6 +69,44 @@ describe('Utils-Backend', function () {
 
       // delete user
       result = await utils.deleteUser(USER_ID)
+
+      assert.strictEqual(result.deletedCount, 1)
+    })
+  })
+
+  describe('#deletePost', function () {
+    it('should remove postId from with the user\'s post', async function () {
+      // Add user
+      let email = 'test1@test.com'
+      let result = await utils.createUser(email)
+      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted user')
+      const USER_ID = result['ops'][0]._id
+
+      // Add post
+      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, ['TEST'])
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
+
+      // delete post and check user no longer has it
+      result = await utils.deletePost(POST_ID)
+      let user = await dbFunctions.db.collections.users.findOne({ _id: USER_ID })
+      assert.notInclude(user.myPosts, POST_ID)
+    })
+
+    it('should delete the post', async function () {
+      // Add user
+      let email = 'test1@test.com'
+      let result = await utils.createUser(email)
+      assert.strictEqual(result['insertedCount'], 1, 'successfully inserted user')
+      const USER_ID = result['ops'][0]._id
+
+      // Add post
+      result = await utils.createPost(USER_ID, 'TITLE', 'DESCRIPTION', {}, ['TEST'])
+      assert.strictEqual(result.result.ok, 1, 'successfully inserted post')
+      const POST_ID = result.upsertedId._id
+
+      // delete post
+      result = await utils.deletePost(POST_ID)
       assert.strictEqual(result.deletedCount, 1)
     })
   })

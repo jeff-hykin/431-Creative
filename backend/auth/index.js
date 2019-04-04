@@ -50,20 +50,20 @@ function setupGoogleAuth (app) {
 
   app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
     // On success
-    res.redirect('/')
+    res.redirect('/goback')
   })
 
   app.get('/auth/google/authenticate', (req, res) => {
     if (req.user) {
       res.json({ authenticated: true, user: req.user })
     } else {
-      res.json({ authenticated: false })
+      res.json({ authenticated: false, user: null })
     }
   })
 
   app.get('/auth/google/logout', (req, res) => {
     req.logout()
-    res.redirect('/')
+    res.redirect('/goback')
   })
 }
 

@@ -5,19 +5,22 @@ classes.vbox = {
   alignContent: 'center',
   flexDirection: 'column'
 }
+
+export const colors = {
+  teal: '#00BFA5',
+  softRed: '#e57373',
+  blue: '#2196f3',
+  offWhite: 'whitesmoke',
+  white: '#FFFFFF',
+  gray: 'gray',
+  red: '#e60000'
+}
+
 classes.body = {
   ...classes.vbox,
   width: '100vw',
   minHeight: '100vh',
   overflow: 'visible',
-  scrollBehavior: 'auto'
-}
-
-export const colors = {
-  teal: '#00b3b3',
-  softRed: '#e57373',
-  blue: '#2196f3',
-  offWhite: 'whitesmoke',
-  white: '#FFFFFF',
-  gray: '#808080'
+  scrollBehavior: 'auto',
+  backgroundColor: colors.offWhite
 }

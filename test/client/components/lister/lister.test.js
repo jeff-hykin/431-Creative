@@ -27,7 +27,7 @@ describe('<Lister />', () => {
     props = {
       list: []
     }
-    const p = postingsComponent().find('p')
+    const p = postingsComponent().find('div')
     expect(p.length).to.be.eq(1)
   })
 
@@ -35,7 +35,7 @@ describe('<Lister />', () => {
     props = {
       list: [{
         title: 'Odd job #1',
-        id: 0,
+        _id: 0,
         showView: true,
         descriptions: [
           { title: 'Description', body: 'really long dumb stuff', id: 1212 },
@@ -44,19 +44,13 @@ describe('<Lister />', () => {
           { title: 'Description', body: 'really long dumb stuff', id: 12451 },
           { title: 'Description', body: 'really long dumb stuff', id: 123 }
         ],
-        skills: [
-          { key: 222, label: 'Angular' },
-          { key: 11212, label: 'jQuery' },
-          { key: 2234234, label: 'Polymer' },
-          { key: 3234, label: 'React' },
-          { key: 234, label: 'Vue.js' }
-        ],
+        skills: ['Angular'],
         onDelete: console.log,
         onView: console.log,
         onEdit: console.log
       }]
     }
-    const h2 = postingsComponent().find('h2')
-    expect(h2.length).to.be.eq(1)
+    const h6 = postingsComponent().find('h6')
+    expect(h6.length).to.be.eq(1)
   })
 })

@@ -2,44 +2,30 @@ import React from 'react'
 import * as PropTypes from 'prop-types'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
-import Info from '@material-ui/icons/Info'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-
 import SkillChips from '../skills'
-import ItemDescriptions from './item-description'
+import CardHeader from '@material-ui/core/CardHeader'
+import { CardActionArea, IconButton } from '@material-ui/core'
 import { colors } from '../../theme'
-import Fab from '@material-ui/core/Fab'
 
 const styles = theme => ({
-  card: {
-    maxWidth: '800px'
+  cardHeader: {
+    backgroundColor: colors.blue,
+    color: 'white'
   },
-  media: {
-    height: 140
+  cardDesc: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: theme.spacing.unit * 2
   },
-  cardAction: {
-    background: colors.teal,
-    '& h2': {
-      color: colors.white,
-      whiteSpace: 'normal'
-    }
-  },
-  noWrap: {
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis'
-  },
-  paperStyle: {
-    padding: 16,
-    height: '100%'
-  },
-  fab: {
-    margin: theme.spacing.unit
+  actionBtn: {
+    marginLeft: 'auto'
   }
 })
 
@@ -52,52 +38,63 @@ const styles = theme => ({
  * @returns {*}
  * @constructor
  */
-export function Item ({ classes, title, skills, descriptions, id, onDelete, onEdit, onView, showView, showDelete, showEdit }) {
-  const onClick = type => {
-    switch (type) {
-      case 'delete':
-        return onDelete(id)
-      case 'edit':
-        return onEdit(id)
-      case 'view':
-        return onView(id)
+
+export class Item extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      wasDeleted: false
+    }
+    let { _id, onDelete } = this.props
+    this.onDelete = () => onDelete(_id)
+  }
+
+  onDeleteWrapper = () => {
+    let answer = window.confirm('Are you sure you want to delete this?')
+    if (answer) {
+      this.onDelete()
+      this.setState({ wasDeleted: true })
     }
   }
 
-  return (
-    <Card className={classes.card}>
-      <CardActions className={classes.cardAction}>
-        <Grid
-          justify='space-between'
-          alignItems='center'
-          container
-        >
-          <Grid item xl={8}>
-            <Typography gutterBottom variant='h2'>
-              {title}
+  render () {
+    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit } = this.props
+    // if this one was just deleted then don't show it
+    if (this.state.wasDeleted) {
+      return <div key={_id} />
+    }
+    this.onDelete = () => onDelete(_id)
+
+    return <Grid item xs={10} zeroMinWidth>
+      <Card elevation={10}>
+        <CardActionArea onClick={() => onView(_id)}>
+          <CardHeader
+            title={title}
+            titleTypographyProps={{ align: 'center', color: 'inherit' }}
+            className={classes.cardHeader}
+          />
+        </CardActionArea>
+        <CardContent>
+          <div className={classes.cardDesc}>
+            <Typography variant='subtitle1' noWrap>
+              {description}
             </Typography>
-            <Grid item xl={12}>
-              <SkillChips skills={skills} />
-            </Grid>
-          </Grid>
-          <Grid item xl={4}>
-            {showDelete && <Fab color='primary' aria-label='delete' className={classes.fab} onClick={onClick.bind(this, 'delete')}>
+          </div>
+        </CardContent>
+        <CardActions >
+          <SkillChips className={classes.skills} skills={skills} />
+          <div className={classes.actionBtn}>
+            {showDelete && <IconButton onClick={this.onDeleteWrapper}>
               <DeleteIcon />
-            </Fab>}
-            {showEdit && <Fab color='primary' aria-label='edit' className={classes.fab} onClick={onClick.bind(this, 'edit')}>
+            </IconButton>}
+            {showEdit && <IconButton onClick={() => onEdit(_id)}>
               <Edit />
-            </Fab>}
-            { showView && <Fab color='primary' aria-label='view' className={classes.fab} onClick={onClick.bind(this, 'view')}>
-              <Info />
-            </Fab>}
-          </Grid>
-        </Grid>
-      </CardActions>
-      <CardContent>
-        <ItemDescriptions descriptions={descriptions} paperStyle={classes.paperStyle} />
-      </CardContent>
-    </Card>
-  )
+            </IconButton>}
+          </div>
+        </CardActions>
+      </Card>
+    </Grid>
+  }
 }
 
 Item.propTypes = {
@@ -105,19 +102,18 @@ Item.propTypes = {
   showView: PropTypes.bool,
   showEdit: PropTypes.bool,
   showDelete: PropTypes.bool,
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
   onView: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  descriptions: ItemDescriptions.propTypes.descriptions,
-  skills: PropTypes.arrayOf(
-    PropTypes.shape({ key: PropTypes.number, label: PropTypes.string })
-  )
+  description: PropTypes.string,
+  skills: PropTypes.arrayOf(PropTypes.string)
 }
 
 Item.defaultProps = {
   title: '',
+  description: '',
   showView: false,
   showEdit: false,
   showDelete: false,

@@ -26,7 +26,7 @@ describe('<SkillChips />', () => {
 
   it('is able to mount 1 chip', () => {
     props = {
-      skills: [{ key: 123, label: 'React' }],
+      skills: ['React'],
       classes: {}
     }
     const section = postingsComponent().find('span')

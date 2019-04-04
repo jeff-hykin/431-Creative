@@ -11,17 +11,16 @@ async function createUser (email, firstName = '', lastName = '', role = '') {
     dateCreated: date,
     dateModified: date,
     myPosts: [], // list of post Ids
-    fields: [], // list of objects representing fields
     role
   }
   let result = await _db.db.collections.users.insertOne(user)
   return result
 }
 
-async function createPost (ownerId, title, description, contactInfo, skills, fields) {
+async function createPost (ownerId, title, description, contactInfo, skills, postId) {
   let date = new Date()
-  let id = uuidv4()
-  let post = {
+  let id = postId || uuidv4()
+  let post = { $set: {
     _id: id,
     ownerId,
     title,
@@ -29,13 +28,11 @@ async function createPost (ownerId, title, description, contactInfo, skills, fie
     contactInfo,
     dateCreated: date,
     dateModified: date,
-    skills,
-    fields // list of objects representing fields
-  }
+    skills
+  } }
 
   // Add post
-  let result = await _db.db.collections.posts.insertOne(post)
-
+  let result = await _db.db.collections.posts.updateOne({ _id: id }, post, { upsert: true })
   // Update User to have post id
   await _db.db.collections.users.updateOne({ _id: ownerId }, { $push: { myPosts: id } })
 
@@ -50,8 +47,17 @@ async function deleteUser (userId) {
   return _db.db.collections.users.deleteOne({ _id: userId })
 }
 
+async function deletePost (postId) {
+  // Remove id from user
+  await _db.db.collections.users.updateOne({ myPosts: { $in: [postId] } }, { $pull: { myPosts: postId } })
+
+  // Delete post
+  return _db.db.collections.posts.deleteOne({ _id: postId })
+}
+
 module.exports = {
   createUser,
   createPost,
-  deleteUser
+  deleteUser,
+  deletePost
 }
