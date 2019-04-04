@@ -45,7 +45,7 @@ const classes = {
   }
 }
 
-let BigButton = ({ classes, color, isNav, children, label, className, variant, fontStyle, size, ...otherProps }) => {
+let BigButton = ({ classes, color, isNav, children, label, className, variant, fontStyle, size, staticContext, ...otherProps }) => {
   // default to large size
   size = size || 'large'
   // add in which classes should be attached
