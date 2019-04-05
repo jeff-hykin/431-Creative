@@ -1,15 +1,16 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { IconButton } from '@material-ui/core'
 import Edit from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import { colors } from '../../theme'
 import Grid from '@material-ui/core/Grid'
 import SkillChips from '../skills'
-import { IconButton } from '@material-ui/core'
 
 let padding = '1.2rem 3rem'
+/* istanbul ignore next */
 const classes = theme => ({
   cardHeader: {
     backgroundColor: colors.blue,
@@ -80,8 +81,9 @@ const classes = theme => ({
  * @constructor
  */
 
+/* istanbul ignore next */
 export class Item extends React.Component {
-  constructor (props) {
+  constructor (props) /* istanbul ignore next */ {
     super(props)
     this.state = {
       wasDeleted: false
@@ -90,7 +92,7 @@ export class Item extends React.Component {
     this.onDelete = () => onDelete(_id)
   }
 
-  onDeleteWrapper = (e) => {
+  onDeleteWrapper = (e) => /* istanbul ignore next */ {
     e.stopPropagation()
     let answer = window.confirm('Are you sure you want to delete this?')
     if (answer) {
@@ -99,12 +101,12 @@ export class Item extends React.Component {
     }
   }
 
-  onEditWrapper = (e) => {
+  onEditWrapper = (e) => /* istanbul ignore next */ {
     e.stopPropagation()
     this.onEdit()
   }
 
-  render () {
+  render () /* istanbul ignore next */ {
     let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit, color } = this.props
     // if this one was just deleted then don't show it
     if (this.state.wasDeleted) {
@@ -118,10 +120,10 @@ export class Item extends React.Component {
         <div className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
           {title}
           <div style={{ display: 'flex' }}>
-            {showDelete && <IconButton onClick={this.onDeleteWrapper}>
+            {showDelete && <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
               <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
             </IconButton>}
-            {showEdit && <IconButton onClick={this.onEditWrapper}>
+            {showEdit && <IconButton className='editIconWrapper' onClick={this.onEditWrapper}>
               <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
             </IconButton>}
           </div>
@@ -150,6 +152,7 @@ Item.propTypes = {
   skills: PropTypes.arrayOf(PropTypes.string)
 }
 
+/* istanbul ignore next */
 Item.defaultProps = {
   title: '',
   description: '',
@@ -161,4 +164,5 @@ Item.defaultProps = {
   onEdit: console.log
 }
 
+/* istanbul ignore next */
 export default withStyles(classes)(Item)
