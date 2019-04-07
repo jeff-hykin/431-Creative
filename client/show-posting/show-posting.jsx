@@ -69,7 +69,7 @@ class ShowPosting extends Component {
   render () {
     /* istanbul ignore else */
     if (this.state.loading) {
-      return <div>We are retreiving data</div>
+      return <div>We are retrieving data</div>
     } else {
       return (
         <div id='show-post' style={{ width: '100%' }}>

@@ -27,7 +27,7 @@ class EditPosting extends Component {
   render () {
     /* istanbul ignore else */
     if (this.state.loading) {
-      return <div>We are retreiving data</div>
+      return <div>We are retrieving data</div>
     } else {
       return <PostingPage pageTitle='Edit Post'
         title={this.state.post.title}
