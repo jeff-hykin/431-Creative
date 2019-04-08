@@ -129,13 +129,14 @@ class SplashPage extends Component {
   renderUserButton () {
     /* istanbul ignore next */
     localStorage.setItem('lastPage', window.location.pathname)
+    /* istanbul ignore next */
     if (!window.user) {
       return (
         <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
             Login
         </Button></a>
       )
-    } else {
+    } else /* istanbul ignore next */ {
       return (
         <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToDashboard}>
             Dashboard

@@ -77,18 +77,18 @@ class Dashboard extends Component {
 
   render () {
     let user = window.user
-    if (user == null) {
+    if (user == null) /* istanbul ignore next */ {
       return <Redirect to='/postings' />
     } else {
       return <div id='Dashboard' className={this.props.className}>
         <Nav banner>
           <NavLeft>
-            <BigButton id='allposts' size='medium' color='gray' variant='flat' onClick={this.navigateToPostings} >
+            <BigButton id='allposts' size='medium' color='gray' variant='outlined' onClick={this.navigateToPostings} >
               All Posts
             </BigButton>
           </NavLeft>
           <NavRight>
-            <LoginArea size='medium' variant='flat' />
+            <LoginArea size='medium' variant='outlined' />
           </NavRight>
         </Nav>
         <h2 className={this.props.classes.dashboardName} >
