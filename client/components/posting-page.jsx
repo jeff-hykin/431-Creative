@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button'
 import ContactFields from './contact-fields'
 import { sendSnackbarMessage, sendSnackbarError } from './snackbar'
 import { setupHandleChange } from '../tools'
+import { withLastLocation } from 'react-router-last-location'
 
 /* istanbul ignore next */
 const classes = theme => ({
@@ -123,6 +124,14 @@ class PostingPage extends Component {
     })
   }
 
+  goBack = (e) => {
+    if (this.props.lastLocation === null) {
+      this.props.history.push('/postings')
+    } else {
+      this.props.history.goBack()
+    }
+  }
+
   addSkill = (e) => {
     let temp = this.state
     if (temp.newSkill !== '' && !(temp.skills.includes(temp.newSkill))) {
@@ -135,6 +144,7 @@ class PostingPage extends Component {
   }
 
   render () {
+    console.log(this.props.lastLocation)
     let classes = this.props.classes
     return <div id='makePosting' className={this.props.className} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Card className={this.props.classes.heroContent}>
@@ -194,7 +204,7 @@ class PostingPage extends Component {
           <ContactFields state={this.state.contact} handleChange={this.handleContactChange} />
           {/* Save and Cancel buttons */}
           <div style={{ paddingTop: '4em', display: 'flex' }}>
-            <BigButton color='gray' id='cancelButton' onClick={() => this.props.history.goBack()}>
+            <BigButton color='gray' id='cancelButton' onClick={this.goBack}>
                 Cancel
             </BigButton>
             <div style={{ width: '2em' }} />
@@ -209,4 +219,4 @@ class PostingPage extends Component {
 }
 
 export { PostingPage, classes }
-export default withRouter(withStyles(classes)(PostingPage))
+export default withRouter(withLastLocation(withStyles(classes)(PostingPage)))
