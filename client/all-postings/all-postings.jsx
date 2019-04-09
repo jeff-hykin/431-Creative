@@ -36,7 +36,7 @@ const styles = theme => ({
 })
 
 /* istanbul ignore next */
-let onClickNewPosting = (e, history) => {
+export const onClickNewPosting = (e, history) => {
   if (window.user != null) {
     history.push('/makeposting')
   } else {
