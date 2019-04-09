@@ -46,6 +46,7 @@ let onClickNewPosting = (e, history) => {
 
 /* istanbul ignore next */
 export function AllPostings ({ classes, history }) {
+  localStorage.setItem('lastPage', window.location.pathname)
   const [postings, setPostings] = useState([])
 
   useEffect(() => {

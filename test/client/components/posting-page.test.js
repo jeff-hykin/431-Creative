@@ -13,6 +13,10 @@ describe('<PostingPage />', () => {
     }
   }
 
+  before(function () {
+    window.user = {}
+  })
+
   it('has a cancel button', () => {
     const wrapper = shallow(<PostingPage {...fakeProps} />)
     expect(wrapper.exists('#cancelButton')).to.equal(true)
@@ -67,15 +71,19 @@ describe('<PostingPage />', () => {
       stateSpy.restore()
     })
   })
-//  describe.only('#savePosting', () => {
-//    it('should call makePosting', () => {
-//      const wrapper = shallow(<PostingPage {...fakeProps} />)
-//      const instance = wrapper.instance()
-//      api = sinon.stub()
-//      instance.savePosting({})
-//      api.resolve({})
-//      expect(api.called).to.equal(true)
-//      api.restore()
-//    })
-//  })
+  //  describe.only('#savePosting', () => {
+  //    it('should call makePosting', () => {
+  //      const wrapper = shallow(<PostingPage {...fakeProps} />)
+  //      const instance = wrapper.instance()
+  //      api = sinon.stub()
+  //      instance.savePosting({})
+  //      api.resolve({})
+  //      expect(api.called).to.equal(true)
+  //      api.restore()
+  //    })
+  //  })
+
+  after(function () {
+    window.user = null
+  })
 })
