@@ -5,7 +5,7 @@ import { colors } from '../theme'
 
 let classes = {
   snackBarError: {
-    background: colors.softRed
+    background: colors.red
   }
 }
 
