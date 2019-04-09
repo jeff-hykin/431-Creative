@@ -113,8 +113,7 @@ class PostingPage extends Component {
     newPost.skills = this.state.skills
     /* istanbul ignore next */
     api['make-posting'](newPost, this.props.postId).then(response => {
-      console.log(response)
-      this.props.history.push('/dashboard')
+      this.goBack(e)
     }).catch(err => {
       let msg
       if (err.toString() === 'Error: missing post parameters') msg = 'Missing Form Fields'
@@ -144,6 +143,11 @@ class PostingPage extends Component {
   }
 
   render () {
+    let user = window.user
+    if (user == null) /* istanbul ignore next */ {
+      window.location.href = '/auth/google'
+      return <div />
+    }
     console.log(this.props.lastLocation)
     let classes = this.props.classes
     return <div id='makePosting' className={this.props.className} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
