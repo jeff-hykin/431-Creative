@@ -87,7 +87,11 @@ export function AllPostings ({ classes, history }) {
             Postings
           </Typography>
         </div>
-        <Lister color list={postings} user={window.user._id} />
+        {window.user ? (
+          <Lister color list={postings} user={window.user._id} />
+          ) : (
+          <Lister color list={postings} />
+        )}
       </section>
     </div>
   )

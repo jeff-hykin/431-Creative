@@ -57,6 +57,10 @@ const classes = theme => ({
       backgroundColor: colors.offWhite
     }
   },
+  contact: {
+    fontSize: '12pt',
+    color: colors.lightGray,
+  },
   deleteIconOnWhite: {
     color: colors.red
   },
@@ -130,7 +134,9 @@ export class Item extends React.Component {
                 </IconButton>
               </div>
             ) : (
-              "contactInfo"
+              <div className={classes.contact} >
+                {contactInfo.company}
+              </div>
             )}
           </div>
         </div>
