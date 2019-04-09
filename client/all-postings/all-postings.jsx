@@ -16,6 +16,9 @@ const styles = theme => ({
     width: '100vw'
   },
   root: {
+    height: 'fit-content',
+    overflow: 'hidden',
+    paddingBottom: '2rem',
     width: 'auto',
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -84,7 +87,7 @@ export function AllPostings ({ classes, history }) {
             Postings
           </Typography>
         </div>
-        <Lister list={postings} />
+        <Lister color list={postings} />
       </section>
     </div>
   )

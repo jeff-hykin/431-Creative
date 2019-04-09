@@ -138,7 +138,7 @@ class PostingPage extends Component {
       temp.skills.push(temp.newSkill)
       temp.newSkill = ''
       this.setState(temp)
-    } else {
+    } else /* istanbul ignore next */ {
       sendSnackbarMessage('Skill is empty or already exists')
     }
   }
