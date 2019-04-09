@@ -3,7 +3,7 @@ import { withRouter, Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
-import { Nav, NavLeft, NavRight } from '../components/navbar'
+import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformPostings } from '../components/lister/utils'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
@@ -75,6 +75,11 @@ class Dashboard extends Component {
     this.props.history.push('/postings')
   }
 
+  navigateToNewPosting = e => {
+    e.preventDefault()
+    this.props.history.push('/makeposting')
+  }
+
   render () {
     let user = window.user
     if (user == null) /* istanbul ignore next */ {
@@ -85,6 +90,10 @@ class Dashboard extends Component {
           <NavLeft>
             <BigButton id='allposts' size='medium' color='gray' variant='outlined' onClick={this.navigateToPostings} >
               All Posts
+            </BigButton>
+            <NavSpacer />
+            <BigButton isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
+              Make Post
             </BigButton>
           </NavLeft>
           <NavRight>
