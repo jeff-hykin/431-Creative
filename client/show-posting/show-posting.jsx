@@ -71,6 +71,7 @@ class ShowPosting extends Component {
   }
 
   render () {
+    localStorage.setItem('lastPage', window.location.pathname)
     const { history } = this.props
     /* istanbul ignore else */
     if (this.state.loading) {
