@@ -76,6 +76,7 @@ class Dashboard extends Component {
   }
 
   render () {
+    localStorage.setItem('lastPage', window.location.pathname)
     let user = window.user
     if (user == null) /* istanbul ignore next */ {
       return <Redirect to='/postings' />

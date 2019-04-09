@@ -67,6 +67,7 @@ class ShowPosting extends Component {
   }
 
   render () {
+    localStorage.setItem('lastPage', window.location.pathname)
     /* istanbul ignore else */
     if (this.state.loading) {
       return <div>We are retrieving data</div>
