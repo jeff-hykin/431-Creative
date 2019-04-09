@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
 import UserList from '../components/userList'
+import PostList from '../components/postList'
 import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformPostings } from '../components/lister/utils'
 import Page from '../page'
@@ -14,6 +15,7 @@ import ContactFields from '../components/contact-fields'
 import * as tools from '../tools'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
+import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 
 const classes = theme => ({
@@ -36,6 +38,14 @@ const classes = theme => ({
     colorSecondary: colors.blue
   }
 })
+
+function TabContainer (props) {
+  return (
+    <Typography component='div' style={{ backgroundColor: colors.white, padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  )
+}
 
 class PostingsHelper extends Component {
   constructor (props) {
@@ -69,36 +79,58 @@ class PostingsHelper extends Component {
   }
 }
 
-class UsersHelper extends Component {
+class TableHelper extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      users: []
+      tab: 0
     }
   }
 
+  switchTab = () => {
+    let tempState = this.state
+    if (tempState.tab === 0) { tempState.tab = 1 } else { tempState.tab = 0 }
+    this.setState(tempState)
+  }
+
   render () {
-    return <UserList />
+    return <div>
+      <AppBar position='static' style={{ backgroundColor: colors.teal, color: colors.white }}>
+        <Tabs value={this.state.tab} onChange={this.switchTab}>
+          <Tab label='Posts' />
+          <Tab label='Users' />
+        </Tabs>
+      </AppBar>
+      {this.state.tab === 0 && <TabContainer><PostList history={this.props.history} /></TabContainer>}
+      {this.state.tab === 1 && <TabContainer><UserList /></TabContainer>}
+    </div>
   }
 }
 
-class ContentHelper extends Component {
+class AdminHelper extends Component {
   constructor (props) {
     super(props)
+
+    let message = ''
+    if (this.props.tab === 'users') { message = 'Admin' } else { message = 'Account' }
+
     this.state = {
+      message: message
     }
   }
 
   render () {
-    if (this.props.tab === 'users') { return 'Posts' } else { return 'Users' }
+    if (window.user.role === 'admin') {
+      return <BigButton id='switchTable' size='medium' color='gray' variant='outlined' onClick={this.props.switchTab} >
+        {this.state.message}
+      </BigButton>
+    } else {
+      return null
+    }
   }
 }
 
 PostingsHelper.defaultProps = {
-  user: {}
-}
-
-UsersHelper.defaultProps = {
   user: {}
 }
 
@@ -134,9 +166,7 @@ class Dashboard extends Component {
               All Posts
             </BigButton>
             <NavSpacer />
-            <BigButton id='switchTable' size='medium' color='gray' variant='outlined' onClick={this.switchTab} >
-              <ContentHelper tab={this.state.tab} />
-            </BigButton>
+            <AdminHelper tab={this.state.tab} switchTab={this.switchTab} />
           </NavLeft>
           <NavRight>
             <LoginArea size='medium' variant='outlined' />
@@ -148,7 +178,7 @@ class Dashboard extends Component {
         <div className={this.props.classes.container}>
           <div style={{ minWidth: '50vw', width: 'calc(50vw + 10em)' }} >
             {this.state.tab === 'posts' && <PostingsHelper user={user} history={this.props.history} />}
-            {this.state.tab === 'users' && <UsersHelper user={user} history={this.props.history} />}
+            {this.state.tab === 'users' && <TableHelper history={this.props.history} />}
           </div>
           <div style={{ padding: '3em', minWidth: '21em' }} >
             <ContactFields state={user} handleChange={this.handleChange} readOnly />
