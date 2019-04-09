@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
 import UserList from '../components/userList'
-import { Nav, NavLeft, NavRight } from '../components/navbar'
+import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformPostings } from '../components/lister/utils'
 import Page from '../page'
 import { api } from '../../backend/setup-functions'
@@ -21,7 +21,8 @@ const classes = theme => ({
     marginTop: '-20vh',
     marginLeft: '10vw',
     marginBottom: '7vh',
-    color: colors.offWhite
+    color: colors.offWhite,
+    display: 'flex'
   },
   container: {
     display: 'flex',
@@ -29,7 +30,7 @@ const classes = theme => ({
     justifyContent: 'center',
     paddingBottom: '2em'
   },
-  blue: {
+  tabBar: {
     colorDefault: colors.blue,
     colorPrimary: colors.blue,
     colorSecondary: colors.blue
@@ -74,25 +75,22 @@ class UsersHelper extends Component {
     this.state = {
       users: []
     }
-    this.getUsers()
-    console.log(this.state.users)
-  }
-
-  componentDidMount () {
-    console.log('constructed')
-  }
-
-  getUsers = () => {
-    api['get-users']({}).then(resp => (
-      this.setState({
-        users: resp
-      }))
-    )
-    console.log('test')
   }
 
   render () {
-    return <UserList users={this.state.users} />
+    return <UserList />
+  }
+}
+
+class ContentHelper extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+    }
+  }
+
+  render () {
+    if (this.props.tab === 'users') { return 'Posts' } else { return 'Users' }
   }
 }
 
@@ -104,13 +102,13 @@ UsersHelper.defaultProps = {
   user: {}
 }
 
-
 class Dashboard extends Component {
   constructor (props) {
     super(props)
     this.handleChange = tools.setupHandleChange(this)
-    this.state = {}
-    this.state.tab = 0
+    this.state = {
+      tab: 'posts'
+    }
   }
 
   navigateToPostings = (e) => {
@@ -118,9 +116,9 @@ class Dashboard extends Component {
     this.props.history.push('/postings')
   }
 
-  handleTabChange = (e, v) => {
+  switchTab = () => {
     let tempState = this.state
-    tempState.tab = v
+    if (tempState.tab === 'users') { tempState.tab = 'posts' } else { tempState.tab = 'users' }
     this.setState(tempState)
   }
 
@@ -135,6 +133,10 @@ class Dashboard extends Component {
             <BigButton id='allposts' size='medium' color='gray' variant='outlined' onClick={this.navigateToPostings} >
               All Posts
             </BigButton>
+            <NavSpacer />
+            <BigButton id='switchTable' size='medium' color='gray' variant='outlined' onClick={this.switchTab} >
+              <ContentHelper tab={this.state.tab} />
+            </BigButton>
           </NavLeft>
           <NavRight>
             <LoginArea size='medium' variant='outlined' />
@@ -145,14 +147,8 @@ class Dashboard extends Component {
         </h2>
         <div className={this.props.classes.container}>
           <div style={{ minWidth: '50vw', width: 'calc(50vw + 10em)' }} >
-            <AppBar position="static" className={this.props.classes.blue}>
-              <Tabs value={this.state.tab} onChange={this.handleTabChange}>
-                <Tab label="Postings"/>
-                <Tab label="Users"/> 
-              </Tabs>
-            </AppBar>
-            {this.state.tab === 0 && <PostingsHelper user={user} history={this.props.history} />}
-            {this.state.tab === 1 && <UsersHelper user={user} history={this.props.history} />}
+            {this.state.tab === 'posts' && <PostingsHelper user={user} history={this.props.history} />}
+            {this.state.tab === 'users' && <UsersHelper user={user} history={this.props.history} />}
           </div>
           <div style={{ padding: '3em', minWidth: '21em' }} >
             <ContactFields state={user} handleChange={this.handleChange} readOnly />
