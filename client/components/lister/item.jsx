@@ -107,7 +107,7 @@ export class Item extends React.Component {
   }
 
   render () /* istanbul ignore next */ {
-    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit, color } = this.props
+    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit, ownerId, contactInfo, color, user } = this.props
     // if this one was just deleted then don't show it
     if (this.state.wasDeleted) {
       return <div key={_id} />
@@ -120,12 +120,18 @@ export class Item extends React.Component {
         <div className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
           {title}
           <div style={{ display: 'flex' }}>
-            {showDelete && <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
-              <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
-            </IconButton>}
-            {showEdit && <IconButton className='editIconWrapper' onClick={this.onEditWrapper}>
-              <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
-            </IconButton>}
+            {user == ownerId ? (
+              <div>
+                <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
+                  <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
+                </IconButton>
+                <IconButton className='editIconWrapper' onClick={this.onEditWrapper}>
+                  <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
+                </IconButton>
+              </div>
+            ) : (
+              "contactInfo"
+            )}
           </div>
         </div>
         <div className={classes.body} onClick={() => onView(_id)}>
