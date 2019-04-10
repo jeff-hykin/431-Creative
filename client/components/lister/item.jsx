@@ -135,7 +135,7 @@ export class Item extends React.Component {
               </div>
             ) : (
               <div className={classes.contact} >
-                {contactInfo.company}
+                {contactInfo ? (contactInfo.company) : ('No Contact')}
               </div>
             )}
           </div>
