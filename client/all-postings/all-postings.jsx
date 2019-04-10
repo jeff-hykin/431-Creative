@@ -8,7 +8,7 @@ import { api } from '../../backend/setup-functions'
 import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import LoginArea from '../components/login-area'
 import BigButton from '../components/big-button'
-import { navigateToShowPosting, transformPostings } from '../components/lister/utils'
+import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformPostings } from '../components/lister/utils'
 
 /* istanbul ignore next */
 const styles = theme => ({
@@ -53,6 +53,11 @@ export function AllPostings ({ classes, history }) {
     const fetchData = async () => {
       const result = await api['get-postings']().then(resp => (
         transformPostings(resp, {
+          showEdit: true,
+          showView: true,
+          showDelete: true,
+          onEdit: navigateToEditPosting.bind(this, history),
+          onDelete: deletePosting,
           onView: navigateToShowPosting.bind(this, history)
         }
         )))
@@ -88,8 +93,8 @@ export function AllPostings ({ classes, history }) {
           </Typography>
         </div>
         {window.user ? (
-          <Lister color list={postings} user={window.user._id} />
-          ) : (
+          <Lister color list={postings} user={window.user} />
+        ) : (
           <Lister color list={postings} />
         )}
       </section>

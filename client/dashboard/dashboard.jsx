@@ -55,7 +55,7 @@ class PostingsHelper extends Component {
   }
 
   render () {
-    return <Lister list={this.state.postings} user={this.props.user._id} />
+    return <Lister list={this.state.postings} user={this.props.user} />
   }
 }
 

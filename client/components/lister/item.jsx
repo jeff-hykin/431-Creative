@@ -59,7 +59,7 @@ const classes = theme => ({
   },
   contact: {
     fontSize: '12pt',
-    color: colors.lightGray,
+    color: colors.offWhite
   },
   deleteIconOnWhite: {
     color: colors.red
@@ -124,7 +124,7 @@ export class Item extends React.Component {
         <div className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
           {title}
           <div style={{ display: 'flex' }}>
-            {user == ownerId ? (
+            {user && (user._id == ownerId || user.role !== 'admin') ? (
               <div>
                 <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
                   <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
