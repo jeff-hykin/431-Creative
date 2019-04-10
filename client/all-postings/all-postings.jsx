@@ -36,7 +36,7 @@ const styles = theme => ({
 })
 
 /* istanbul ignore next */
-let onClickNewPosting = (e, history) => {
+export const onClickNewPosting = (e, history) => {
   if (window.user != null) {
     history.push('/makeposting')
   } else {
@@ -46,6 +46,7 @@ let onClickNewPosting = (e, history) => {
 
 /* istanbul ignore next */
 export function AllPostings ({ classes, history }) {
+  localStorage.setItem('lastPage', window.location.pathname)
   const [postings, setPostings] = useState([])
 
   useEffect(() => {

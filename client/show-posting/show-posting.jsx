@@ -17,6 +17,10 @@ import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
+import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
+import BigButton from '../components/big-button'
+import LoginArea from '../components/login-area'
+import { onClickNewPosting } from '../all-postings/all-postings'
 
 /* istanbul ignore next */
 const classes = theme => ({
@@ -67,12 +71,36 @@ class ShowPosting extends Component {
   }
 
   render () {
+    localStorage.setItem('lastPage', window.location.pathname)
+    const { history } = this.props
     /* istanbul ignore else */
     if (this.state.loading) {
       return <div>We are retrieving data</div>
     } else {
       return (
         <div id='show-post' style={{ width: '100%' }}>
+          <Nav>
+            <NavLeft>
+              <BigButton isNav color='gray' onClick={e => history.push('/about')}>
+                About
+              </BigButton>
+              <NavSpacer />
+              <BigButton isNav color='blue' id='createButton' onClick={e => onClickNewPosting(e, history)}>
+                New Post
+              </BigButton>
+            </NavLeft>
+            <NavRight>
+              <BigButton id='postingsButton' isNav color='green' onClick={e => history.push('/postings')}>
+                All Posts
+              </BigButton>
+              <NavSpacer />
+              { window.user != null && <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
+                Dashboard
+              </BigButton>}
+              <NavSpacer />
+              <LoginArea />
+            </NavRight>
+          </Nav>
           <section className={this.props.classes.root}>
             <Card className={this.props.classes.heroContent}>
               <CardHeader
