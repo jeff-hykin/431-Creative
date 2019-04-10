@@ -51,6 +51,6 @@ describe('<Lister />', () => {
       }]
     }
     const h6 = postingsComponent().find('div')
-    expect(h6.length).to.be.eq(8)
+    expect(h6.length).to.be.eq(9)
   })
 })
