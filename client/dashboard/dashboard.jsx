@@ -75,7 +75,7 @@ class PostingsHelper extends Component {
   }
 
   render () {
-    return <Lister list={this.state.postings} />
+    return <Lister list={this.state.postings} user={this.props.user} />
   }
 }
 
@@ -110,19 +110,13 @@ class TableHelper extends Component {
 class AdminHelper extends Component {
   constructor (props) {
     super(props)
-
-    let message = ''
-    if (this.props.tab === 'users') { message = 'Admin' } else { message = 'Account' }
-
-    this.state = {
-      message: message
-    }
+    this.state = {}
   }
 
   render () {
     if (window.user.role === 'admin') {
       return <BigButton id='switchTable' size='medium' color='gray' variant='outlined' onClick={this.props.switchTab} >
-        {this.state.message}
+        {this.props.tab}
       </BigButton>
     } else {
       return null
@@ -139,7 +133,7 @@ class Dashboard extends Component {
     super(props)
     this.handleChange = tools.setupHandleChange(this)
     this.state = {
-      tab: 'posts'
+      tab: 'Admin'
     }
   }
 
@@ -150,11 +144,21 @@ class Dashboard extends Component {
 
   switchTab = () => {
     let tempState = this.state
-    if (tempState.tab === 'users') { tempState.tab = 'posts' } else { tempState.tab = 'users' }
+    if (tempState.tab === 'Account') { 
+      tempState.tab = 'Admin' 
+    } else { 
+      tempState.tab = 'Account' 
+    }
     this.setState(tempState)
   }
 
+  navigateToNewPosting = e => {
+    e.preventDefault()
+    this.props.history.push('/makeposting')
+  }
+
   render () {
+    localStorage.setItem('lastPage', window.location.pathname)
     let user = window.user
     if (user == null) /* istanbul ignore next */ {
       return <Redirect to='/postings' />
@@ -164,6 +168,10 @@ class Dashboard extends Component {
           <NavLeft>
             <BigButton id='allposts' size='medium' color='gray' variant='outlined' onClick={this.navigateToPostings} >
               All Posts
+            </BigButton>
+            <NavSpacer />
+            <BigButton isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
+              Make Post
             </BigButton>
             <NavSpacer />
             <AdminHelper tab={this.state.tab} switchTab={this.switchTab} />
@@ -177,8 +185,8 @@ class Dashboard extends Component {
         </h2>
         <div className={this.props.classes.container}>
           <div style={{ minWidth: '50vw', width: 'calc(50vw + 10em)' }} >
-            {this.state.tab === 'posts' && <PostingsHelper user={user} history={this.props.history} />}
-            {this.state.tab === 'users' && <TableHelper history={this.props.history} />}
+            {this.state.tab === 'Admin' && <PostingsHelper user={user} history={this.props.history} />}
+            {this.state.tab === 'Account' && <TableHelper history={this.props.history} />}
           </div>
           <div style={{ padding: '3em', minWidth: '21em' }} >
             <ContactFields state={user} handleChange={this.handleChange} readOnly />
