@@ -50,7 +50,7 @@ describe('<Lister />', () => {
         onEdit: console.log
       }]
     }
-    const h6 = postingsComponent().find('h6')
-    expect(h6.length).to.be.eq(1)
+    const h6 = postingsComponent().find('div')
+    expect(h6.length).to.be.eq(8)
   })
 })

@@ -52,10 +52,11 @@
     "passport-mock-googleoauth2": "^1.0.1",
     "postcss-modules": "^1.4.1",
     "prop-types": "^15.7.2",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-matrix-parallax": "^2.1.4",
     "react-router-dom": "^4.3.1",
+    "react-router-last-location": "^2.0.0-beta.1",
     "react-toastify": "^4.5.2",
     "uuid": "^3.3.2"
   },

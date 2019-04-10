@@ -16,6 +16,9 @@ const styles = theme => ({
     width: '100vw'
   },
   root: {
+    height: 'fit-content',
+    overflow: 'hidden',
+    paddingBottom: '2rem',
     width: 'auto',
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -33,7 +36,7 @@ const styles = theme => ({
 })
 
 /* istanbul ignore next */
-let onClickNewPosting = (e, history) => {
+export const onClickNewPosting = (e, history) => {
   if (window.user != null) {
     history.push('/makeposting')
   } else {
@@ -43,6 +46,7 @@ let onClickNewPosting = (e, history) => {
 
 /* istanbul ignore next */
 export function AllPostings ({ classes, history }) {
+  localStorage.setItem('lastPage', window.location.pathname)
   const [postings, setPostings] = useState([])
 
   useEffect(() => {
@@ -84,7 +88,7 @@ export function AllPostings ({ classes, history }) {
             Postings
           </Typography>
         </div>
-        <Lister list={postings} />
+        <Lister color list={postings} />
       </section>
     </div>
   )

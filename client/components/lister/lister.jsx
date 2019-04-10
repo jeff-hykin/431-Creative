@@ -1,17 +1,18 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
-
-import Item from './item'
 import Grid from '@material-ui/core/Grid'
 
-function Lister ({ list }) {
-  const data = list.map(l => <Item key={l._id} {...l} />)
+import Item from './item'
+
+function Lister ({ list, color }) {
+  const data = list.map(each => <Item color={color} key={each._id} {...each} />)
 
   if (data.length === 0) {
-    return <div style={{ textAlign: 'center', color: 'white', width: '100%' }}>
+    return <div style={{ textAlign: 'center', color: color ? 'black' : 'white', width: '100%' }}>
       No Posts ¯\_(ツ)_/¯
     </div>
   }
+
   return <Grid container justify='center' alignItems='center' spacing={40} >
     {data}
   </Grid>

@@ -41,7 +41,7 @@ describe('<EditPosting />', () => {
   it('loading message appears', () => {
     const wrapper = mount(<EditPosting match={{ params: { id: POST_ID } }} />)
     wrapper.setState({ loading: true })
-    expect(wrapper.contains(<div>We are retreiving data</div>))
+    expect(wrapper.contains(<div>We are retrieving data</div>))
     wrapper.unmount()
   })
 
