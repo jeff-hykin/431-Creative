@@ -146,7 +146,7 @@ class SplashPage extends Component {
 
   render () {
     return <div id='splashPage' className={this.props.className}>
-      <Card className={this.props.classes.title}>
+      <Card id='about' className={this.props.classes.title}>
         <CardContent>
           <h2 className={this.props.classes.titleText}>
             Aggie Coding Connect

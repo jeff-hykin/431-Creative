@@ -88,7 +88,7 @@ class Dashboard extends Component {
             </BigButton>
           </NavLeft>
           <NavRight>
-            <LoginArea size='medium' variant='flat' />
+            <LoginArea id='login' size='medium' variant='flat' />
           </NavRight>
         </Nav>
         <h2 className={this.props.classes.dashboardName} >

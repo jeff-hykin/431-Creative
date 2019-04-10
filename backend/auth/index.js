@@ -1,31 +1,54 @@
 const passport = require('passport')
-let GoogleStrategy = require('passport-google-oauth20').Strategy
+const session = require('express-session')
+let GoogleStrategy, options, verify
 const { HOST_AND_PROTOCOL, CLIENT_ID, CLIENT_SECRET } = require('../config')
 
 const _db = require('../../database/wrapper')
 const { createUser } = require('../utils')
 
-/* Passport Config */
-passport.use(new GoogleStrategy({
-  clientID: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
-  callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`,
-  // This option tells the strategy to use the userinfo endpoint instead
-  userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
-}, async (accessToken, refreshToken, profile, cb) => {
-  process.nextTick(async () => {
-    try {
-      let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
-      // Create user if not found.
-      if (!user) {
-        user = (await createUser(profile['emails'][0].value, profile['name']['givenName'], profile['name']['familyName'])).ops[0]
+if (process.env.NODE_ENV === 'testing') {
+//  GoogleStrategy = require('passport-mock').Strategy
+  GoogleStrategy = require('passport-mock-googleoauth2')
+  options = {
+    name: 'google',
+    callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`,
+    id: 1,
+    displayName: 'Test Name',
+    familyName: 'Smith',
+    givenName: 'Test',
+    passauthentication: true
+  }
+  verify = (user, done) => {
+    done(null, user)
+  }
+} else {
+  GoogleStrategy = require('passport-google-oauth20').Strategy
+  options = {
+    name: 'google',
+    clientID: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`,
+    // This option tells the strategy to use the userinfo endpoint instead
+    userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
+  }
+  verify = async (accessToken, refreshToken, profile, cb) => {
+    process.nextTick(async () => {
+      try {
+        let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
+        // Create user if not found.
+        if (!user) {
+          user = (await createUser(profile['emails'][0].value, profile['name']['givenName'], profile['name']['familyName'])).ops[0]
+        }
+        cb(null, user)
+      } catch (err) {
+        cb(err)
       }
-      cb(null, user)
-    } catch (err) {
-      cb(err)
-    }
-  })
-}))
+    })
+  }
+}
+
+/* Passport Config */
+passport.use(new GoogleStrategy(options, verify))
 
 passport.serializeUser((user, cb) => {
   cb(null, user._id)
@@ -40,6 +63,11 @@ passport.deserializeUser((_id, cb) => {
 })
 
 function setupGoogleAuth (app) {
+  if (process.env.NODE_ENV === 'testing') {
+    app.use(session({
+      secret: 'test'
+    }))
+  }
   // Initialize Passport and restore authentication state, if any, from the
   // session.
   app.use(passport.initialize())

@@ -5,7 +5,7 @@ import Page from '../page'
 const NotFound = () =>
   <div id='page-not-found' >
     <MatrixParallax color='black' backgroundColor='white' >
-      <h2>404</h2>
+      <h2 className='404'>404</h2>
       <h5 style={{ maxWidth: '100vw', fontFamily: 'Consolas,monospace' }}>Page Not Found</h5>
     </MatrixParallax>
   </div>
