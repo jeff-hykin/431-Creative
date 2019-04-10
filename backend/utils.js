@@ -39,6 +39,14 @@ async function createPost (ownerId, title, description, contactInfo, skills, pos
   return result
 }
 
+async function deleteUser (userId) {
+  // Delete posts associated with user
+  await _db.db.collections.posts.deleteMany({ ownerId: userId })
+
+  // Delete user
+  return _db.db.collections.users.deleteOne({ _id: userId })
+}
+
 async function deletePost (postId) {
   // Remove id from user
   await _db.db.collections.users.updateOne({ myPosts: { $in: [postId] } }, { $pull: { myPosts: postId } })
@@ -50,5 +58,6 @@ async function deletePost (postId) {
 module.exports = {
   createUser,
   createPost,
+  deleteUser,
   deletePost
 }

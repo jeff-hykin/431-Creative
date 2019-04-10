@@ -16,6 +16,9 @@ const styles = theme => ({
     width: '100vw'
   },
   root: {
+    height: 'fit-content',
+    overflow: 'hidden',
+    paddingBottom: '2rem',
     width: 'auto',
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -33,7 +36,7 @@ const styles = theme => ({
 })
 
 /* istanbul ignore next */
-let onClickNewPosting = (e, history) => {
+export const onClickNewPosting = (e, history) => {
   if (window.user != null) {
     history.push('/makeposting')
   } else {
@@ -43,6 +46,7 @@ let onClickNewPosting = (e, history) => {
 
 /* istanbul ignore next */
 export function AllPostings ({ classes, history }) {
+  localStorage.setItem('lastPage', window.location.pathname)
   const [postings, setPostings] = useState([])
 
   useEffect(() => {
@@ -50,7 +54,6 @@ export function AllPostings ({ classes, history }) {
     const fetchData = async () => {
       const result = await api['get-postings']().then(resp => (
         transformPostings(resp, {
-          showView: true,
           onView: navigateToShowPosting.bind(this, history)
         }
         )))
@@ -63,7 +66,7 @@ export function AllPostings ({ classes, history }) {
     <div className={classes.wrapper}>
       <Nav>
         <NavLeft>
-          <BigButton isNav color='gray' onClick={e => history.push('/about')}>
+          <BigButton id='about' isNav color='gray' onClick={e => history.push('/about')}>
             About
           </BigButton>
           <NavSpacer />
@@ -81,11 +84,11 @@ export function AllPostings ({ classes, history }) {
       </Nav>
       <section className={classes.root}>
         <div className={classes.heroContent}>
-          <Typography component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
+          <Typography id='postingTitle' component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
             Postings
           </Typography>
         </div>
-        <Lister list={postings} />
+        <Lister color list={postings} />
       </section>
     </div>
   )

@@ -1,20 +1,19 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { IconButton } from '@material-ui/core'
 import Edit from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-
+import { colors } from '../../theme'
+import Grid from '@material-ui/core/Grid'
 import SkillChips from '../skills'
-import CardHeader from '@material-ui/core/CardHeader'
-import { CardActionArea, IconButton } from '@material-ui/core'
 
-const styles = theme => ({
+let padding = '1.2rem 3rem'
+/* istanbul ignore next */
+const classes = theme => ({
   cardHeader: {
-    backgroundColor: '#2096F3',
+    backgroundColor: colors.blue,
     color: 'white'
   },
   cardDesc: {
@@ -25,6 +24,50 @@ const styles = theme => ({
   },
   actionBtn: {
     marginLeft: 'auto'
+  },
+  titleWhite: {
+    width: '100%',
+    padding,
+    fontSize: '21pt',
+    borderBottom: `solid ${colors.lightGray}`,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline'
+  },
+  titleColor: {
+    width: '100%',
+    padding,
+    fontSize: '21pt',
+    backgroundColor: colors.blue,
+    color: 'white',
+    borderBottom: `solid ${colors.lightGray}`,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    '&:hover': {
+      opacity: 0.9
+    }
+  },
+  body: {
+    padding,
+    display: 'flex',
+    flexDirection: 'column',
+    color: colors.darkGray,
+    '&:hover': {
+      backgroundColor: colors.offWhite
+    }
+  },
+  deleteIconOnWhite: {
+    color: colors.red
+  },
+  editIconOnWhite: {
+    color: colors.blue
+  },
+  deleteIconOnColor: {
+    color: colors.offWhite
+  },
+  editIconOnColor: {
+    color: colors.offWhite
   }
 })
 
@@ -37,49 +80,64 @@ const styles = theme => ({
  * @returns {*}
  * @constructor
  */
-export function Item ({ classes, title, skills, description, _id, onDelete, onEdit, onView, showView, showDelete, showEdit }) {
-  const onClick = type => {
-    switch (type) {
-      case 'delete':
-        return onDelete(_id)
-      case 'edit':
-        return onEdit(_id)
-      case 'view':
-        return onView(_id)
+
+/* istanbul ignore next */
+export class Item extends React.Component {
+  constructor (props) /* istanbul ignore next */ {
+    super(props)
+    this.state = {
+      wasDeleted: false
+    }
+    let { _id, onDelete } = this.props
+    this.onDelete = () => onDelete(_id)
+  }
+
+  onDeleteWrapper = (e) => /* istanbul ignore next */ {
+    e.stopPropagation()
+    let answer = window.confirm('Are you sure you want to delete this?')
+    if (answer) {
+      this.onDelete()
+      this.setState({ wasDeleted: true })
     }
   }
 
-  return (
-    <Card elevation={10}>
-      <CardActionArea onClick={onClick.bind(this, 'view')}>
-        <CardHeader
-          title={title}
-          titleTypographyProps={{ align: 'center', color: 'inherit' }}
-          className={classes.cardHeader}
-        />
-      </CardActionArea>
-      <CardContent>
-        <div className={classes.cardDesc}>
-          <Typography variant='subtitle1' noWrap>
-            {description}
-          </Typography>
-        </div>
-      </CardContent>
-      <CardActions >
-        <SkillChips className={classes.skills} skills={skills} />
-        <div className={classes.actionBtn}>
-          {showDelete && <IconButton onClick={onClick.bind(this, 'delete')}>
-            <DeleteIcon />
-          </IconButton>}
-          {showEdit && <IconButton onClick={onClick.bind(this, 'edit')}>
-            <Edit />
-          </IconButton>}
-        </div>
-      </CardActions>
-    </Card>
-  )
-}
+  onEditWrapper = (e) => /* istanbul ignore next */ {
+    e.stopPropagation()
+    this.onEdit()
+  }
 
+  render () /* istanbul ignore next */ {
+    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit, color } = this.props
+    // if this one was just deleted then don't show it
+    if (this.state.wasDeleted) {
+      return <div key={_id} />
+    }
+    this.onDelete = () => onDelete(_id)
+    this.onEdit = () => onEdit(_id)
+
+    return <Grid item xs={10} zeroMinWidth>
+      <Card elevation={9}>
+        <div className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
+          {title}
+          <div style={{ display: 'flex' }}>
+            {showDelete && <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
+              <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
+            </IconButton>}
+            {showEdit && <IconButton className='editIconWrapper' onClick={this.onEditWrapper}>
+              <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
+            </IconButton>}
+          </div>
+        </div>
+        <div className={classes.body} onClick={() => onView(_id)}>
+          {description}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '1rem' }}>
+            <SkillChips className={classes.skills} skills={skills} />
+          </div>
+        </div>
+      </Card>
+    </Grid>
+  }
+}
 Item.propTypes = {
   title: PropTypes.string,
   showView: PropTypes.bool,
@@ -94,6 +152,7 @@ Item.propTypes = {
   skills: PropTypes.arrayOf(PropTypes.string)
 }
 
+/* istanbul ignore next */
 Item.defaultProps = {
   title: '',
   description: '',
@@ -105,4 +164,5 @@ Item.defaultProps = {
   onEdit: console.log
 }
 
-export default withStyles(styles)(Item)
+/* istanbul ignore next */
+export default withStyles(classes)(Item)

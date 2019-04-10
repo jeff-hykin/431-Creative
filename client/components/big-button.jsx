@@ -20,11 +20,11 @@ const classes = {
     transform: 'scale(1.16)'
   },
   gray: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.darkGray,
     color: 'white'
   },
   red: {
-    backgroundColor: colors.softRed,
+    backgroundColor: colors.red,
     color: 'white'
   },
   blue: {
@@ -45,7 +45,7 @@ const classes = {
   }
 }
 
-let BigButton = ({ classes, color, isNav, children, label, className, variant, fontStyle, size, ...otherProps }) => {
+let BigButton = ({ classes, color, isNav, children, label, className, variant, fontStyle, size, staticContext, ...otherProps }) => {
   // default to large size
   size = size || 'large'
   // add in which classes should be attached

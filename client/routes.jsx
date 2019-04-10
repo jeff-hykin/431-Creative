@@ -1,5 +1,6 @@
 import 'regenerator-runtime/runtime'
 import React from 'react'
+import { LastLocationProvider } from 'react-router-last-location'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import GoBack from './components/goback'
 
@@ -17,16 +18,18 @@ import ShowPosting from './show-posting/show-posting'
 //
 export default (props) =>
   <Router>
-    {/* Pick which page to render */}
-    <Switch>
-      <Route component={SplashPage} path='/' exact />
-      <Route component={GoBack} path='/goback' exact />
-      <Route component={SplashPage} path='/about' exact />
-      <Route component={AllPostings} path='/postings' exact />
-      <Route component={MakePosting} path='/makeposting' exact />
-      <Route component={EditPosting} path='/editposting/:id' exact />
-      <Route component={ShowPosting} path='/showposting/:id' exact />
-      <Route component={Dashboard} path='/dashboard' exact />
-      <Route component={PageNotFound} />
-    </Switch>
+    <LastLocationProvider>
+      {/* Pick which page to render */}
+      <Switch>
+        <Route component={SplashPage} path='/' exact />
+        <Route component={GoBack} path='/goback' exact />
+        <Route component={SplashPage} path='/about' exact />
+        <Route component={AllPostings} path='/postings' exact />
+        <Route component={MakePosting} path='/makeposting' exact />
+        <Route component={EditPosting} path='/editposting/:id' exact />
+        <Route component={ShowPosting} path='/showposting/:id' exact />
+        <Route component={Dashboard} path='/dashboard' exact />
+        <Route component={PageNotFound} />
+      </Switch>
+    </LastLocationProvider>
   </Router>
