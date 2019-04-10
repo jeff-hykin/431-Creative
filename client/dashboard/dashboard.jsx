@@ -144,10 +144,10 @@ class Dashboard extends Component {
 
   switchTab = () => {
     let tempState = this.state
-    if (tempState.tab === 'Account') { 
-      tempState.tab = 'Admin' 
-    } else { 
-      tempState.tab = 'Account' 
+    if (tempState.tab === 'Account') {
+      tempState.tab = 'Admin'
+    } else {
+      tempState.tab = 'Account'
     }
     this.setState(tempState)
   }
