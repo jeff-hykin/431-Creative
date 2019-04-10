@@ -124,7 +124,7 @@ export class Item extends React.Component {
         <div className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
           {title}
           <div style={{ display: 'flex' }}>
-            {user && (user._id == ownerId || user.role !== 'admin') ? (
+            {user && (user._id == ownerId || user.role == 'admin') ? (
               <div>
                 <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
                   <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
