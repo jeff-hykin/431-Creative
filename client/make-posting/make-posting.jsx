@@ -6,8 +6,8 @@ class MakePosting extends Component {
   render () {
     return <PostingPage pageTitle='Edit Post'
       contact={{
-        email: window.user.email,
-        company: window.user.firstName + ' ' + window.user.lastName,
+        email: window?.user?.email,
+        company: window?.user?.firstName + ' ' + window?.user?.lastName,
         phone: '',
         linkedin: ''
       }}
