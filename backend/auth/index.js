@@ -5,28 +5,15 @@ const { HOST_AND_PROTOCOL, CLIENT_ID, CLIENT_SECRET } = require('../config')
 const _db = require('../../database/wrapper')
 const { createUser } = require('../utils')
 
-// if (process.env.NODE_ENV === 'testing') {
-//  GoogleStrategy = require('passport-mock').Strategy
-  // GoogleStrategy = require('@passport-next/passport-mocked').Strategy
-  // options = {
-    // name: 'google',
-    // clientID: CLIENT_ID,
-    // clientSecret: CLIENT_SECRET,
-    // callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`,
-    // This option tells the strategy to use the userinfo endpoint instead
-    // userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
-  // }
-// } else {
-  GoogleStrategy = require('passport-google-oauth20').Strategy
-  options = {
-    name: 'google',
-    clientID: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
-    callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`,
-    // This option tells the strategy to use the userinfo endpoint instead
-    userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
-  }
-// }
+GoogleStrategy = require('passport-google-oauth20').Strategy
+options = {
+  name: 'google',
+  clientID: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  callbackURL: `${HOST_AND_PROTOCOL}/auth/google/callback`,
+  // This option tells the strategy to use the userinfo endpoint instead
+  userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
+}
 
 let verify = async (accessToken, refreshToken, profile, cb) => {
   process.nextTick(async () => {
@@ -50,7 +37,7 @@ let verify = async (accessToken, refreshToken, profile, cb) => {
 passport.use(new GoogleStrategy(options, verify))
 
 passport.serializeUser((user, cb) => {
-    cb(null, user._id)
+  cb(null, user._id)
 })
 
 passport.deserializeUser((_id, cb) => {

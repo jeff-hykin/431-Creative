@@ -194,6 +194,7 @@ class PostingPage extends Component {
             </div>
           </div>
           <TextField
+            id='description'
             multiline
             className={this.props.classes.description}
             value={this.state.description}

@@ -117,7 +117,7 @@ export class Item extends React.Component {
 
     return <Grid item xs={10} zeroMinWidth>
       <Card elevation={9}>
-        <div className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
+        <div id='cardTitle' className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
           {title}
           <div style={{ display: 'flex' }}>
             {showDelete && <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
