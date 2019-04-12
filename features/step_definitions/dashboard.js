@@ -1,11 +1,11 @@
-const { Given, When, Then} = require('cucumber')
+const { Given, When, Then } = require('cucumber')
 const { By, until } = require('selenium-webdriver')
 const { expect } = require('chai')
 const sleep = require('sleep')
 const secrets = require('../../secrets.json')
 
 Given(/^I am logged in$/, async function () {
-  try {  
+  try {
     await this.driver.get('http://localhost:3000')
     await this.driver.findElement(By.id('loginButton')).click()
     await this.driver.findElement(By.tagName('input')).sendKeys(secrets.tests.testemail)
@@ -20,7 +20,7 @@ Given(/^I am logged in$/, async function () {
   }
 })
 
-Given(/^I add a post$/, async function() {
+Given(/^I add a post$/, async function () {
   try {
     await this.driver.get('http://localhost:3000/makeposting')
     await this.driver.findElement(By.id('title')).sendKeys('My Test Post')
@@ -49,8 +49,8 @@ When(/^I click the logout button$/, async function () {
   await this.driver.findElement(By.id('login')).click()
 })
 
-Then(/^I can see posts by me$/, async function() {
-  await this.driver.findElements(By.id('cardTitle')).then( async function (elems) {
+Then(/^I can see posts by me$/, async function () {
+  await this.driver.findElements(By.id('cardTitle')).then(async function (elems) {
     await elems.forEach(async function (element) {
       let text = await element.getText()
       expect(text).to.equal('My Test Post')

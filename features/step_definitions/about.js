@@ -8,10 +8,10 @@ Given(/^I am on the about page$/, function () {
 
 Then(/^I will see "(.*)" on the page$/, async function (str) {
   try {
-    await this.driver.findElements(By.id(str)).then( function (elems) {
+    await this.driver.findElements(By.id(str)).then(function (elems) {
       expect(elems.length).to.equal(1)
     })
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     assert.isNotOk('about page', 'about not found')
   }
