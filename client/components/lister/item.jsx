@@ -57,6 +57,10 @@ const classes = theme => ({
       backgroundColor: colors.offWhite
     }
   },
+  contact: {
+    fontSize: '12pt',
+    color: colors.offWhite
+  },
   deleteIconOnWhite: {
     color: colors.red
   },
@@ -107,7 +111,7 @@ export class Item extends React.Component {
   }
 
   render () /* istanbul ignore next */ {
-    let { classes, title, skills, description, _id, onDelete, onEdit, onView, showDelete, showEdit, color } = this.props
+    let { classes, title, skills, description, _id, onDelete, onEdit, onView, ownerId, contactInfo, color, user } = this.props
     // if this one was just deleted then don't show it
     if (this.state.wasDeleted) {
       return <div key={_id} />
@@ -120,12 +124,20 @@ export class Item extends React.Component {
         <div id='cardTitle' className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
           {title}
           <div style={{ display: 'flex' }}>
-            {showDelete && <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
-              <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
-            </IconButton>}
-            {showEdit && <IconButton className='editIconWrapper' onClick={this.onEditWrapper}>
-              <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
-            </IconButton>}
+            {user && (user._id === ownerId || user.role === 'admin') ? (
+              <div>
+                <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
+                  <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
+                </IconButton>
+                <IconButton className='editIconWrapper' onClick={this.onEditWrapper}>
+                  <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
+                </IconButton>
+              </div>
+            ) : (
+              <div className={classes.contact} >
+                {contactInfo ? (contactInfo.company) : ('No Contact')}
+              </div>
+            )}
           </div>
         </div>
         <div className={classes.body} onClick={() => onView(_id)}>

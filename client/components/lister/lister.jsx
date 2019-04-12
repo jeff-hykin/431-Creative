@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid'
 
 import Item from './item'
 
-function Lister ({ list, color }) {
-  const data = list.map(each => <Item color={color} key={each._id} {...each} />)
+function Lister ({ list, color, user }) {
+  const data = list.map(each => <Item color={color} key={each._id} user={user} {...each} />)
 
   if (data.length === 0) {
     return <div style={{ textAlign: 'center', color: color ? 'black' : 'white', width: '100%' }}>
