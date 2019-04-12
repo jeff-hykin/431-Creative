@@ -71,7 +71,7 @@ export function AllPostings ({ classes, history }) {
     <div className={classes.wrapper}>
       <Nav>
         <NavLeft>
-          <BigButton isNav color='gray' onClick={e => history.push('/about')}>
+          <BigButton id='about' isNav color='gray' onClick={e => history.push('/about')}>
             About
           </BigButton>
           <NavSpacer />
@@ -89,7 +89,7 @@ export function AllPostings ({ classes, history }) {
       </Nav>
       <section className={classes.root}>
         <div className={classes.heroContent}>
-          <Typography component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
+          <Typography id='postingTitle' component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
             Postings
           </Typography>
         </div>
