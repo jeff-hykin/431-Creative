@@ -126,10 +126,10 @@ export class Item extends React.Component {
           <div style={{ display: 'flex' }}>
             {user && (user._id === ownerId || user.role === 'admin') ? (
               <div>
-                <IconButton className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
+                <IconButton id='deleteButton' className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
                   <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
                 </IconButton>
-                <IconButton className='editIconWrapper' onClick={this.onEditWrapper}>
+                <IconButton id='editButton' className='editIconWrapper' onClick={this.onEditWrapper}>
                   <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
                 </IconButton>
               </div>

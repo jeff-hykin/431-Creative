@@ -27,10 +27,7 @@ Given(/^I add a post$/, async function () {
     await this.driver.findElement(By.id('skill')).sendKeys('Test Skill')
     await this.driver.findElement(By.id('skillButton')).click()
     await this.driver.findElement(By.id('description')).sendKeys('This is my test description')
-    await this.driver.findElement(By.id('postEmail')).sendKeys('tranquildusktest@gmail.com')
-    await this.driver.findElement(By.id('company')).sendKeys('Texas A&M University')
     await this.driver.findElement(By.id('phone')).sendKeys('0000000000')
-    await this.driver.findElement(By.id('linkedIn')).sendKeys('testLinkedIn')
     await this.driver.findElement(By.id('saveButton')).click()
   } catch (err) {
     console.log(err)
@@ -45,8 +42,28 @@ When(/^I click the postings button$/, async function () {
   await this.driver.findElement(By.id('allposts')).click()
 })
 
+When(/^I click edit on my post$/, async function () {
+  await this.driver.findElement(By.id('editButton')).click()
+})
+
+When(/^I click delete on my post$/, async function () {
+  await this.driver.findElement(By.id('deleteButton')).click()
+  await this.driver.switchTo().alert().accept()
+})
+
 When(/^I click the logout button$/, async function () {
-  await this.driver.findElement(By.id('login')).click()
+  await this.driver.findElement(By.id('logoutButton')).click()
+})
+
+Then(/^I no longer see the post$/, async function () {
+  await this.driver.findElements(By.id('cardTitle')).then(async function (elems) {
+    expect(elems.length).to.equal(0)
+  })
+})
+
+Then(/^I am on the edit posting page$/, async function () {
+  let URL = await this.driver.getCurrentUrl()
+  expect(URL.includes('http://localhost:3000/editposting')).to.equal(true)
 })
 
 Then(/^I can see posts by me$/, async function () {

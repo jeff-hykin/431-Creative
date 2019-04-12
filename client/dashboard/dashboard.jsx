@@ -93,7 +93,7 @@ class Dashboard extends Component {
               All Posts
             </BigButton>
             <NavSpacer />
-            <BigButton isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
+            <BigButton id='makeposting' isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
               Make Post
             </BigButton>
           </NavLeft>

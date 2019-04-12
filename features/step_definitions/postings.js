@@ -1,7 +1,6 @@
 const { When, Then } = require('cucumber')
 const { expect } = require('chai')
 const { By } = require('selenium-webdriver')
-const sleep = require('sleep')
 
 Then(/^I am on the postings page$/, async function () {
   await this.driver.findElements(By.id('postingTitle')).then(function (elems) {
@@ -22,5 +21,6 @@ When(/^I click the make posting button$/, async function () {
 })
 
 Then(/^I am on the make posting page$/, async function () {
-  await this.driver.findElement(By.id('newposting')).click()
+  let URL = await this.driver.getCurrentUrl()
+  expect(URL).to.equal('http://localhost:3000/makeposting')
 })

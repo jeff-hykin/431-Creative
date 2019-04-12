@@ -23,7 +23,7 @@ require('./backend/auth/index').setupGoogleAuth(app)
 // Setup API endpoints for functions
 require('./backend/setup-functions').setupBackendFunctions(app)
 
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+if (process.env.NODE_ENV === 'development') {
   const Bundler = require('parcel-bundler')
   const errorhandler = require('errorhandler')
   // Error handling depending on dev/prod mode
