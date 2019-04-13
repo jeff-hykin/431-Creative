@@ -113,6 +113,7 @@ class PostingPage extends Component {
     newPost.skills = this.state.skills
     /* istanbul ignore next */
     api['make-posting'](newPost, this.props.postId).then(response => {
+      sendSnackbarMessage('INFO: posting will auto-delete in 30 days')
       this.goBack(e)
     }).catch(err => {
       let msg
@@ -194,6 +195,7 @@ class PostingPage extends Component {
             </div>
           </div>
           <TextField
+            id='description'
             multiline
             className={this.props.classes.description}
             value={this.state.description}

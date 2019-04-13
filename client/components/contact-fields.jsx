@@ -54,6 +54,7 @@ let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
         <BusinessIcon />
       </IconWrapper>
       <TextField
+        id='company'
         label='Company'
         className={classes.inputFields}
         value={state.company}
@@ -68,6 +69,7 @@ let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
         <PhoneIcon />
       </IconWrapper>
       <TextField
+        id='phone'
         label='Phone'
         className={classes.inputFields}
         value={state.phone}
@@ -82,6 +84,7 @@ let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
         <PeopleIcon />
       </IconWrapper>
       <TextField
+        id='linkedIn'
         label='LinkedIn'
         className={classes.inputFields}
         value={state.linkedin}

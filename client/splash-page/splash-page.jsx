@@ -148,9 +148,9 @@ class SplashPage extends Component {
   render () {
     localStorage.setItem('lastPage', window.location.pathname)
     return <div id='splashPage' className={this.props.className}>
-      <Card className={this.props.classes.title}>
+      <Card id='about' className={this.props.classes.title}>
         <CardContent>
-          <h2 className={this.props.classes.titleText}>
+          <h2 id='Aggie Coding Connect' className={this.props.classes.titleText}>
             Aggie Coding Connect
           </h2>
           <h6 className={this.props.classes.titleText}>
