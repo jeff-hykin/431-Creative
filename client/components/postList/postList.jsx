@@ -10,15 +10,14 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton } from '@material-ui/core'
 import { colors } from '../../theme'
 
-const classes = theme => ({
+export const classes = theme => ({
   delete: {
     color: colors.red
   }
 })
 
-/* istanbul ignore next */
 export class PostList extends React.Component {
-  constructor (props) /* istanbul ignore next */ {
+  constructor (props) {
     super(props)
     this.state = {
       posts: []
@@ -41,6 +40,7 @@ export class PostList extends React.Component {
       api['delete-post'](row._id).then(console.log('Deleted post'))
       this.removePost(row._id)
     } catch (e) {
+      /* istanbul ignore next */
       console.log(e)
     }
   }

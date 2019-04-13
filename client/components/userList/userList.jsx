@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton } from '@material-ui/core'
 import { colors } from '../../theme'
 
-const classes = theme => ({
+export const classes = theme => ({
   delete: {
     color: colors.red
   },
@@ -52,6 +52,7 @@ export class UserList extends React.Component {
         api['make-not-admin'](row._id).then(console.log('User no longer admin'))
         this.updateRole(row._id, '')
       } catch (e) {
+        /* istanbul ignore next */
         console.log(e)
       }
     } else {
@@ -59,6 +60,7 @@ export class UserList extends React.Component {
         api['make-admin'](row._id).then(console.log('User now an admin'))
         this.updateRole(row._id, 'admin')
       } catch (e) {
+        /* istanbul ignore next */
         console.log(e)
       }
     }
@@ -69,6 +71,7 @@ export class UserList extends React.Component {
       api['delete-user'](row._id).then(console.log('Deleted user'))
       this.removeUser(row._id)
     } catch (e) {
+      /* istanbul ignore next */
       console.log(e)
     }
   }
