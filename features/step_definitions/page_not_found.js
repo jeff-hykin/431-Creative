@@ -2,7 +2,7 @@ const { Given, Then } = require('cucumber')
 const { assert, expect } = require('chai')
 const { By } = require('selenium-webdriver')
 
-Given(/^I am at a nonexistent URL$/, function () {
+Given(/^I go to a nonexistent URL$/, function () {
   return this.driver.get('http://localhost:3000/doesnotexist')
 })
 
