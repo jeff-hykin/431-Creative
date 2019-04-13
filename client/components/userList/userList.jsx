@@ -27,23 +27,38 @@ export class UserList extends React.Component {
     this.state = {
       users: []
     }
-    api['get-users']({}).then(resp => (
-      this.setState({
-        users: resp
-      }))
-    )
+    try {
+      api['get-users']({}).then(resp => (
+        this.setState({
+          users: resp
+        }))
+      )
+    } catch (err) {
+      /* istanbul ignor next */
+      console.log(err)
+    }
   }
 
   updateRole (id, newRole) {
-    let tempState = this.state
-    this.state.users.find(user => user._id === id).role = newRole
-    this.setState(tempState)
+    try {
+      let tempState = this.state
+      this.state.users.find(user => user._id === id).role = newRole
+      this.setState(tempState)
+    } catch (err) {
+      /* istanbul ignore next */
+      console.log(err)
+    }
   }
 
   removeUser (_id) {
-    let tempState = this.state
-    tempState.users = tempState.users.filter(user => user._id !== _id)
-    this.setState(tempState)
+    try {
+      let tempState = this.state
+      tempState.users = tempState.users.filter(user => user._id !== _id)
+      this.setState(tempState)
+    } catch (err) {
+      /* istanbul ignore next */
+      console.log(err)
+    }
   }
 
   changeRole = row => event => {
