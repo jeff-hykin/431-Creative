@@ -15,13 +15,15 @@ export const classes = theme => ({
     color: colors.red
   }
 })
-
+/* istanbul ignore next */
 export class PostList extends React.Component {
+/* istanbul ignore next */
   constructor (props) {
     super(props)
     this.state = {
       posts: []
     }
+    /* istanbul ignore next */
     api['get-admin-posts']({}).then(resp =>
       this.setState({
         posts: resp

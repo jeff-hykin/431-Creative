@@ -6,7 +6,7 @@ import { UserList, classes } from '../../../../client/components/userList/userLi
 import Table from '@material-ui/core/Table'
 import * as tools from '../../../tools'
 
-describe.skip('userList', function () {
+describe('userList', function () {
   let props = { classes: classes }
 
   it('should render', function () {
