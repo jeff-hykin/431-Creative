@@ -17,7 +17,7 @@ export let sendSnackbarError = (message) => {
   window.dispatchEvent(new CustomEvent('snackbar-error-message', { detail: message }))
 }
 
-class GlobalSnackbar extends React.Component {
+export class GlobalSnackbar extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -55,7 +55,7 @@ class GlobalSnackbar extends React.Component {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={this.state.normalSnackbarIsOpen}
-        onClose={this.normalCloseHandler}
+        onClose={this.normalCloseHandler.bind(this)}
         ContentProps={{
           'aria-describedby': 'message-id'
         }}
@@ -66,7 +66,7 @@ class GlobalSnackbar extends React.Component {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={this.state.errorSnackBarIsOpen}
-        onClose={this.errorCloseHandler}
+        onClose={this.errorCloseHandler.bind(this)}
         ContentProps={{
           classes: {
             root: this.props.classes.snackBarError
