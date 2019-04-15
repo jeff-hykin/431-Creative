@@ -35,5 +35,3 @@ Scenario: Log out
 Given I go to my dashboard page
 When I click the logout button
 Then I am on the postings page
-
-# FIXME should also have all postings case

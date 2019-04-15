@@ -26,8 +26,13 @@ Given I go to the postings page
 When I click the logout button
 Then I am on the postings page
 
-Scenario: Make a new post
+Scenario: Make a new post - Logged in
 Given I am logged in
 Given I go to the postings page
 When I click the make posting button
 Then I am on the make posting page
+
+Scenario: Make a new post - not logged in
+Given I go to the postings page
+When I click the make posting button
+Then I can log in
