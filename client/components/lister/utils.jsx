@@ -9,6 +9,7 @@ export const navigateToEditPosting = (history, id) => {
 }
 
 export const deletePosting = (id) => {
+  /* istanbul ignore next */
   api['delete-post'](id)
 }
 

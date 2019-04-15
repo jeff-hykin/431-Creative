@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import { colors } from '../theme'
 import Lister from '../components/lister'
@@ -7,7 +6,6 @@ import UserList from '../components/userList'
 import PostList from '../components/postList'
 import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformPostings } from '../components/lister/utils'
-import Page from '../page'
 import { api } from '../../backend/setup-functions'
 import BigButton from '../components/big-button'
 import LoginArea from '../components/login-area'
@@ -17,8 +15,9 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
+// import { setAdminUser } from '../../test/tools'
 
-const classes = theme => ({
+export const classes = theme => ({
   dashboardName: {
     marginTop: '-20vh',
     marginLeft: '10vw',
@@ -79,7 +78,7 @@ class PostingsHelper extends Component {
   }
 }
 
-class TableHelper extends Component {
+export class TableHelper extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -128,7 +127,7 @@ PostingsHelper.defaultProps = {
   user: {}
 }
 
-class Dashboard extends Component {
+export class DashboardHelper extends Component {
   constructor (props) {
     super(props)
     this.handleChange = tools.setupHandleChange(this)
@@ -160,42 +159,37 @@ class Dashboard extends Component {
   render () {
     localStorage.setItem('lastPage', window.location.pathname)
     let user = window.user
-    if (user == null) /* istanbul ignore next */ {
-      return <Redirect to='/postings' />
-    } else {
-      return <div id='Dashboard' className={this.props.className}>
-        <Nav banner>
-          <NavLeft>
-            <BigButton id='allposts' size='medium' color='gray' variant='outlined' onClick={this.navigateToPostings} >
-              All Posts
-            </BigButton>
-            <NavSpacer />
-            <BigButton id='makeposting' isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
-              Make Post
-            </BigButton>
-            <NavSpacer />
-            <AdminHelper tab={this.state.tab} switchTab={this.switchTab} />
-          </NavLeft>
-          <NavRight>
-            <LoginArea size='medium' variant='outlined' />
-          </NavRight>
-        </Nav>
-        <h2 className={this.props.classes.dashboardName} >
-          {user.firstName + ' ' + user.lastName}
-        </h2>
-        <div className={this.props.classes.container}>
-          <div style={{ minWidth: '50vw', width: 'calc(50vw + 10em)' }} >
-            {this.state.tab === 'Admin' && <PostingsHelper user={user} history={this.props.history} />}
-            {this.state.tab === 'Account' && <TableHelper history={this.props.history} />}
-          </div>
-          <div style={{ padding: '3em', minWidth: '21em' }} >
-            <ContactFields state={user} handleChange={this.handleChange} readOnly />
-          </div>
+    return <div id='Dashboard' className={this.props.className}>
+      <Nav banner>
+        <NavLeft>
+          <BigButton id='allposts' size='medium' color='gray' variant='outlined' onClick={this.navigateToPostings} >
+          All Posts
+          </BigButton>
+          <NavSpacer />
+          <BigButton id='makeposting' isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
+          Make Post
+          </BigButton>
+          <NavSpacer />
+          <AdminHelper tab={this.state.tab} switchTab={this.switchTab} />
+        </NavLeft>
+        <NavRight>
+          <LoginArea size='medium' variant='outlined' />
+        </NavRight>
+      </Nav>
+      <h2 className={this.props.classes.dashboardName} >
+        {user.firstName + ' ' + user.lastName}
+      </h2>
+      <div className={this.props.classes.container}>
+        <div style={{ minWidth: '50vw', width: 'calc(50vw + 10em)' }} >
+          {this.state.tab === 'Admin' && <PostingsHelper user={user} history={this.props.history} />}
+          {this.state.tab === 'Account' && <TableHelper history={this.props.history} />}
+        </div>
+        <div style={{ padding: '3em', minWidth: '21em' }} >
+          <ContactFields state={user} handleChange={this.handleChange} readOnly />
         </div>
       </div>
-    }
+    </div>
   }
 }
 
-export { Dashboard, classes }
-export default Page(withRouter(withStyles(classes)(Dashboard)))
+export default withStyles(classes)(DashboardHelper)
