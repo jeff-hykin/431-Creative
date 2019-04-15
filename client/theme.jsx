@@ -13,6 +13,12 @@ export const colors = {
 
 export let style = {}
 
+style.textEllipsis = {
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+}
+
 style.vbox = {
   display: 'flex',
   alignItems: 'center',

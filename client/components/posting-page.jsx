@@ -47,8 +47,7 @@ class PostingPage extends Component {
       contact: this.props.contact || {
         email: '',
         company: '',
-        phone: '',
-        linkedin: ''
+        phone: ''
       },
       newSkill: '',
       skillSnackBarOpen: false,

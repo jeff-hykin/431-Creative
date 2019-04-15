@@ -169,17 +169,6 @@ class ShowPosting extends Component {
                       primary={this.state.post.contactInfo.phone || 'Not Available'}
                     />
                   </ListItem>
-                  <Typography color='textSecondary' gutterBottom>
-                    LinkedIn
-                  </Typography>
-                  <ListItem>
-                    <ListItemIcon>
-                      <PeopleIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={this.state.post.contactInfo.linkedin || 'Not Available'}
-                    />
-                  </ListItem>
                 </List>
 
               </CardContent>

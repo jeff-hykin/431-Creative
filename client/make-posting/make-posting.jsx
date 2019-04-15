@@ -8,8 +8,7 @@ class MakePosting extends Component {
       contact={{
         email: window?.user?.email,
         company: window?.user?.firstName + ' ' + window?.user?.lastName,
-        phone: '',
-        linkedin: ''
+        phone: ''
       }}
       postId={this.props.match.params.id} />
   }

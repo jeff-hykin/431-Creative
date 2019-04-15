@@ -2,15 +2,14 @@ import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-
+import { colors } from '../theme'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
 import BusinessIcon from '@material-ui/icons/BusinessOutlined'
 import PhoneIcon from '@material-ui/icons/PhoneOutlined'
-import PeopleIcon from '@material-ui/icons/PeopleOutlined'
 
 let classes = {
   inputFields: {
-
+    width: '11rem'
   },
   fieldWrapper: {
     display: 'flex',
@@ -40,12 +39,13 @@ let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
       </IconWrapper>
       <TextField
         id='postEmail'
-        label='Email'
+        placeholder='Email'
         className={classes.inputFields}
         value={state.email}
         onChange={handleChange('email')}
+        disabled={readOnly}
         InputProps={{
-          readOnly
+          style: { color: readOnly ? colors.black : 'inherit' }
         }}
       />
     </div>
@@ -55,12 +55,13 @@ let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
       </IconWrapper>
       <TextField
         id='company'
-        label='Company'
+        placeholder='Company'
         className={classes.inputFields}
         value={state.company}
         onChange={handleChange('company')}
+        disabled={readOnly}
         InputProps={{
-          readOnly
+          style: { color: readOnly ? colors.black : 'inherit' }
         }}
       />
     </div>
@@ -70,27 +71,13 @@ let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
       </IconWrapper>
       <TextField
         id='phone'
-        label='Phone'
+        placeholder='Phone'
         className={classes.inputFields}
         value={state.phone}
         onChange={handleChange('phone')}
+        disabled={readOnly}
         InputProps={{
-          readOnly
-        }}
-      />
-    </div>
-    <div className={classes.fieldWrapper}>
-      <IconWrapper>
-        <PeopleIcon />
-      </IconWrapper>
-      <TextField
-        id='linkedIn'
-        label='LinkedIn'
-        className={classes.inputFields}
-        value={state.linkedin}
-        onChange={handleChange('linkedin')}
-        InputProps={{
-          readOnly
+          style: { color: readOnly ? colors.black : 'inherit' }
         }}
       />
     </div>
