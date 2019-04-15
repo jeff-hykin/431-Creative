@@ -1,27 +1,30 @@
-# Feature: Admin capabilities
+Feature: Admin capabilities
 
-# Background:
+# Currently the test user has been manually set to be an admin in order to test these features
+Background:
+Given I am logged in
 # Given I am admin
 
-# Scenario: See all users
-# Given I am on my dashboard page
-# When I click the all users button
-# Then I see all users
+Scenario: See all users
+Given I go to my dashboard page
+When I click the admin button
+When I am on the users tab
+Then I see all users
 
-# Scenario: Delete users
-# Given I am on the all users page
-# When I click the delete button for a user
-# Then I do not see the user
-# And the user is deleted
+Scenario: Delete users
+Given I go to my dashboard page
+When I click the admin button
+When I am on the users tab
+When I click the delete button for a user
+Then I do not see the user
 
-# Scenario: View user's post
-# Given I am on the all users page
-# When I click on a user
-# Then I am on the user's dashboard page
-# And I see their postings
+Scenario: View user's post
+Given I go to my dashboard page
+When I click the admin button
+Then I see all posts
 
-# Scenario: Delete user's post
-# Given I am on the user's dashboard page
-# When I click the delete button on a posting
-# Then I do not see the posting
-# And the posting is deleted
+Scenario: Delete user's post
+Given I go to my dashboard page
+When I click the admin button
+When I click the delete button on a posting
+Then I do not see the posting

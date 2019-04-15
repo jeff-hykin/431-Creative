@@ -10,6 +10,9 @@ Before( async function () {
     try {
       let db = await dbFunctions.connect()
       await db.db(`${DEFAULT_DB}`).collection(POST_COLLECTION).insertMany(postSeeds)
+      let postSeed2 = postSeeds
+      postSeed2[0]._id = '1ABCD234'
+      await db.db(`${DEFAULT_DB}`).collection(POST_COLLECTION).insertMany(postSeed2) 
       await db.db(`${DEFAULT_DB}`).collection(USER_COLLECTION).insertMany(userSeeds)
       doneOnce = true
     } catch (err) {
