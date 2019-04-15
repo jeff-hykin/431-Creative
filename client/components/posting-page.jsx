@@ -149,7 +149,6 @@ class PostingPage extends Component {
       window.location.href = '/auth/google'
       return <div />
     }
-    console.log(this.props.lastLocation)
     let classes = this.props.classes
     return <div id='makePosting' className={this.props.className} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Card className={this.props.classes.heroContent}>

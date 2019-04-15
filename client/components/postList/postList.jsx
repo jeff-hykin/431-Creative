@@ -9,6 +9,7 @@ import { api } from '../../../backend/setup-functions'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton } from '@material-ui/core'
 import { colors } from '../../theme'
+import { sendSnackbarMessage, sendSnackbarError } from '../snackbar'
 
 export const classes = theme => ({
   delete: {
@@ -23,28 +24,31 @@ export class PostList extends React.Component {
     this.state = {
       posts: []
     }
+    try {
     /* istanbul ignore next */
-    api['get-admin-posts']({}).then(resp =>
-      this.setState({
-        posts: resp
-      })
-    )
+      api['get-admin-posts']({}).then(resp =>
+        this.setState({
+          posts: resp
+        })
+      )
+    } catch (e) { console.log(e) }
   }
 
   removePost (_id) {
     let tempState = this.state
-    tempState.post = tempState.posts.filter(post => post._id !== _id)
+    tempState.posts = tempState.posts.filter(post => post._id !== _id)
     this.setState(tempState)
   }
 
   deletePost = row => event => {
     try {
-      api['delete-post'](row._id).then(console.log('Deleted post'))
-      this.removePost(row._id)
-    } catch (e) {
-      /* istanbul ignore next */
-      console.log(e)
-    }
+      api['delete-post'](row._id)
+        .then(ret => {
+          sendSnackbarMessage('Deleted post')
+          this.removePost(row._id)
+        })
+        .catch(e => sendSnackbarError(e))
+    } catch (e) { console.log(e) }
   }
 
   navigateToPost = _id => e => {

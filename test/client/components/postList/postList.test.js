@@ -42,7 +42,7 @@ describe('postList', function () {
       })
       wrapper.update()
       instance = wrapper.instance()
-      instance.deletePost(0)({})
+      instance.removePost(0)
       expect(instance.removePost.called).to.equal(true)
     })
   })
