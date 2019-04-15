@@ -1,4 +1,5 @@
 import 'regenerator-runtime/runtime'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { DIV } from 'good-dom'
