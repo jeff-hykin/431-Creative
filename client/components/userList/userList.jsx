@@ -10,6 +10,7 @@ import { api } from '../../../backend/setup-functions'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton } from '@material-ui/core'
 import { colors } from '../../theme'
+import { sendSnackbarMessage, sendSnackbarError } from '../snackbar'
 
 export const classes = theme => ({
   delete: {
@@ -62,33 +63,34 @@ export class UserList extends React.Component {
   }
 
   changeRole = row => event => {
-    if (row.role === 'admin') {
-      try {
-        api['make-not-admin'](row._id).then(console.log('User no longer admin'))
-        this.updateRole(row._id, '')
-      } catch (e) {
-        /* istanbul ignore next */
-        console.log(e)
+    try {
+      if (row.role === 'admin') {
+        api['make-not-admin'](row._id)
+          .then(ret => {
+            sendSnackbarMessage('User no longer admin')
+            this.updateRole(row._id, '')
+          })
+          .catch(e => sendSnackbarError(e))
+      } else {
+        api['make-admin'](row._id)
+          .then(ret => {
+            sendSnackbarMessage('User now an admin')
+            this.updateRole(row._id, 'admin')
+          })
+          .catch(e => sendSnackbarError(e))
       }
-    } else {
-      try {
-        api['make-admin'](row._id).then(console.log('User now an admin'))
-        this.updateRole(row._id, 'admin')
-      } catch (e) {
-        /* istanbul ignore next */
-        console.log(e)
-      }
-    }
+    } catch (e) { console.log(e) }
   }
 
   deleteUser = row => event => {
     try {
-      api['delete-user'](row._id).then(console.log('Deleted user'))
-      this.removeUser(row._id)
-    } catch (e) {
-      /* istanbul ignore next */
-      console.log(e)
-    }
+      api['delete-user'](row._id)
+        .then(ret => {
+          sendSnackbarMessage('Deleted user')
+          this.removeUser(row._id)
+        })
+        .catch(e => sendSnackbarError(e))
+    } catch (e) { console.log(e) }
   }
 
   render () {
