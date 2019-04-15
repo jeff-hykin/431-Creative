@@ -6,7 +6,7 @@ import GoBack from './components/goback'
 
 // pages
 import SplashPage from './splash-page/splash-page'
-import Dashboard from './dashboard/dashboard'
+import Dashboard from './dashboard/index'
 import PageNotFound from './page-not-found/page-not-found'
 import AllPostings from './all-postings/all-postings'
 import MakePosting from './make-posting/make-posting'

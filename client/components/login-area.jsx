@@ -1,7 +1,7 @@
 import React from 'react'
 import BigButton from './big-button'
 import { withStyles } from '@material-ui/core'
-import { withRouter } from 'react-router-dom'
+// import { withRouter } from 'react-router-dom'
 import { colors } from '../theme'
 
 export const classes = theme => ({
@@ -37,4 +37,4 @@ let LoginArea = ({ classes, history, ...otherProps }) => {
 }
 
 export { LoginArea }
-export default withRouter(withStyles(classes)(LoginArea))
+export default withStyles(classes)(LoginArea)
