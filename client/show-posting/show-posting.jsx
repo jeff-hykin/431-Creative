@@ -21,6 +21,7 @@ import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import BigButton from '../components/big-button'
 import LoginArea from '../components/login-area'
 import { onClickNewPosting } from '../all-postings/all-postings'
+import { sendSnackbarError } from '../components/snackbar'
 
 /* istanbul ignore next */
 const classes = theme => ({
@@ -66,6 +67,7 @@ class ShowPosting extends Component {
       /* istanbul ignore next */
       this.setState({ post, loading: false })
     } catch (err) {
+      sendSnackbarError(err.toString())
       console.error(err)
     }
   }

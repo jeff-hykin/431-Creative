@@ -15,7 +15,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
-// import { setAdminUser } from '../../test/tools'
+import { sendSnackbarError } from '../components/snackbar'
 
 export const classes = theme => ({
   dashboardName: {
@@ -70,7 +70,9 @@ class PostingsHelper extends Component {
           onView: navigateToShowPosting.bind(this, this.props.history)
         })
       }))
-    )
+    ).catch(err => {
+      sendSnackbarError(err.toString())
+    })
   }
 
   render () {
