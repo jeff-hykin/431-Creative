@@ -11,7 +11,7 @@ let leftAndRight = {
   boxSizing: 'content-box',
   flexWrap: 'wrap'
 }
-const classes = theme => ({
+export const classes = {
   main: {
     top: 0,
     width: '100vw',
@@ -36,7 +36,7 @@ const classes = theme => ({
     paddingRight: `${viewPadding / 2}vw`,
     paddingTop: `${viewPadding / 4}vw`
   }
-})
+}
 
 export let NavSpacer = () => <div style={{ width: '1.5em' }} />
 
