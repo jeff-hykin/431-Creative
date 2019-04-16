@@ -1,5 +1,5 @@
 const { Given, Then } = require('cucumber')
-const { assert, expect } = require('chai')
+const { expect } = require('chai')
 const { By } = require('selenium-webdriver')
 
 Given(/^I go to a nonexistent URL$/, async function () {
