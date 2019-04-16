@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
 import { colors } from '../theme'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
 import PhoneIcon from '@material-ui/icons/PhoneOutlined'

@@ -9,7 +9,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
-import BusinessIcon from '@material-ui/icons/BusinessOutlined'
 import PhoneIcon from '@material-ui/icons/PhoneOutlined'
 import PeopleIcon from '@material-ui/icons/PeopleOutlined'
 import Chip from '@material-ui/core/Chip'
@@ -20,7 +19,6 @@ import CardHeader from '@material-ui/core/CardHeader'
 import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import BigButton from '../components/big-button'
 import LoginArea from '../components/login-area'
-import { onClickNewPosting } from '../all-postings/all-postings'
 import { sendSnackbarError } from '../components/snackbar'
 
 /* istanbul ignore next */
@@ -145,7 +143,7 @@ class ShowPosting extends Component {
                   </Typography>
                   <ListItem>
                     <ListItemIcon>
-                      <BusinessIcon />
+                      <PeopleIcon />
                     </ListItemIcon>
                     <ListItemText
                       primary={this.state.post.contactInfo.company || 'Not Available'}
