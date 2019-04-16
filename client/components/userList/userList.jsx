@@ -65,6 +65,7 @@ export class UserList extends React.Component {
   changeRole = row => event => {
     try {
       if (row.role === 'admin') {
+        /* istanbul ignore next */
         api['make-not-admin'](row._id)
           .then(ret => {
             sendSnackbarMessage('User no longer admin')
@@ -72,6 +73,7 @@ export class UserList extends React.Component {
           })
           .catch(e => sendSnackbarError(e))
       } else {
+        /* istanbul ignore next */
         api['make-admin'](row._id)
           .then(ret => {
             sendSnackbarMessage('User now an admin')
@@ -84,6 +86,7 @@ export class UserList extends React.Component {
 
   deleteUser = row => event => {
     try {
+      /* istanbul ignore next */
       api['delete-user'](row._id)
         .then(ret => {
           sendSnackbarMessage('Deleted user')

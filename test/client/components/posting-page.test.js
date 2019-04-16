@@ -38,6 +38,24 @@ describe('<PostingPage />', () => {
     })
   })
 
+  describe('#goBack', function () {
+    it('pushes to the history', function () {
+      let newfakeProps = { ...fakeProps, lastLocation: null }
+      const wrapper = shallow(<PostingPage {...newfakeProps} />)
+      let instance = wrapper.instance()
+      instance.goBack({})
+      expect(instance.props.history[instance.props.history.length - 1]).to.equal('/postings')
+    })
+    it('calls history.goBack() when there is a lastLocation', function () {
+      let newfakeProps = { ...fakeProps, lastLocation: '/makeposting' }
+      const wrapper = shallow(<PostingPage {...newfakeProps} />)
+      let instance = wrapper.instance()
+      instance.props.history.goBack = sinon.spy()
+      instance.goBack({})
+      expect(instance.props.history.goBack.called).to.equal(true)
+    })
+  })
+
   describe('#addSkill', () => {
     it('should call setState when skill !== \'\'', () => {
       const wrapper = shallow(<PostingPage {...fakeProps} />)

@@ -81,7 +81,7 @@ describe('userList', function () {
           role: 'admin'
         })({})
         expect(instance.updateRole.called).to.equal(true)
-      } catch (err) {}
+      } catch (err) { expect(true) }
     })
 
     it('should call update role when user is not an admin', function () {
@@ -162,7 +162,7 @@ describe('userList', function () {
         instance = wrapper.instance()
         instance.deleteUser(0)({})
         expect(instance.removeUser.called).to.equal(true)
-      } catch (err) {}
+      } catch (err) { expect(true) }
     })
   })
   tools.unsetUser()
