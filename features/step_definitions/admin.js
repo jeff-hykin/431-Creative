@@ -1,4 +1,4 @@
-const { When ,Then } = require('cucumber')
+const { When, Then } = require('cucumber')
 const { expect } = require('chai')
 const { By } = require('selenium-webdriver')
 let postSeeds = require('../../test/database/seeds/post-seeds')
@@ -13,7 +13,7 @@ When(/^I am on the users tab$/, async function () {
 })
 
 Then(/^I see all users$/, async function () {
-  await this.driver.findElements(By.id('userList')).then( async function (elems) {
+  await this.driver.findElements(By.id('userList')).then(function (elems) {
     expect(elems.length).to.equal(1)
   })
 })
@@ -23,13 +23,13 @@ When(/^I click the delete button for a user$/, async function () {
 })
 
 Then(/^I do not see the user$/, async function () {
-  await this.driver.findElements(By.id(`deleteButton${userSeeds[0].email}`)).then( async function (elems) {
+  await this.driver.findElements(By.id(`deleteButton${userSeeds[0].email}`)).then(function (elems) {
     expect(elems.length).to.equal(0)
   })
 })
 
 Then(/^I see all posts$/, async function () {
-  await this.driver.findElements(By.id('postList')).then(async function (elems) {
+  await this.driver.findElements(By.id('postList')).then(function (elems) {
     expect(elems.length).to.equal(1)
   })
 })
@@ -39,7 +39,7 @@ When(/^I click the delete button on a posting$/, async function () {
 })
 // Then I do not see the posting
 Then(/^I do not see the posting$/, async function () {
-  await this.driver.findElements(By.id(`deleteButton${postSeeds[0]._id}`)).then(async function (elems) {
+  await this.driver.findElements(By.id(`deleteButton${postSeeds[0]._id}`)).then(function (elems) {
     expect(elems.length).to.equal(0)
   })
 })

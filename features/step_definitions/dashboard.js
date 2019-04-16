@@ -12,7 +12,7 @@ Given(/^I am logged in$/, async function () {
     await this.driver.findElement(By.id('identifierNext')).click()
     let password = await this.driver.wait(until.elementLocated(By.css('[name=password]')), 5000)
     sleep.sleep(1)
-    password.sendKeys(secrets.tests.testpass)
+    await password.sendKeys(secrets.tests.testpass)
     await this.driver.findElement(By.id('passwordNext')).click()
     sleep.sleep(1)
   } catch (err) {
@@ -39,7 +39,7 @@ Given(/^I go to my dashboard page$/, async function () {
 })
 
 When(/^I click the postings button$/, async function () {
-  try{
+  try {
     await this.driver.findElement(By.id('allposts')).click()
   } catch (err) {
     console.log(err)
