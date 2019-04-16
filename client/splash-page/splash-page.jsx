@@ -86,6 +86,7 @@ export const classes = {
 }
 
 class SplashPage extends Component {
+  /* istanbul ignore next */
   changePagesTo = (pageRoute) => (e) => {
     localStorage.setItem('lastPage', window.location.pathname)
     this.props.history.push(`/${pageRoute}`)
