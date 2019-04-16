@@ -88,13 +88,15 @@ class PostingPage extends Component {
   }
 
   handleSkillDelete = skill => () => {
-    let temp = this.state
-    let index = temp.skills.indexOf(skill)
+    console.log(`this.state.post is:`, this.state.post)
+    let index = this.state.post.skills.indexOf(skill)
     /* istanbul ignore else */
     if (index !== -1) {
-      temp.skills.splice(index, 1)
+      this.setState(prevState => {
+        prevState.post.skills.splice(index, 1)
+        return ({ ...prevState, post: { ...prevState.post, skills: [...prevState.post.skills] } })
+      })
     }
-    this.setState(temp)
   }
 
   /* istanbul ignore next */
