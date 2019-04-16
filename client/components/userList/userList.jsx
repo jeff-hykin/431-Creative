@@ -103,7 +103,7 @@ export class UserList extends React.Component {
       </div>
     } else {
       return <div>
-        <Table>
+        <Table id='userList'>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -128,7 +128,7 @@ export class UserList extends React.Component {
                   />
                 </TableCell>
                 <TableCell align='right'>
-                  <IconButton onClick={this.deleteUser(row)} className={this.props.classes.delete}>
+                  <IconButton id={`deleteButton${row.email}`} onClick={this.deleteUser(row)} className={this.props.classes.delete}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

@@ -18,10 +18,6 @@ options = {
 let verify = async (accessToken, refreshToken, profile, cb) => {
   process.nextTick(async () => {
     try {
-      console.log(accessToken)
-      console.log(refreshToken)
-      console.log(profile)
-      console.log(cb)
       let user = await _db.db.collections.users.findOne({ email: profile['emails'][0].value })
       // Create user if not found.
       if (!user) {
