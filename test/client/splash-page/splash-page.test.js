@@ -6,6 +6,7 @@ import { expect } from 'chai'
 import SplashPage from '../../../client/splash-page/splash-page'
 import Button from '@material-ui/core/Button'
 import * as tools from '../../tools'
+import BigButton from '../../../client/components/big-button'
 
 describe('<SplashPage />', () => {
   it('has login, browse, and create buttons', () => {
@@ -14,9 +15,8 @@ describe('<SplashPage />', () => {
         <SplashPage />
       </Router>
     )
-    expect(wrapper.find('#browseButton').length >= 1).to.equal(true)
-    expect(wrapper.find('#loginButton').length >= 1).to.equal(true)
-    expect(wrapper.find('#createButton').length >= 1).to.equal(true)
+    expect(wrapper.find(Button)).to.have.lengthOf(1)
+    expect(wrapper.find(BigButton)).to.have.lengthOf(3)
     for (let i = 0; i < wrapper.find(Button).length; i++) {
       wrapper.find(Button).at(i).simulate('click')
     }

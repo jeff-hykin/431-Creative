@@ -13,6 +13,11 @@ let classes = {
     flexBasis: '60%',
     flexGrow: '2',
     ...style.vbox
+  },
+  noPostsMessage: {
+    ...style.vbox,
+    width: '50%',
+    minWidth: '0'
   }
 }
 
@@ -20,8 +25,10 @@ function Lister ({ classes, list, color }) {
   const data = list.map(each => <Item color={color} key={each._id} {...each} />)
 
   if (data.length === 0) {
-    return <div style={{ textAlign: 'center', color: color ? 'black' : 'white', width: '100%' }}>
-      No Posts ¯\_(ツ)_/¯
+    return <div className={classes.noPostsMessage}>
+      <div style={{ ...style.paper, width: 'fit-content', borderRadius: '100vh', padding: '1rem', color: 'black' }}>
+        No Posts ¯\_(ツ)_/¯
+      </div>
     </div>
   }
 

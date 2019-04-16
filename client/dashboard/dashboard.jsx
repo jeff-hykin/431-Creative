@@ -120,7 +120,7 @@ class AdminHelper extends Component {
 
   render () {
     if (window.user.role === 'admin') {
-      return <BigButton id='switchTable' size='medium' color='gray' variant='outlined' onClick={this.props.switchTab} >
+      return <BigButton id='switchTable' size='medium' color='green' variant='outlined' onClick={this.props.switchTab} >
         {this.props.tab}
       </BigButton>
     } else {
@@ -175,10 +175,10 @@ export class DashboardHelper extends Component {
           <BigButton id='makeposting' isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
             Make Post
           </BigButton>
-          <NavSpacer />
-          <AdminHelper tab={this.state.tab} switchTab={this.switchTab} />
         </NavLeft>
         <NavRight>
+          <AdminHelper tab={this.state.tab} switchTab={this.switchTab} />
+          <NavSpacer />
           <LoginArea size='medium' variant='outlined' />
         </NavRight>
       </Nav>

@@ -40,7 +40,8 @@ export const classes = {
     height: 'fit-content',
     paddingLeft: `${viewPadding / 2}vw`,
     paddingRight: `${viewPadding / 2}vw`,
-    paddingTop: `${viewPadding / 4}vw`
+    paddingTop: `${viewPadding / 4}vw`,
+    minHeight: '33vh'
   }
 }
 
@@ -53,7 +54,6 @@ export let Nav = withStyles(classes)(({ classes, children, banner, ...otherProps
     <div style={{ flexBasis: '100%', height: 'fit-content', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} >
       {children}
     </div>
-    {banner && <div style={{ height: '23vh' }} />}
   </nav>
 })
 
