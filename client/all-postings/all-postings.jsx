@@ -18,12 +18,13 @@ const styles = theme => ({
   },
   content: {
     ...style.vbox,
-    maxWidth: '100%'
+    maxWidth: '100%',
+    width: '100%'
   },
   title: {
     width: '100%',
     textAlign: 'center',
-    fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+    fontFamily: 'Quicksand, Roboto, Helvetica, Arial, sans-serif',
     fontSize: '60px',
     fontStretch: '100%',
     fontWeight: '300',

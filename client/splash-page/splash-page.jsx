@@ -13,7 +13,6 @@ export const classes = {
     backgroundColor: colors.blue,
     width: '100vw',
     height: 'calc(50vh + 3vw)',
-    fontFamily: 'Roboto',
     fontWeight: '300',
     display: 'flex',
     alignItems: 'center',
@@ -39,7 +38,8 @@ export const classes = {
       paddingBottom: '1rem',
       fontSize: '2rem',
       fontWeight: '400',
-      color: colors.darkGray
+      color: colors.darkGray,
+      fontFamily: 'Quicksand'
     },
     '& button': {
       marginTop: '2rem'
@@ -78,10 +78,12 @@ export const classes = {
   title: {
     fontWeight: '600',
     textAlign: 'center',
-    fontSize: 'calc(3.4vw + 1vh + 2.3rem)'
+    fontSize: 'calc(3.4vw + 1vh + 2.3rem)',
+    fontFamily: 'Quicksand'
   },
   subTitle: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Quicksand'
   }
 }
 

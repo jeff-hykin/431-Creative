@@ -70,7 +70,7 @@ class App extends React.Component {
 
   render () {
     return <Fragment>
-      <style>{'* { font-family: Roboto } '}</style>
+      <style>{'* { font-family: Quicksand } '}</style>
       {
         this.state.loading
           ? <div />

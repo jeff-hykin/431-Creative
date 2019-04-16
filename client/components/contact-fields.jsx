@@ -21,7 +21,7 @@ let classes = {
     marginBottom: '0.5em',
     marginTop: '12px',
     fontSize: '20pt',
-    fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+    fontFamily: 'Quicksand, Roboto, Helvetica, Arial, sans-serif',
     fontWeight: '400'
   }
 }
