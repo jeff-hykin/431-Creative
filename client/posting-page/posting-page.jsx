@@ -83,7 +83,7 @@ class PostingPage extends Component {
   }
 
   handleContactChange = name => e => {
-    e.persist()
+    e.persist && e.persist()
     this.setState(prevState => ({ ...prevState, post: { ...prevState.post, contactInfo: { ...prevState.post.contactInfo, [name]: e.target.value } } }))
   }
 
