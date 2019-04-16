@@ -26,7 +26,7 @@ function Lister ({ classes, list, color }) {
 
   if (data.length === 0) {
     return <div className={classes.noPostsMessage}>
-      <div style={{ ...style.paper, width: 'fit-content', borderRadius: '100vh', padding: '1rem', color: 'black' }}>
+      <div style={{ ...style.paper, width: 'max-content', borderRadius: '100vh', padding: '1rem', color: 'black' }}>
         No Posts ¯\_(ツ)_/¯
       </div>
     </div>
