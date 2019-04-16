@@ -102,8 +102,8 @@ export class TableHelper extends Component {
     return <div>
       <AppBar position='static' style={{ backgroundColor: colors.teal, color: colors.white }}>
         <Tabs value={this.state.tab} onChange={this.switchTab}>
-          <Tab label='Posts' />
-          <Tab label='Users' />
+          <Tab id='posts' label='Posts' />
+          <Tab id='users' label='Users' />
         </Tabs>
       </AppBar>
       {this.state.tab === 0 && <TabContainer><PostList history={this.props.history} /></TabContainer>}

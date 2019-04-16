@@ -63,7 +63,7 @@ export class PostList extends React.Component {
       </div>
     } else {
       return <div>
-        <Table>
+        <Table id='postList'>
           <TableHead>
             <TableRow>
               <TableCell>Title</TableCell>
@@ -79,7 +79,7 @@ export class PostList extends React.Component {
                 <TableCell align='right'>{row.email}</TableCell>
                 <TableCell align='right'>{row.description}</TableCell>
                 <TableCell align='right'>
-                  <IconButton onClick={this.deletePost(row)} className={this.props.classes.delete}>
+                  <IconButton id={`deleteButton${row._id}`} onClick={this.deletePost(row)} className={this.props.classes.delete}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
