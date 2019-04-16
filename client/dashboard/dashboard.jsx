@@ -27,7 +27,8 @@ export const classes = theme => ({
     color: colors.offWhite,
     display: 'flex',
     whiteSpace: 'nowrap',
-    overflowX: 'auto'
+    overflowX: 'auto',
+    fontFamily: 'Quicksand'
   },
   container: {
     display: 'flex',

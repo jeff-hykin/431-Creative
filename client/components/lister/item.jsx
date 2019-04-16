@@ -26,6 +26,7 @@ const classes = theme => ({
     marginLeft: 'auto'
   },
   titleWhite: {
+    fontFamily: 'Quicksand',
     width: '100%',
     padding,
     fontSize: '21pt',
@@ -35,6 +36,7 @@ const classes = theme => ({
     alignItems: 'baseline'
   },
   titleColor: {
+    fontFamily: 'Quicksand',
     width: '100%',
     padding,
     fontSize: '21pt',

@@ -10,7 +10,7 @@ export const navigateToEditPosting = (history, id) => {
 
 export const deletePosting = (id) => {
   /* istanbul ignore next */
-  api['delete-post'](id)
+  return api['delete-post'](id)
 }
 
 export const transformPostings = (postings, obj) => postings.map(p => Object.assign(p, obj))
