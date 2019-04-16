@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { PostingPage, classes } from '../../../client/components/posting-page'
+import { PostingPage, classes } from '../../../client/posting-page/posting-page'
 
 describe('<PostingPage />', () => {
   let fakeProps = {
@@ -35,6 +35,24 @@ describe('<PostingPage />', () => {
       instance.handleContactChange('Grace')({ target: { value: 'Nicko' } })
       expect(stateSpy.called).to.equal(true)
       stateSpy.restore()
+    })
+  })
+
+  describe('#goBack', function () {
+    it('pushes to the history', function () {
+      let newfakeProps = { ...fakeProps, lastLocation: null }
+      const wrapper = shallow(<PostingPage {...newfakeProps} />)
+      let instance = wrapper.instance()
+      instance.goBack({})
+      expect(instance.props.history[instance.props.history.length - 1]).to.equal('/postings')
+    })
+    it('calls history.goBack() when there is a lastLocation', function () {
+      let newfakeProps = { ...fakeProps, lastLocation: '/makeposting' }
+      const wrapper = shallow(<PostingPage {...newfakeProps} />)
+      let instance = wrapper.instance()
+      instance.props.history.goBack = sinon.spy()
+      instance.goBack({})
+      expect(instance.props.history.goBack.called).to.equal(true)
     })
   })
 

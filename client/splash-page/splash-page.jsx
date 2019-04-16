@@ -1,183 +1,141 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import Button from '@material-ui/core/Button'
+import BigButton from '../components/big-button'
 import { withStyles } from '@material-ui/core'
 import 'react-toastify/dist/ReactToastify.min.css'
-import styles from './styles.sass'
-import { colors } from '../theme'
+import { colors, style } from '../theme'
 import Page from '../page'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
+import LoginArea from '../components/login-area'
+import * as Nav from '../components/navbar'
 
-const titleStyles = {
-  fontSize: 'calc(2.4vw + 1rem)'
-}
-let buttonStyles = {
-  borderRadius: '10rem',
-  transform: 'scale(1.3)',
-  zIndex: 100
-}
-const offsetSides = 'calc(5vw + 1rem)'
-const buttonSideAdditionalOffset = '1.9rem'
-const offsetBottomAndTop = '15vh'
-
-export const classes = theme => ({
-  bottomLeftTitle: {
-    color: colors.blue,
-    marginLeft: offsetSides
-  },
-  topRightTitle: {
-    color: colors.white,
-    marginRight: offsetSides
-  },
-  bottomLeftMessage: {
-    bottom: offsetBottomAndTop,
-    left: '0',
-    position: 'fixed',
-    flexDirection: 'column',
-    marginRight: '25vw',
-    alignItems: 'flex-start',
-    textAlign: 'left'
-  },
-  topRightMessage: {
-    top: offsetBottomAndTop,
-    right: '0',
-    position: 'fixed',
-    flexDirection: 'column',
-    marginLeft: '25vw',
-    alignItems: 'flex-end',
-    textAlign: 'right',
-    zIndex: '10',
-    [`&:hover .${styles.primaryTriangle}`]: {
-      top: 0
-    },
-    [`&:not(:hover) .${styles.primaryTriangle}`]: {
-      top: '-15vh'
-    }
-  },
-  blueBackground: {
-    backgroundColor: colors.blue
-  },
-  whiteBackground: {
-    backgroundColor: colors.white
-  },
-  browseButton: {
-    ...buttonStyles,
-    padding: '0.4rem 0.7rem',
-    marginRight: buttonSideAdditionalOffset,
-    backgroundColor: colors.white,
-    color: colors.blue,
-    '&:hover': {
-      color: colors.white
-    }
-  },
-  createButton: {
-    ...buttonStyles,
-    padding: '0.4rem 0.7rem',
-    marginLeft: `calc(${buttonSideAdditionalOffset} + ${offsetSides})`,
-    marginBottom: '1rem',
+export const classes = {
+  banner: {
     backgroundColor: colors.blue,
+    width: '100vw',
+    height: 'calc(50vh + 3vw)',
+    fontFamily: 'Roboto',
+    fontWeight: '300',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
     color: colors.white,
-    '&:hover': {
-      color: colors.blue
+    minHeight: 'fit-content',
+    ...style.shadow
+  },
+  line: {
+    height: '1px',
+    background: 'white',
+    width: '38vw',
+    margin: '1rem'
+  },
+  content: {
+    maxWidth: '100vw',
+    padding: '2vw',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    '& h5': {
+      paddingBottom: '1rem',
+      fontSize: '2rem',
+      fontWeight: '400',
+      color: colors.darkGray
+    },
+    '& button': {
+      marginTop: '2rem'
     }
   },
-  loginButton: {
-    ...buttonStyles,
-    color: colors.white,
-    borderColor: colors.white,
-    position: 'fixed',
-    top: '1.2rem',
-    right: '2rem',
-    backgroundColor: colors.teal
+  card: {
+    color: colors.darkGray,
+    padding: '2rem 4vw 1.5rem',
+    margin: '0',
+    textAlign: 'center',
+    borderRadius: '0.4rem',
+    alignContent: 'center',
+    flexDirection: 'column',
+    minWidth: '14em',
+    flexGrow: '3',
+    flexBasis: '24rem',
+    maxWidth: '32rem',
+    width: 'max-content',
+    ...style.vbox
+  },
+  loginContainer: {
+    display: 'flex',
+    width: '100vw',
+    paddingRight: `calc(${Nav.classes.banner.paddingRight} + ${Nav.classes.right.padding})`,
+    paddingLeft: `calc(${Nav.classes.banner.paddingLeft} + ${Nav.classes.right.padding})`,
+    paddingTop: `calc(${Nav.classes.banner.paddingTop} + ${Nav.classes.right.padding})`,
+    justifyContent: 'flex-end',
+    flexShrink: '5'
+  },
+  titleContainer: {
+    ...style.vbox,
+    padding: '0 4vw 6vh',
+    justifyContent: 'center',
+    flexGrow: '1'
   },
   title: {
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)',
-    zIndex: '100',
-    borderColor: colors.blue,
-    border: 'solid',
-    borderWidth: '2dp',
-    boxShadow: 'none',
-    borderRadius: '30px'
-  },
-  titleText: {
+    fontWeight: '600',
     textAlign: 'center',
-    color: colors.blue
+    fontSize: 'calc(3.4vw + 1vh + 2.3rem)'
+  },
+  subTitle: {
+    textAlign: 'center'
   }
-})
+}
 
 class SplashPage extends Component {
-  navigateToPostings = (e) => {
-    e.preventDefault()
-    this.props.history.push('/postings')
-  }
-  navigateToDashboard = (e) => {
-    /* istanbul ignore next */
-    e.preventDefault()
-    /* istanbul ignore next */
-    this.props.history.push('/dashboard')
-  }
-
-  navigateToNewPosting = (e) => {
-    e.preventDefault()
-    this.props.history.push('/makeposting')
-  }
-
-  renderUserButton () {
-    /* istanbul ignore next */
+  /* istanbul ignore next */
+  changePagesTo = (pageRoute) => (e) => {
     localStorage.setItem('lastPage', window.location.pathname)
-    /* istanbul ignore next */
-    if (!window.user) {
-      return (
-        <a href='/auth/google'><Button id='loginButton' variant='outlined' className={this.props.classes.loginButton}>
-            Login
-        </Button></a>
-      )
-    } else /* istanbul ignore next */ {
-      return (
-        <Button id='loginButton' variant='outlined' className={this.props.classes.loginButton} onClick={this.navigateToDashboard}>
-            Dashboard
-        </Button>
-      )
-    }
+    this.props.history.push(`/${pageRoute}`)
   }
 
   render () {
-    localStorage.setItem('lastPage', window.location.pathname)
-    return <div id='splashPage' className={this.props.className}>
-      <Card id='about' className={this.props.classes.title}>
-        <CardContent>
-          <h2 id='Aggie Coding Connect' className={this.props.classes.titleText}>
-            Aggie Coding Connect
-          </h2>
-          <h6 className={this.props.classes.titleText}>
-            Where Coders Find Projects
-          </h6>
-        </CardContent>
-      </Card>
-      {/* Blue triangle */}
-      <div className={this.props.classes.topRightMessage}>
-        <h5 className={this.props.classes.topRightTitle} style={titleStyles}>
-          Browse Job Postings
-        </h5>
-        <div style={{ marginRight: offsetSides, marginTop: '1rem' }}>
-          { this.renderUserButton() }
-          <div style={{ width: '3rem' }} />
-          <Button id='browseButton' className={this.props.classes.browseButton} onClick={this.navigateToPostings}>
-            <span>Browse Postings</span>
-          </Button>
+    let classes = this.props.classes
+    return <div id='splashPage'>
+      {/* Banner */}
+      <div className={classes.banner} >
+        <div className={classes.loginContainer}>
+          { window.user != null && <BigButton id='dashboardButton' variant='outlined' size='medium' isNav color='green' onClick={e => this.props.history.push('/dashboard')}>
+                Dashboard
+          </BigButton>}
+          <div style={{ width: '1rem' }} />
+          <LoginArea variant='outlined' size='medium' />
         </div>
-        <div className={styles.primaryTriangle + ' ' + this.props.classes.blueBackground} />
+        <div className={classes.titleContainer}>
+          <h2 id='aggieCodingConnect' className={classes.title}>
+              Aggie Coding Connect
+          </h2>
+          <span className={classes.line} />
+          <h6 className={classes.subTitle}>
+              Where Coders Find Projects
+          </h6>
+        </div>
       </div>
-      {/* White */}
-      <div className={this.props.classes.bottomLeftMessage}>
-        <Button id='createButton' className={this.props.classes.createButton} onClick={this.navigateToNewPosting}>
-          <span>Make Posting</span>
-        </Button>
-        <h5 className={this.props.classes.bottomLeftTitle} style={titleStyles}>Create a Job Posting</h5>
+      {/* Content */}
+      <div className={classes.content} >
+        {/* Create a Job Posting */}
+        <div className={classes.card}>
+          <h5 className={classes.bottomLeftTitle}>
+            Get Help
+          </h5>
+          {'Need help with technology and programming? Create a post explaining what you need so that Aggies can help you out'}
+          <BigButton id='createButton' color='green' className={classes.createButton} onClick={this.changePagesTo('makeposting')}>
+            <span>Make Post</span>
+          </BigButton>
+        </div>
+        {/* Browse Job Postings */}
+        <div className={classes.card}>
+          <h5>
+            Give Help
+          </h5>
+          {'Looking for technical tasks, or a way to help out the A&M community? Look at the posts and see if there\'s one that matches your skillset'}
+          <BigButton id='browseButton' color='green' onClick={this.changePagesTo('postings')}>
+            <span>All Postings</span>
+          </BigButton>
+        </div>
       </div>
     </div>
   }

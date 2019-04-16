@@ -9,9 +9,8 @@ import SplashPage from './splash-page/splash-page'
 import Dashboard from './dashboard/index'
 import PageNotFound from './page-not-found/page-not-found'
 import AllPostings from './all-postings/all-postings'
-import MakePosting from './make-posting/make-posting'
-import EditPosting from './edit-posting/edit-posting'
 import ShowPosting from './show-posting/show-posting'
+import PostingPage from './posting-page/posting-page'
 
 //
 // Routes
@@ -25,8 +24,8 @@ export default (props) =>
         <Route component={GoBack} path='/goback' exact />
         <Route component={SplashPage} path='/about' exact />
         <Route component={AllPostings} path='/postings' exact />
-        <Route component={MakePosting} path='/makeposting' exact />
-        <Route component={EditPosting} path='/editposting/:id' exact />
+        <Route component={PostingPage} path='/makeposting' exact />
+        <Route component={PostingPage} path='/editposting/:id' exact />
         <Route component={ShowPosting} path='/showposting/:id' exact />
         <Route component={Dashboard} path='/dashboard' exact />
         <Route component={PageNotFound} />

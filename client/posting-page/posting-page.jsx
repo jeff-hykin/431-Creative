@@ -6,10 +6,10 @@ import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/Card'
 import Chip from '@material-ui/core/Chip'
 import { api } from '../../backend/setup-functions'
-import BigButton from './big-button'
+import BigButton from '../components/big-button'
 import Button from '@material-ui/core/Button'
-import ContactFields from './contact-fields'
-import { sendSnackbarMessage, sendSnackbarError } from './snackbar'
+import ContactFields from '../components/contact-fields'
+import { sendSnackbarMessage, sendSnackbarError } from '../components/snackbar'
 import { setupHandleChange } from '../tools'
 import { withLastLocation } from 'react-router-last-location'
 
@@ -40,20 +40,18 @@ class PostingPage extends Component {
     super(props)
     this.handleChange = setupHandleChange(this)
     this.state = {
-      loading: true,
-      title: this.props.title || '',
-      description: this.props.description || '',
-      skills: this.props.skills || [],
-      contact: this.props.contact || {
-        email: '',
-        company: '',
-        phone: '',
-        linkedin: ''
+      post: {
+        loading: true,
+        title: '',
+        description: '',
+        skills: [],
+        contactInfo: {
+          email: window?.user?.email,
+          company: window?.user?.firstName + ' ' + window?.user?.lastName,
+          phone: window?.user?.phone
+        }
       },
-      newSkill: '',
-      skillSnackBarOpen: false,
-      errorSnackBarOpen: false,
-      errorMsg: ''
+      newSkill: ''
     }
   }
 
@@ -64,13 +62,14 @@ class PostingPage extends Component {
     if (postId) {
       // check if edit or view
       let currentPath = window.location.pathname.replace(/^\/(.+?)\/.+/, '$1')
-      if (currentPath === 'edit') {
+      if (currentPath === 'editposting') {
         this.mode = 'edit'
       } else {
         this.mode = 'view'
       }
       try {
         let post = (await api['get-postings']({ _id: postId }))[0]
+        console.log(`post is:`, post)
         /* istanbul ignore next */
         this.setState({ post, loading: false })
       } catch (err) {
@@ -83,36 +82,27 @@ class PostingPage extends Component {
     }
   }
 
-  handleContactChange = name => event => {
-    let temp = this.state
-    temp.contact[name] = event.target.value
-    this.setState(temp)
+  handleContactChange = name => e => {
+    e.persist && e.persist()
+    this.setState(prevState => ({ ...prevState, post: { ...prevState.post, contactInfo: { ...prevState.post.contactInfo, [name]: e.target.value } } }))
   }
 
   handleSkillDelete = skill => () => {
-    let temp = this.state
-    let index = temp.skills.indexOf(skill)
+    console.log(`this.state.post is:`, this.state.post)
+    let index = this.state.post.skills.indexOf(skill)
     /* istanbul ignore else */
     if (index !== -1) {
-      temp.skills.splice(index, 1)
+      this.setState(prevState => {
+        prevState.post.skills.splice(index, 1)
+        return ({ ...prevState, post: { ...prevState.post, skills: [...prevState.post.skills] } })
+      })
     }
-    this.setState(temp)
   }
 
   /* istanbul ignore next */
   savePosting = (e) => {
     /* istanbul ignore next */
-    let newPost = {}
-    /* istanbul ignore next */
-    newPost.title = this.state.title
-    /* istanbul ignore next */
-    newPost.description = this.state.description
-    /* istanbul ignore next */
-    newPost.contactInfo = this.state.contact
-    /* istanbul ignore next */
-    newPost.skills = this.state.skills
-    /* istanbul ignore next */
-    api['make-posting'](newPost, this.props.postId).then(response => {
+    api['make-posting'](this.state.post, this.state.post._id).then(response => {
       sendSnackbarMessage('INFO: posting will auto-delete in 30 days')
       this.goBack(e)
     }).catch(err => {
@@ -133,11 +123,15 @@ class PostingPage extends Component {
   }
 
   addSkill = (e) => {
-    let temp = this.state
-    if (temp.newSkill !== '' && !(temp.skills.includes(temp.newSkill))) {
-      temp.skills.push(temp.newSkill)
-      temp.newSkill = ''
-      this.setState(temp)
+    if (this.state.newSkill !== '' && !(this.state.post.skills.includes(this.state.newSkill))) {
+      this.setState(prevState => ({
+        ...prevState,
+        newSkill: '',
+        post: {
+          ...prevState.post,
+          skills: [ ...prevState.post.skills, prevState.newSkill ]
+        }
+      }))
     } else /* istanbul ignore next */ {
       sendSnackbarMessage('Skill is empty or already exists')
     }
@@ -156,8 +150,8 @@ class PostingPage extends Component {
           <TextField
             id='title'
             placeholder='Title'
-            value={this.state.title}
-            onChange={this.handleChange('title')}
+            value={this.state.post.title}
+            onChange={this.handleChange(['post', 'title'])}
             className={classes.titleInputContainer}
             InputProps={{
               classes: {
@@ -183,10 +177,10 @@ class PostingPage extends Component {
               </Button>
             </div>
             <div>
-              { this.state.skills.map((item) => <span style={{ paddingRight: '0.5em' }}>
+              { this.state.post.skills.map((item) => <span style={{ paddingRight: '0.5em' }}>
                 <Chip
                   label={item}
-                  key={item}
+                  key={Math.random()}
                   onDelete={this.handleSkillDelete(item)}
                 />
               </span>
@@ -197,16 +191,17 @@ class PostingPage extends Component {
             id='description'
             multiline
             className={this.props.classes.description}
-            value={this.state.description}
-            onChange={this.handleChange('description')}
+            value={this.state.post.description}
+            onChange={this.handleChange(['post', 'description'])}
             placeholder='description'
             rows='15'
             variant='outlined'
             fullWidth
             label='Job Description'
           />
+          <div style={{ height: '2rem' }} />
           {/* CONTACT INFO */}
-          <ContactFields state={this.state.contact} handleChange={this.handleContactChange} />
+          <ContactFields state={this.state.post.contactInfo} handleChange={this.handleContactChange} />
           {/* Save and Cancel buttons */}
           <div style={{ paddingTop: '4em', display: 'flex' }}>
             <BigButton color='gray' id='cancelButton' onClick={this.goBack}>

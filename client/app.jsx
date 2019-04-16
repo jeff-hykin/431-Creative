@@ -1,11 +1,12 @@
 import 'regenerator-runtime/runtime'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { DIV } from 'good-dom'
 import fetch from 'isomorphic-fetch'
 
 import Routes from './routes'
-import { classes } from './theme'
+import { style } from './theme'
 import { HOST_AND_PROTOCOL } from '../backend/config'
 import GlobalSnackbar from './components/snackbar'
 
@@ -16,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 // set body
 //
 const reactContainer = new DIV({
-  style: classes.body
+  style: style.body
 })
 document.body.children = [
   reactContainer
@@ -69,6 +70,7 @@ class App extends React.Component {
 
   render () {
     return <Fragment>
+      <style>{'* { font-family: Roboto } '}</style>
       {
         this.state.loading
           ? <div />

@@ -28,7 +28,7 @@ describe('<Lister />', () => {
       list: []
     }
     const p = postingsComponent().find('div')
-    expect(p.length).to.be.eq(1)
+    expect(p.length).to.be.eq(2)
   })
 
   it('shows 1 item', () => {
@@ -50,7 +50,7 @@ describe('<Lister />', () => {
         onEdit: console.log
       }]
     }
-    const h6 = postingsComponent().find('div')
-    expect(h6.length).to.be.eq(9)
+    const divs = postingsComponent().find('div')
+    expect(divs.length).to.be.eq(10)
   })
 })

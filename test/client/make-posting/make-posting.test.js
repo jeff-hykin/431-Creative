@@ -3,8 +3,7 @@ import { mount } from 'enzyme'
 import { BrowserRouter as Router } from 'react-router-dom'
 import * as tools from '../../tools'
 import { expect } from 'chai'
-import MakePosting from '../../../client/make-posting/make-posting'
-import PostingPage from '../../../client/components/posting-page'
+import MakePosting, { PostingPage } from '../../../client/posting-page/posting-page'
 
 describe('<MakePosting />', () => {
   it('to have a posting page', () => {

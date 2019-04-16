@@ -2,11 +2,12 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { expect, assert } from 'chai'
-import EditPostingPage, { EditPosting } from '../../../client/edit-posting/edit-posting'
-import PostingPage from '../../../client/components/posting-page'
+import Posting, { PostingPage } from '../../../client/posting-page/posting-page'
 import sinon from 'sinon'
 import dbFunctions from '../../../database/wrapper'
 import utils from '../../../backend/utils'
+let EditPostingPage = Posting
+let EditPosting = PostingPage
 
 describe('<EditPosting />', () => {
   let POST_ID

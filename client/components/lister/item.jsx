@@ -5,11 +5,11 @@ import { IconButton } from '@material-ui/core'
 import Edit from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
-import { colors } from '../../theme'
+import { colors, style } from '../../theme'
 import Grid from '@material-ui/core/Grid'
 import SkillChips from '../skills'
 
-let padding = '1.2rem 3rem'
+let padding = '1.2rem calc(1vw + 1.5rem)'
 /* istanbul ignore next */
 const classes = theme => ({
   cardHeader: {
@@ -48,6 +48,18 @@ const classes = theme => ({
       opacity: 0.9
     }
   },
+  description: {
+    height: '3.5rem',
+    overflow: 'hidden'
+  },
+  chipsContainer: {
+    display: 'flex',
+    paddingTop: '1rem',
+    maxWidth: '95%',
+    alignSelf: 'flex-end',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end'
+  },
   body: {
     padding,
     display: 'flex',
@@ -59,7 +71,8 @@ const classes = theme => ({
   },
   contact: {
     fontSize: '12pt',
-    color: colors.offWhite
+    color: colors.offWhite,
+    ...style.textEllipsis
   },
   deleteIconOnWhite: {
     color: colors.red
@@ -111,7 +124,8 @@ export class Item extends React.Component {
   }
 
   render () /* istanbul ignore next */ {
-    let { classes, title, skills, description, _id, onDelete, onEdit, onView, ownerId, contactInfo, color, user } = this.props
+    let { classes, title, skills, description, _id, onDelete, onEdit, onView, ownerId, contactInfo, color } = this.props
+    let user = window.user
     // if this one was just deleted then don't show it
     if (this.state.wasDeleted) {
       return <div key={_id} />
@@ -119,30 +133,32 @@ export class Item extends React.Component {
     this.onDelete = () => onDelete(_id)
     this.onEdit = () => onEdit(_id)
 
-    return <Grid item xs={10} zeroMinWidth>
+    return <Grid item zeroMinWidth style={{ width: '90%', marginBottom: '2.5rem' }}>
       <Card elevation={9}>
         <div id='cardTitle' className={color ? classes.titleColor : classes.titleWhite} onClick={() => onView(_id)}>
-          {title}
-          <div style={{ display: 'flex' }}>
-            {user && (user._id === ownerId || user.role === 'admin') ? (
-              <div>
-                <IconButton id='deleteButton' className='deleteIconWrapper' onClick={this.onDeleteWrapper}>
-                  <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
-                </IconButton>
-                <IconButton id='editButton' className='editIconWrapper' onClick={this.onEditWrapper}>
-                  <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
-                </IconButton>
-              </div>
-            ) : (
-              <div className={classes.contact} >
-                {contactInfo ? (contactInfo.company) : ('No Contact')}
-              </div>
-            )}
+          <div style={{ ...style.textEllipsis, flexBasis: '75%' }}>
+            {title}
           </div>
+          {user && (user._id === ownerId || user.role === 'admin') ? (
+            <div style={{ display: 'flex' }}>
+              <IconButton id='deleteButton' onClick={this.onDeleteWrapper}>
+                <DeleteIcon classes={{ root: color ? classes.deleteIconOnColor : classes.deleteIconOnWhite }} />
+              </IconButton>
+              <IconButton id='editButton' onClick={this.onEditWrapper}>
+                <Edit classes={{ root: color ? classes.editIconOnColor : classes.editIconOnWhite }} />
+              </IconButton>
+            </div>
+          ) : (
+            <div className={classes.contact} >
+              {contactInfo ? (contactInfo.company) : ('No Contact')}
+            </div>
+          )}
         </div>
         <div className={classes.body} onClick={() => onView(_id)}>
-          {description}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '1rem' }}>
+          <div className={classes.description}>
+            {description}
+          </div>
+          <div className={classes.chipsContainer}>
             <SkillChips className={classes.skills} skills={skills} />
           </div>
         </div>

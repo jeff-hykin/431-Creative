@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/styles'
 import Chip from '@material-ui/core/Chip'
 import { colors } from '../theme'
 
+const maxNumberOfSkills = 8
+
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -19,6 +21,7 @@ const styles = theme => ({
 })
 
 export function SkillChips ({ classes, skills }) {
+  skills = skills.splice(0, maxNumberOfSkills)
   return (
     <>
       {skills.map(data =>

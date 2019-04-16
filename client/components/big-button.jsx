@@ -21,19 +21,23 @@ const classes = {
   },
   gray: {
     backgroundColor: colors.darkGray,
-    color: 'white'
+    color: colors.white
   },
   red: {
     backgroundColor: colors.red,
-    color: 'white'
+    color: colors.white
   },
   blue: {
     backgroundColor: colors.blue,
-    color: 'white'
+    color: colors.white
   },
   green: {
     backgroundColor: colors.teal,
-    color: 'white'
+    color: colors.white
+  },
+  white: {
+    backgroundColor: colors.white,
+    color: colors.black
   },
   isNav: {
     marginBottom: '1em'

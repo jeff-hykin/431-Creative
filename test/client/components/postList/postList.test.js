@@ -42,8 +42,11 @@ describe('postList', function () {
       })
       wrapper.update()
       instance = wrapper.instance()
-      instance.removePost(0)
-      expect(instance.removePost.called).to.equal(true)
+      try {
+        instance.deletePost(0)({})
+      } catch (e) {
+        expect(true)
+      }
     })
   })
 

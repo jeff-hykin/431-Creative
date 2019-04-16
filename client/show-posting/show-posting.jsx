@@ -9,7 +9,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
-import BusinessIcon from '@material-ui/icons/BusinessOutlined'
 import PhoneIcon from '@material-ui/icons/PhoneOutlined'
 import PeopleIcon from '@material-ui/icons/PeopleOutlined'
 import Chip from '@material-ui/core/Chip'
@@ -20,7 +19,6 @@ import CardHeader from '@material-ui/core/CardHeader'
 import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
 import BigButton from '../components/big-button'
 import LoginArea from '../components/login-area'
-import { onClickNewPosting } from '../all-postings/all-postings'
 import { sendSnackbarError } from '../components/snackbar'
 
 /* istanbul ignore next */
@@ -83,18 +81,11 @@ class ShowPosting extends Component {
         <div id='show-post' style={{ width: '100%' }}>
           <Nav>
             <NavLeft>
-              <BigButton isNav color='gray' onClick={e => history.push('/about')}>
-                About
-              </BigButton>
-              <NavSpacer />
-              <BigButton isNav color='blue' id='createButton' onClick={e => onClickNewPosting(e, history)}>
-                New Post
+              <BigButton id='postingsButton' isNav color='blue' onClick={e => history.push('/postings')}>
+                All Posts
               </BigButton>
             </NavLeft>
             <NavRight>
-              <BigButton id='postingsButton' isNav color='green' onClick={e => history.push('/postings')}>
-                All Posts
-              </BigButton>
               <NavSpacer />
               { window.user != null && <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
                 Dashboard
@@ -148,11 +139,11 @@ class ShowPosting extends Component {
                     />
                   </ListItem>
                   <Typography color='textSecondary' gutterBottom>
-                    Company
+                    Name
                   </Typography>
                   <ListItem>
                     <ListItemIcon>
-                      <BusinessIcon />
+                      <PeopleIcon />
                     </ListItemIcon>
                     <ListItemText
                       primary={this.state.post.contactInfo.company || 'Not Available'}
@@ -167,17 +158,6 @@ class ShowPosting extends Component {
                     </ListItemIcon>
                     <ListItemText
                       primary={this.state.post.contactInfo.phone || 'Not Available'}
-                    />
-                  </ListItem>
-                  <Typography color='textSecondary' gutterBottom>
-                    LinkedIn
-                  </Typography>
-                  <ListItem>
-                    <ListItemIcon>
-                      <PeopleIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={this.state.post.contactInfo.linkedin || 'Not Available'}
                     />
                   </ListItem>
                 </List>
