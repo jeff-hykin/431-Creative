@@ -6,6 +6,7 @@ import Page from '../page'
 import Lister from '../components/lister'
 import { api } from '../../backend/setup-functions'
 import { Nav, NavLeft, NavRight, NavSpacer } from '../components/navbar'
+import { style } from '../theme'
 import LoginArea from '../components/login-area'
 import BigButton from '../components/big-button'
 import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformPostings } from '../components/lister/utils'
@@ -13,25 +14,22 @@ import { navigateToEditPosting, navigateToShowPosting, deletePosting, transformP
 /* istanbul ignore next */
 const styles = theme => ({
   wrapper: {
-    width: '100vw'
+    width: '100vw',
+    ...style.vbox
   },
-  root: {
-    height: 'fit-content',
-    overflow: 'hidden',
-    paddingBottom: '2rem',
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-      width: 900,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
+  content: {
+    ...style.vbox,
+    maxWidth: '100%'
   },
-  heroContent: {
-    maxWidth: 600,
-    margin: '0 auto',
-    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`
+  title: {
+    width: '100%',
+    textAlign: 'center',
+    fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+    fontSize: '60px',
+    fontStretch: '100%',
+    fontWeight: '300',
+    marginTop: '2.5rem',
+    marginBottom: '2.5rem'
   }
 })
 
@@ -76,7 +74,7 @@ export function AllPostings ({ classes, history }) {
           </BigButton>
           <NavSpacer />
           <BigButton isNav color='blue' id='createButton' onClick={e => onClickNewPosting(e, history)}>
-            New Post
+            Make Post
           </BigButton>
         </NavLeft>
         <NavRight>
@@ -87,17 +85,11 @@ export function AllPostings ({ classes, history }) {
           <LoginArea />
         </NavRight>
       </Nav>
-      <section className={classes.root}>
-        <div className={classes.heroContent}>
-          <Typography id='postingTitle' component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
-            Postings
-          </Typography>
-        </div>
-        {window.user ? (
-          <Lister color list={postings} user={window.user} />
-        ) : (
-          <Lister color list={postings} />
-        )}
+      <section className={classes.content}>
+        <h2 className={classes.title}>
+          Postings
+        </h2>
+        <Lister color list={postings} />
       </section>
     </div>
   )

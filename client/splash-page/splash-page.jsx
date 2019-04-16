@@ -61,12 +61,12 @@ export const classes = {
     ...style.vbox
   },
   loginContainer: {
-    ...style.vbox,
+    display: 'flex',
     width: '100vw',
     paddingRight: `calc(${Nav.classes.banner.paddingRight} + ${Nav.classes.right.padding})`,
     paddingLeft: `calc(${Nav.classes.banner.paddingLeft} + ${Nav.classes.right.padding})`,
     paddingTop: `calc(${Nav.classes.banner.paddingTop} + ${Nav.classes.right.padding})`,
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     flexShrink: '5'
   },
   titleContainer: {
@@ -97,6 +97,10 @@ class SplashPage extends Component {
       {/* Banner */}
       <div className={classes.banner} >
         <div className={classes.loginContainer}>
+          { window.user != null && <BigButton id='dashboardButton' variant='outlined' size='medium' isNav color='green' onClick={e => this.props.history.push('/dashboard')}>
+                Dashboard
+          </BigButton>}
+          <div style={{ width: '1rem' }} />
           <LoginArea variant='outlined' size='medium' />
         </div>
         <div className={classes.titleContainer}>

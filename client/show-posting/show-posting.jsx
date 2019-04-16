@@ -83,18 +83,11 @@ class ShowPosting extends Component {
         <div id='show-post' style={{ width: '100%' }}>
           <Nav>
             <NavLeft>
-              <BigButton isNav color='gray' onClick={e => history.push('/about')}>
-                About
-              </BigButton>
-              <NavSpacer />
-              <BigButton isNav color='blue' id='createButton' onClick={e => onClickNewPosting(e, history)}>
-                New Post
+              <BigButton id='postingsButton' isNav color='blue' onClick={e => history.push('/postings')}>
+                All Posts
               </BigButton>
             </NavLeft>
             <NavRight>
-              <BigButton id='postingsButton' isNav color='green' onClick={e => history.push('/postings')}>
-                All Posts
-              </BigButton>
               <NavSpacer />
               { window.user != null && <BigButton id='dashboardButton' isNav color='green' onClick={e => history.push('/dashboard')}>
                 Dashboard
@@ -148,7 +141,7 @@ class ShowPosting extends Component {
                     />
                   </ListItem>
                   <Typography color='textSecondary' gutterBottom>
-                    Company
+                    Name
                   </Typography>
                   <ListItem>
                     <ListItemIcon>

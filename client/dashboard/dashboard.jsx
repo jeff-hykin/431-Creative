@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core'
-import { colors } from '../theme'
+import { colors, style } from '../theme'
 import Lister from '../components/lister'
 import UserList from '../components/userList'
 import PostList from '../components/postList'
@@ -21,9 +21,13 @@ export const classes = theme => ({
   dashboardName: {
     marginTop: '-20vh',
     marginLeft: '10vw',
+    marginRight: '10vw',
+    width: '80vw',
     marginBottom: '7vh',
     color: colors.offWhite,
-    display: 'flex'
+    display: 'flex',
+    whiteSpace: 'nowrap',
+    overflowX: 'auto'
   },
   container: {
     display: 'flex',
@@ -161,15 +165,15 @@ export class DashboardHelper extends Component {
   render () {
     localStorage.setItem('lastPage', window.location.pathname)
     let user = window.user
-    return <div id='Dashboard' className={this.props.className}>
+    return <div id='Dashboard' style={{ maxWidth: '100vw' }}>
       <Nav banner>
         <NavLeft>
           <BigButton id='allposts' size='medium' color='gray' variant='outlined' onClick={this.navigateToPostings} >
-          All Posts
+            All Posts
           </BigButton>
           <NavSpacer />
           <BigButton id='makeposting' isNav size='medium' color='gray' variant='outlined' onClick={this.navigateToNewPosting}>
-          Make Post
+            Make Post
           </BigButton>
           <NavSpacer />
           <AdminHelper tab={this.state.tab} switchTab={this.switchTab} />
@@ -182,10 +186,10 @@ export class DashboardHelper extends Component {
         {user.firstName + ' ' + user.lastName}
       </h2>
       <div className={this.props.classes.container}>
-        <div style={{ minWidth: '50vw', width: 'calc(50vw + 10em)' }} >
-          {this.state.tab === 'Admin' && <PostingsHelper user={user} history={this.props.history} />}
-          {this.state.tab === 'Account' && <TableHelper history={this.props.history} />}
-        </div>
+        {this.state.tab === 'Admin' && <PostingsHelper user={user} history={this.props.history} />}
+        {this.state.tab === 'Account' && <div style={{ ...style.vbox, maxWidth: '100%' }} >
+          <TableHelper history={this.props.history} />
+        </div>}
         <div style={{ padding: '3em', minWidth: '21em' }} >
           <ContactFields state={user} handleChange={this.handleChange} readOnly />
         </div>

@@ -4,8 +4,8 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { colors } from '../theme'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
-import BusinessIcon from '@material-ui/icons/BusinessOutlined'
 import PhoneIcon from '@material-ui/icons/PhoneOutlined'
+import PersonIcon from '@material-ui/icons/Person'
 
 let classes = {
   inputFields: {
@@ -18,9 +18,12 @@ let classes = {
     paddingBottom: '0.9em'
   },
   contactHeader: {
+    color: colors.darkGray,
+    marginBottom: '0.5em',
     marginTop: '12px',
     fontSize: '20pt',
-    paddingTop: '2em'
+    fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+    fontWeight: '400'
   }
 }
 
@@ -29,10 +32,13 @@ let IconWrapper = ({ children }) => <div style={{ width: 'fit-content', paddingR
 </div>
 
 let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
+  if (state == null) {
+    return <></>
+  }
   return <Fragment>
-    <Typography color='textSecondary' gutterBottom className={classes.contactHeader}>
+    <h4 className={classes.contactHeader}>
       Contact Information
-    </Typography>
+    </h4>
     <div className={classes.fieldWrapper}>
       <IconWrapper>
         <EmailIcon />
@@ -51,11 +57,11 @@ let ContactInfo = ({ classes, state, handleChange, readOnly }) => {
     </div>
     <div className={classes.fieldWrapper}>
       <IconWrapper>
-        <BusinessIcon />
+        <PersonIcon />
       </IconWrapper>
       <TextField
-        id='company'
-        placeholder='Company'
+        id='name'
+        placeholder='Name'
         className={classes.inputFields}
         value={state.company}
         onChange={handleChange('company')}
