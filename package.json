@@ -13,8 +13,7 @@
     "prod": "ruby ./scripts/prod.rb",
     "stop": "ruby ./scripts/stop.rb",
     "format": "ruby ./scripts/format.rb",
-    "heroku-postbuild": "parcel build client/index.html -d static/dist",
-    "cucumber-test": "ruby ./scripts/cucumber-test.rb"
+    "heroku-postbuild": "parcel build client/index.html -d static/dist"
   },
   "repository": {
     "type": "git",
