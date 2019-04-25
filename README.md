@@ -65,13 +65,26 @@ Our application makes use of both unit and behavior tests using the following pa
 - [Istanbul](https://istanbul.js.org/) - code coverage that works with Mocha
 - [Cucumber](https://cucumber.io/) - behavior driven development
 
-To run the tests:
+To run the unit tests:
 ```
 npm test
 ```
 To generate a test coverage report using nyc and the lcov reporter:
 ```
 npm run coverage
+```
+The cucumber tests must be run locally with the application running on port 3000. The cucumber tests use Selenium which looks for the Chrome browser on your machine in order to run tests. You must either have Chrome installed, or change the browser that Selenium is looking for in the `features/support/world.js` file. The test user information must be supplied in a `secrets.json` file in the format 
+```
+{
+  "tests": {
+    "testemail": "example@gmail.com",
+    "testpass": "examplePassword"
+  }
+}
+```
+For all the tests to pass, your test user must be an administrator. You can manually set a user to be an administrator for use in the tests or you can contact gracewes@tamu.edu for the information of a test user. Once the `secrets.json` file is set up, you can run the cucumber tests with the command:
+```
+npm run test-cucumber
 ```
 
 # Dependencies
